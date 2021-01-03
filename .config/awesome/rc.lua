@@ -46,8 +46,9 @@ local chosen_theme = "powerarrow-gruvbox"
 local modkey       = "Mod4"
 local altkey       = "Mod1"
 local terminal     = "alacritty"
-local editor       = os.getenv("EDITOR") or "nvim"
+local editor       = "nvim"
 local scrlocker    = "slock"
+local screenshot   = "maim -s -u | xclip -selection clipboard -t image/png -i"
 
 awful.util.terminal = terminal
 awful.util.tagnames = { "1", "2", "3", "4", "5" }
@@ -203,7 +204,7 @@ root.buttons(gears.table.join(
 -- {{{ Key bindings
 local globalkeys = gears.table.join(
     -- Take a screenshot
-    awful.key({ altkey }, "p", function() os.execute("screenshot") end,
+    awful.key({ altkey }, "p", function() os.execute(screenshot) end,
               {description = "take a screenshot", group = "hotkeys"}),
 
     -- X screen locker
