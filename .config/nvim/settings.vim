@@ -1,0 +1,30 @@
+set clipboard=unnamedplus
+set cmdheight=2
+set cursorline
+set diffopt+=vertical
+set expandtab
+set formatoptions-=cro
+set hidden
+set ignorecase
+set list
+set mouse=a
+set noshowmode
+set nowrap
+set number
+set relativenumber
+set shiftwidth=2
+set shortmess+=c
+set showtabline=2
+set signcolumn=yes
+set smartcase
+set smartindent
+set splitbelow
+set splitright
+set tabstop=2
+set termguicolors
+set timeoutlen=500
+set updatetime=300
+
+" Some coc servers have issues with backup files, see #649.
+set nobackup
+set nowritebackup
