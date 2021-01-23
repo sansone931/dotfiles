@@ -1,5 +1,5 @@
 " FZF
-map <C-p> :Files<CR>
+nnoremap <C-p> :Files<CR>
 
 " Better indenting
 vnoremap < <gv
@@ -27,14 +27,14 @@ nnoremap <silent> ]g :GitGutterNextHunk<CR>
 
 " {{{ vim-which-key
 let g:mapleader = "\<Space>"
-let g:maplocalleader = ','
 nnoremap <silent> <leader>      :<c-u>WhichKey '<Space>'<CR>
-nnoremap <silent> <localleader> :<c-u>WhichKey  ','<CR>
 
 let g:which_key_map = {}
 
 " Single key mappings
-let g:which_key_map['n'] = [':let @/ = ""', 'no highlight']
+let g:which_key_map['n'] = [':let @/ = ""'         , 'no highlight'    ]
+let g:which_key_map['e'] = [':CocCommand explorer' , 'toggle explorer' ]
+let g:which_key_map['/'] = ['Commentary'           , 'toggle comment'  ]
 
 " Buffers
 let g:which_key_map['b'] = {
@@ -58,38 +58,37 @@ let g:which_key_map['b'] = {
 " CoC
 let g:which_key_map['c'] = {
   \ 'name' : '+coc' ,
-  \ '.' : [':CocConfig'                        , 'config'          ],
-  \ ';' : ['<Plug>(coc-refactor)'              , 'refactor'        ],
-  \ 'a' : ['<Plug>(coc-codeaction)'            , 'code action'     ],
-  \ 'A' : ['<Plug>(coc-codeaction-selected)'   , 'selected action' ],
-  \ 'b' : [':CocNext'                          , 'next action'     ],
-  \ 'B' : [':CocPrev'                          , 'prev action'     ],
-  \ 'c' : [':CocList commands'                 , 'commands'        ],
-  \ 'd' : ['<Plug>(coc-definition)'            , 'definition'      ],
-  \ 'D' : ['<Plug>(coc-declaration)'           , 'declaration'     ],
-  \ 'e' : [':CocList extensions'               , 'extensions'      ],
-  \ 'f' : ['<Plug>(coc-format-selected)'       , 'format selected' ],
-  \ 'F' : ['<Plug>(coc-format)'                , 'format'          ],
-  \ 'h' : ['<Plug>(coc-float-hide)'            , 'hide'            ],
-  \ 'i' : ['<Plug>(coc-implementation)'        , 'implementation'  ],
-  \ 'I' : [':CocList diagnostics'              , 'diagnostics'     ],
-  \ 'j' : ['<Plug>(coc-float-jump)'            , 'float jump'      ],
-  \ 'l' : ['<Plug>(coc-codelens-action)'       , 'code lens'       ],
-  \ 'n' : ['<Plug>(coc-diagnostic-next)'       , 'next diagnostic' ],
-  \ 'N' : ['<Plug>(coc-diagnostic-next-error)' , 'next error'      ],
-  \ 'o' : [':CocList outline'                  , 'search outline'  ],
-  \ 'p' : ['<Plug>(coc-diagnostic-prev)'       , 'prev diagnostic' ],
-  \ 'P' : ['<Plug>(coc-diagnostic-prev-error)' , 'prev error'      ],
-  \ 'q' : ['<Plug>(coc-fix-current)'           , 'quickfix'        ],
-  \ 'r' : ['<Plug>(coc-references)'            , 'references'      ],
-  \ 'R' : ['<Plug>(coc-rename)'                , 'rename'          ],
-  \ 's' : [':CocList -I symbols'               , 'references'      ],
-  \ 'S' : [':CocList snippets'                 , 'snippets'        ],
-  \ 't' : ['<Plug>(coc-type-definition)'       , 'type definition' ],
-  \ 'u' : [':CocListResume'                    , 'resume list'     ],
-  \ 'U' : [':CocUpdate'                        , 'update CoC'      ],
-  \ 'z' : [':CocDisable'                       , 'disable CoC'     ],
-  \ 'Z' : [':CocEnable'                        , 'enable CoC'      ],
+  \ '.' : [':CocConfig'                        , 'config'             ],
+  \ ';' : ['<Plug>(coc-refactor)'              , 'refactor'           ],
+  \ 'a' : ['<Plug>(coc-codeaction-line)'       , 'code action (line)' ],
+  \ 'A' : ['<Plug>(coc-codeaction)'            , 'code action (file)' ],
+  \ 'b' : [':CocNext'                          , 'next action'        ],
+  \ 'B' : [':CocPrev'                          , 'prev action'        ],
+  \ 'c' : [':CocList commands'                 , 'commands'           ],
+  \ 'd' : ['<Plug>(coc-definition)'            , 'definition'         ],
+  \ 'D' : ['<Plug>(coc-declaration)'           , 'declaration'        ],
+  \ 'e' : [':CocList extensions'               , 'extensions'         ],
+  \ 'f' : ['<Plug>(coc-format)'                , 'format'             ],
+  \ 'h' : ['<Plug>(coc-float-hide)'            , 'hide'               ],
+  \ 'i' : ['<Plug>(coc-implementation)'        , 'implementation'     ],
+  \ 'I' : [':CocList diagnostics'              , 'diagnostics'        ],
+  \ 'j' : ['<Plug>(coc-float-jump)'            , 'float jump'         ],
+  \ 'l' : ['<Plug>(coc-codelens-action)'       , 'code lens'          ],
+  \ 'n' : ['<Plug>(coc-diagnostic-next)'       , 'next diagnostic'    ],
+  \ 'N' : ['<Plug>(coc-diagnostic-next-error)' , 'next error'         ],
+  \ 'o' : [':CocList outline'                  , 'search outline'     ],
+  \ 'p' : ['<Plug>(coc-diagnostic-prev)'       , 'prev diagnostic'    ],
+  \ 'P' : ['<Plug>(coc-diagnostic-prev-error)' , 'prev error'         ],
+  \ 'q' : ['<Plug>(coc-fix-current)'           , 'quickfix'           ],
+  \ 'r' : ['<Plug>(coc-references)'            , 'references'         ],
+  \ 'R' : ['<Plug>(coc-rename)'                , 'rename'             ],
+  \ 's' : [':CocList -I symbols'               , 'references'         ],
+  \ 'S' : [':CocList snippets'                 , 'snippets'           ],
+  \ 't' : ['<Plug>(coc-type-definition)'       , 'type definition'    ],
+  \ 'u' : [':CocListResume'                    , 'resume list'        ],
+  \ 'U' : [':CocUpdate'                        , 'update CoC'         ],
+  \ 'z' : [':CocDisable'                       , 'disable CoC'        ],
+  \ 'Z' : [':CocEnable'                        , 'enable CoC'         ],
   \ }
 
 " FZF
@@ -136,23 +135,6 @@ let g:which_key_map['g'] = {
 call which_key#register('<Space>', "g:which_key_map")
 " }}}
 
-" Symbol renaming.
-nmap <leader>rn <Plug>(coc-rename)
-
-" Formatting selected code.
-" xmap <leader>f  <Plug>(coc-format-selected)
-" nmap <leader>f  <Plug>(coc-format-selected)
-
-" Applying codeAction to the selected region.
-" Example: `<leader>aap` for current paragraph
-xmap <leader>a  <Plug>(coc-codeaction-selected)
-nmap <leader>a  <Plug>(coc-codeaction-selected)
-
-" Remap keys for applying codeAction to the current buffer.
-nmap <leader>ac  <Plug>(coc-codeaction)
-" Apply AutoFix to problem on the current line.
-nmap <leader>qf  <Plug>(coc-fix-current)
-
 " {{{ Mappings for CoC
 " Use tab for trigger completion with characters ahead and navigate.
 inoremap <silent><expr> <TAB>
@@ -174,7 +156,7 @@ inoremap <silent><expr> <c-space> coc#refresh()
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
                               \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
-" Use `[g` and `]g` to navigate diagnostics
+" Use `[c` and `]c` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
 nmap <silent> [c <Plug>(coc-diagnostic-prev)
 nmap <silent> ]c <Plug>(coc-diagnostic-next)
@@ -197,6 +179,12 @@ function! s:show_documentation()
     execute '!' . &keywordprg . " " . expand('<cword>')
   endif
 endfunction
+
+" Formatting selected code.
+xmap <leader>cf <Plug>(coc-format-selected)
+
+" Applying codeAction to the selected region.
+xmap <leader>ca <Plug>(coc-codeaction-selected)
 
 " Map function and class text objects
 " NOTE: Requires 'textDocument.documentSymbol' support from the language server.
@@ -221,33 +209,9 @@ vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(
 " Requires 'textDocument/selectionRange' support of language server.
 nmap <silent> <C-s> <Plug>(coc-range-select)
 xmap <silent> <C-s> <Plug>(coc-range-select)
-
-" {{{ Mappings for CoCList
-" Show all diagnostics.
-nnoremap <silent><nowait> <leader>a  :<C-u>CocList diagnostics<cr>
-" Manage extensions.
-nnoremap <silent><nowait> <leader>e  :<C-u>CocList extensions<cr>
-" Show commands.
-" nnoremap <silent><nowait> <leader>c  :<C-u>CocList commands<cr>
-" Find symbol of current document.
-nnoremap <silent><nowait> <leader>o  :<C-u>CocList outline<cr>
-" Search workspace symbols.
-nnoremap <silent><nowait> <leader>s  :<C-u>CocList -I symbols<cr>
-" Do default action for next item.
-nnoremap <silent><nowait> <leader>j  :<C-u>CocNext<CR>
-" Do default action for previous item.
-nnoremap <silent><nowait> <leader>k  :<C-u>CocPrev<CR>
-" Resume latest coc list.
-nnoremap <silent><nowait> <leader>p  :<C-u>CocListResume<CR>
-" }}}
-
-" {{{ Mappings for coc-explorer
-nmap <leader>e :CocCommand explorer<CR>
-" }}}
 " }}}
 
 "{{{ Mappings for vim-commentary
-nnoremap <leader>/ :Commentary<CR>
 vnoremap <leader>/ :Commentary<CR>
 " }}}
 

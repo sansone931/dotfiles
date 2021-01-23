@@ -1,9 +1,11 @@
+autocmd FileType * set formatoptions-=c formatoptions-=r formatoptions-=o
+
 set clipboard=unnamedplus
 set cmdheight=2
+set colorcolumn=80
 set cursorline
 set diffopt+=vertical
 set expandtab
-set formatoptions-=cro
 set hidden
 set ignorecase
 set list
@@ -18,9 +20,9 @@ set showtabline=2
 set signcolumn=yes
 set smartcase
 set smartindent
+set softtabstop=2
 set splitbelow
 set splitright
-set tabstop=2
 set termguicolors
 set timeoutlen=500
 set updatetime=300
