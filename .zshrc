@@ -90,7 +90,8 @@ colors
 setopt prompt_subst
 
 # Prompt (left side)
-PROMPT="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%(4~|%-1~/.../%2~|%~)%u%b%{$fg[red]%}]%B%(?.%{$fg[white]%}.%{$fg[red]%})$%{$reset_color%}%b "
+PROMPT="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M\
+ %{$fg[magenta]%}%(4~|%-1~/.../%2~|%~)%u%b%{$fg[red]%}]%B%(?.%{$fg[white]%}.%{$fg[red]%})$%{$reset_color%}%b "
 
 # variables for prompt git info
 GIT_PROMPT_SYMBOL="%{$fg[blue]%}±"                              # plus/minus     - clean repo
@@ -156,9 +157,9 @@ source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zs
 source /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
 # bind UP and DOWN arrow keys to history substring search
 zmodload zsh/terminfo
-bindkey "$terminfo[kcuu1]" history-substring-search-up
-bindkey "$terminfo[kcud1]" history-substring-search-down
-bindkey '^[[A' history-substring-search-up			
+bindkey "^P" history-substring-search-up
+bindkey "^N" history-substring-search-down
+bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
 
 # Use autosuggestion (https://github.com/zsh-users/zsh-autosuggestions)
@@ -267,4 +268,3 @@ function omz_termsupport_preexec {
 autoload -U add-zsh-hook
 add-zsh-hook precmd omz_termsupport_precmd
 add-zsh-hook preexec omz_termsupport_preexec
-
