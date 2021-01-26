@@ -214,7 +214,3 @@ xmap <silent> <C-s> <Plug>(coc-range-select)
 "{{{ Mappings for vim-commentary
 vnoremap <leader>/ :Commentary<CR>
 " }}}
-
-" {{{ Mappings for floaterm
-let g:floaterm_keymap_toggle = '<F12>'
-" }}}
