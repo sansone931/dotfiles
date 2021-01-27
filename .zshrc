@@ -91,7 +91,7 @@ setopt prompt_subst
 
 # Prompt (left side)
 PROMPT="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M\
- %{$fg[magenta]%}%(4~|%-1~/.../%2~|%~)%u%b%{$fg[red]%}]%B%(?.%{$fg[white]%}.%{$fg[red]%})$%{$reset_color%}%b "
+ %{$fg[magenta]%}%(4~|%-1~/.../%2~|%~)%{$fg[red]%}]%{$reset_color%}%(?..%{$fg[red]%})$%{$reset_color%}%b "
 
 # variables for prompt git info
 GIT_PROMPT_SYMBOL="%{$fg[blue]%}±"                              # plus/minus     - clean repo
