@@ -17,6 +17,7 @@ Plug 'junegunn/gv.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'sheerun/vim-polyglot'
 Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
+Plug 'puremourning/vimspector'
 
 call plug#end()
 
@@ -82,4 +83,11 @@ autocmd BufLeave *.{js,jsx,ts,tsx} :syntax sync clear
 
 " {{{ vim-python/python-syntax
 let g:python_highlight_all = 1
+" }}}
+
+" {{{ puremourning/vimspector
+let g:vimspector_install_gadgets = [
+  \ 'debugger-for-chrome',
+  \ 'debugpy',
+  \ ]
 " }}}

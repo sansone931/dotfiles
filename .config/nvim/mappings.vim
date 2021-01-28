@@ -91,6 +91,22 @@ let g:which_key_map['c'] = {
   \ 'Z' : [':CocEnable'                        , 'enable CoC'         ],
   \ }
 
+" Vimspector
+let g:which_key_map['d'] = {
+  \ 'name' : '+debug' ,
+  \ 'b' : ['<Plug>VimspectorToggleBreakpoint'            , 'breakpoint'             ],
+  \ 'B' : ['<Plug>VimspectorToggleConditionalBreakpoint' , 'conditional breakpoint' ],
+  \ 'c' : ['<Plug>VimspectorRunToCursor'                 , 'run to cursor'          ],
+  \ 'd' : ['<Plug>VimspectorContinue'                    , 'continue'               ],
+  \ 'f' : ['<Plug>VimspectorAddFunctionBreakpoint'       , 'function breakpoint'    ],
+  \ 'o' : ['<Plug>VimspectorStepOver'                    , 'step over'              ],
+  \ 'O' : ['<Plug>VimspectorStepOut'                     , 'step out'               ],
+  \ 'i' : ['<Plug>VimspectorStepInto'                    , 'step into'              ],
+  \ 'p' : ['<Plug>VimspectorPause'                       , 'pause'                  ],
+  \ 'r' : ['<Plug>VimspectorRestart'                     , 'restart'                ],
+  \ 's' : ['<Plug>VimspectorStop'                        , 'stop'                   ],
+  \ }
+
 " FZF
 let g:which_key_map['f'] = {
   \ 'name': '+fzf',
