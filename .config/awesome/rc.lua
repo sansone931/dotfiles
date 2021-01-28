@@ -53,8 +53,8 @@ local screenshot   = "maim -s -u | xclip -selection clipboard -t image/png -i"
 awful.util.terminal = terminal
 awful.util.tagnames = { "1", "2", "3", "4", "5" }
 awful.layout.layouts = {
-    awful.layout.suit.tile,
     lain.layout.centerwork,
+    awful.layout.suit.tile,
     awful.layout.suit.floating,
     --awful.layout.suit.tile.left,
     --awful.layout.suit.tile.bottom,
@@ -76,6 +76,22 @@ awful.layout.layouts = {
     --lain.layout.termfair,
     --lain.layout.termfair.center,
 }
+
+-- Functions
+local raisevolume = function ()
+    os.execute(string.format("amixer -q set %s 5%%+", beautiful.volume.channel))
+    beautiful.volume.update()
+end
+
+local lowervolume = function ()
+    os.execute(string.format("amixer -q set %s 5%%-", beautiful.volume.channel))
+    beautiful.volume.update()
+end
+
+local togglemute = function ()
+    os.execute(string.format("amixer -q set %s toggle", beautiful.volume.togglechannel or beautiful.volume.channel))
+    beautiful.volume.update()
+end
 
 -- Dropdown terminal
 local quake = lain.util.quake({ app = terminal,
@@ -204,7 +220,7 @@ root.buttons(gears.table.join(
 -- {{{ Key bindings
 local globalkeys = gears.table.join(
     -- Take a screenshot
-    awful.key({ altkey }, "p", function() os.execute(screenshot) end,
+    awful.key({ modkey, altkey }, "p", function() os.execute(screenshot) end,
               {description = "take a screenshot", group = "hotkeys"}),
 
     -- X screen locker
@@ -224,19 +240,19 @@ local globalkeys = gears.table.join(
               {description = "go back", group = "tag"}),
 
     -- Non-empty tag browsing
-    awful.key({ altkey }, "Left", function () lain.util.tag_view_nonempty(-1) end,
+    awful.key({ modkey, altkey    }, "Left", function () lain.util.tag_view_nonempty(-1) end,
               {description = "view  previous nonempty", group = "tag"}),
-    awful.key({ altkey }, "Right", function () lain.util.tag_view_nonempty(1) end,
+    awful.key({ modkey, altkey    }, "Right", function () lain.util.tag_view_nonempty(1) end,
               {description = "view  previous nonempty", group = "tag"}),
 
     -- Default client focus
-    awful.key({ altkey,           }, "j",
+    awful.key({ modkey, altkey    }, "j",
         function ()
             awful.client.focus.byidx( 1)
         end,
         {description = "focus next by index", group = "client"}
     ),
-    awful.key({ altkey,           }, "k",
+    awful.key({ modkey, altkey    }, "k",
         function ()
             awful.client.focus.byidx(-1)
         end,
@@ -310,9 +326,9 @@ local globalkeys = gears.table.join(
     awful.key({ modkey, "Shift"   }, "q", function () quitmenu:show() end,
               {description = "quit awesome", group = "awesome"}),
 
-    awful.key({ altkey,           }, "l",     function () awful.tag.incmwfact( 0.05)          end,
+    awful.key({ modkey, altkey    }, "l",     function () awful.tag.incmwfact( 0.05)          end,
               {description = "increase master width factor", group = "layout"}),
-    awful.key({ altkey,           }, "h",     function () awful.tag.incmwfact(-0.05)          end,
+    awful.key({ modkey, altkey    }, "h",     function () awful.tag.incmwfact(-0.05)          end,
               {description = "decrease master width factor", group = "layout"}),
     awful.key({ modkey, "Shift"   }, "h",     function () awful.tag.incnmaster( 1, nil, true) end,
               {description = "increase the number of master clients", group = "layout"}),
@@ -348,12 +364,6 @@ local globalkeys = gears.table.join(
     awful.key({ modkey, }, "z", function () quake:toggle() end,
               {description = "dropdown terminal", group = "launcher"}),
 
-    -- Widgets popups
-    awful.key({ altkey, }, "c", function () if beautiful.cal then beautiful.cal.show(7) end end,
-              {description = "show calendar", group = "widgets"}),
-    awful.key({ altkey, }, "f", function () if beautiful.fs then beautiful.fs.show(7) end end,
-              {description = "show filesystem", group = "widgets"}),
-
     -- Brightness
     awful.key({ }, "XF86MonBrightnessUp", function () os.execute("xbacklight -inc 10") end,
               {description = "+10%", group = "hotkeys"}),
@@ -361,36 +371,25 @@ local globalkeys = gears.table.join(
               {description = "-10%", group = "hotkeys"}),
 
     -- ALSA volume control
-    awful.key({ altkey }, "Up",
-        function ()
-            os.execute(string.format("amixer -q set %s 5%%+", beautiful.volume.channel))
-            beautiful.volume.update()
-        end,
+    awful.key({ }, "XF86AudioRaiseVolume",
+        raisevolume,
         {description = "volume up", group = "hotkeys"}),
-    awful.key({ altkey }, "Down",
-        function ()
-            os.execute(string.format("amixer -q set %s 5%%-", beautiful.volume.channel))
-            beautiful.volume.update()
-        end,
+    awful.key({ }, "XF86AudioLowerVolume",
+        lowervolume,
         {description = "volume down", group = "hotkeys"}),
-    awful.key({ altkey }, "m",
-        function ()
-            os.execute(string.format("amixer -q set %s toggle", beautiful.volume.togglechannel or beautiful.volume.channel))
-            beautiful.volume.update()
-        end,
+    awful.key({ }, "XF86AudioMute",
+        togglemute,
         {description = "toggle mute", group = "hotkeys"}),
-    awful.key({ altkey, "Control" }, "m",
-        function ()
-            os.execute(string.format("amixer -q set %s 100%%", beautiful.volume.channel))
-            beautiful.volume.update()
-        end,
-        {description = "volume 100%", group = "hotkeys"}),
-    awful.key({ altkey, "Control" }, "0",
-        function ()
-            os.execute(string.format("amixer -q set %s 0%%", beautiful.volume.channel))
-            beautiful.volume.update()
-        end,
-        {description = "volume 0%", group = "hotkeys"}),
+
+    awful.key({ modkey }, "=",
+        raisevolume,
+        {description = "volume up", group = "hotkeys"}),
+    awful.key({ modkey }, "-",
+        lowervolume,
+        {description = "volume down", group = "hotkeys"}),
+    awful.key({ modkey }, "0",
+        togglemute,
+        {description = "toggle mute", group = "hotkeys"}),
 
     -- Menubar
     awful.key({ modkey }, "p", function() menubar.show() end,
@@ -398,8 +397,6 @@ local globalkeys = gears.table.join(
 )
 
 local clientkeys = gears.table.join(
-    awful.key({ altkey, "Shift"            }, "m",      lain.util.magnify_client,
-              {description = "magnify client", group = "client"}),
     awful.key({ modkey,                    }, "f",
         function (c)
             c.fullscreen = not c.fullscreen
@@ -533,6 +530,9 @@ awful.rules.rules = {
 
     -- Floating clients.
     { rule_any = {
+        type = {
+          "dialog"
+        },
         instance = {
           "DTA",  -- Firefox addon DownThemAll.
           "copyq",  -- Includes session name in class.
