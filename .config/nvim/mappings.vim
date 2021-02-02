@@ -92,6 +92,10 @@ let g:which_key_map['c'] = {
   \ }
 
 " Vimspector
+nnoremap <leader>de :VimspectorEval<Space>
+nnoremap <leader>dw :VimspectorWatch<Space>
+nnoremap <leader>dW :VimspectorShowOutput<Space>
+
 let g:which_key_map['d'] = {
   \ 'name' : '+debug' ,
   \ 'b' : ['<Plug>VimspectorToggleBreakpoint'            , 'breakpoint'             ],
@@ -105,6 +109,10 @@ let g:which_key_map['d'] = {
   \ 'p' : ['<Plug>VimspectorPause'                       , 'pause'                  ],
   \ 'r' : ['<Plug>VimspectorRestart'                     , 'restart'                ],
   \ 's' : ['<Plug>VimspectorStop'                        , 'stop'                   ],
+  \ 'q' : [':VimspectorReset'                            , 'close debugger'         ],
+  \ 'e' : 'send console command'  ,
+  \ 'w' : 'watch expression'      ,
+  \ 'W' : 'select output channel' ,
   \ }
 
 " FZF

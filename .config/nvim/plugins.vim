@@ -88,6 +88,7 @@ let g:python_highlight_all = 1
 " {{{ puremourning/vimspector
 let g:vimspector_install_gadgets = [
   \ 'debugger-for-chrome',
+  \ 'vscode-node-debug2',
   \ 'debugpy',
   \ ]
 " }}}
