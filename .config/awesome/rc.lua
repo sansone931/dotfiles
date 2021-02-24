@@ -78,13 +78,13 @@ awful.layout.layouts = {
 }
 
 -- Functions
-local raisevolume = function ()
-    os.execute(string.format("amixer -q set %s 5%%+", beautiful.volume.channel))
+local raisevolume = function (amount)
+    os.execute(string.format("amixer -q set %s %s%%+", beautiful.volume.channel, amount))
     beautiful.volume.update()
 end
 
-local lowervolume = function ()
-    os.execute(string.format("amixer -q set %s 5%%-", beautiful.volume.channel))
+local lowervolume = function (amount)
+    os.execute(string.format("amixer -q set %s %s%%-", beautiful.volume.channel, amount))
     beautiful.volume.update()
 end
 
@@ -372,20 +372,28 @@ local globalkeys = gears.table.join(
 
     -- ALSA volume control
     awful.key({ }, "XF86AudioRaiseVolume",
-        raisevolume,
+        function ()
+            raisevolume(1)
+        end,
         {description = "volume up", group = "hotkeys"}),
     awful.key({ }, "XF86AudioLowerVolume",
-        lowervolume,
+        function ()
+            lowervolume(1)
+        end,
         {description = "volume down", group = "hotkeys"}),
     awful.key({ }, "XF86AudioMute",
         togglemute,
         {description = "toggle mute", group = "hotkeys"}),
 
     awful.key({ modkey }, "=",
-        raisevolume,
+        function ()
+            raisevolume(5)
+        end,
         {description = "volume up", group = "hotkeys"}),
     awful.key({ modkey }, "-",
-        lowervolume,
+        function ()
+            lowervolume(5)
+        end,
         {description = "volume down", group = "hotkeys"}),
     awful.key({ modkey }, "0",
         togglemute,
@@ -704,4 +712,3 @@ screen.connect_signal("added", function(s)
   end
 end)
 -- }}}
-
