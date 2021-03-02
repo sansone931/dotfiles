@@ -583,7 +583,7 @@ client.connect_signal("manage", function (c)
     -- i.e. put it at the end of others instead of setting it master.
     -- if not awesome.startup then awful.client.setslave(c) end
 
-    c.shape = function (cr, w, h) gears.shape.rounded_rect(cr, w, h, 4) end
+    c.shape = function (cr, w, h) gears.shape.rectangle(cr, w, h) end
 
     if awesome.startup and
       not c.size_hints.user_position
