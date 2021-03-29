@@ -30,3 +30,7 @@ set updatetime=300
 " Some coc servers have issues with backup files, see #649.
 set nobackup
 set nowritebackup
+
+" Nvim providers
+let g:python3_host_prog = "/usr/bin/python"
+let g:node_host_prog = "/usr/lib/node_modules/neovim/bin/cli.js"
