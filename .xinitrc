@@ -3,6 +3,8 @@
 export TERM=alacritty
 export BROWSER=brave
 
+export QT_QPA_PLATFORMTHEME=qt5ct
+
 unclutter &
 nitrogen --restore &
 picom --experimental-backends &

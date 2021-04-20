@@ -48,7 +48,7 @@ local altkey       = "Mod1"
 local terminal     = "alacritty"
 local editor       = "nvim"
 local scrlocker    = "slock"
-local screenshot   = "maim -s -u | xclip -selection clipboard -t image/png -i"
+local screenshot   = "maim -n -s -u | xclip -selection clipboard -t image/png -i"
 
 awful.util.terminal = terminal
 awful.util.tagnames = { "1", "2", "3", "4", "5" }

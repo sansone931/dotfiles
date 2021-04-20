@@ -35,7 +35,7 @@ autocmd VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
 " }}}
 
 " {{{ morhetz/gruvbox
-let g:gruvbox_italic = 0
+let g:gruvbox_italic = 1
 colorscheme gruvbox
 autocmd VimEnter * highlight Normal guibg=NONE ctermbg=NONE
 " }}}
