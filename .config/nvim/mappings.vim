@@ -1,6 +1,3 @@
-" FZF
-nnoremap <C-p> :Files<CR>
-
 " Better indenting
 vnoremap < <gv
 vnoremap > >gv
@@ -17,13 +14,27 @@ nnoremap <silent> <C-Down>  :resize +2<CR>
 nnoremap <silent> <C-Left>  :vertical resize -2<CR>
 nnoremap <silent> <C-Right> :vertical resize +2<CR>
 
-" Navigation between buffers
-nnoremap <silent> [b :bp<CR>
-nnoremap <silent> ]b :bn<CR>
-
 " Navigation between hunks in current buffer
 nnoremap <silent> [g :GitGutterPrevHunk<CR>
 nnoremap <silent> ]g :GitGutterNextHunk<CR>
+
+" {{{ romgrk/barbar.nvim
+nnoremap <silent> <TAB> :BufferNext<CR>
+nnoremap <silent> <S-TAB> :BufferPrevious<CR>
+nnoremap <silent> <A-,> :BufferMovePrevious<CR>
+nnoremap <silent> <A-.> :BufferMoveNext<CR>
+nnoremap <silent> <S-q> :BufferClose<CR>
+" }}}
+
+" {{{ kyazdani42/nvim-tree.lua
+lua <<EOF
+local tree_cb = require'nvim-tree.config'.nvim_tree_callback
+vim.g.nvim_tree_bindings = {
+  ["l"] = tree_cb("edit"),
+  ["h"] = tree_cb("close_node"),
+}
+EOF
+" }}}
 
 " {{{ vim-which-key
 let g:mapleader = "\<Space>"
@@ -32,28 +43,9 @@ nnoremap <silent> <leader>      :<c-u>WhichKey '<Space>'<CR>
 let g:which_key_map = {}
 
 " Single key mappings
-let g:which_key_map['n'] = [':let @/ = ""'         , 'no highlight'    ]
-let g:which_key_map['e'] = [':CocCommand explorer' , 'toggle explorer' ]
-let g:which_key_map['/'] = ['Commentary'           , 'toggle comment'  ]
-
-" Buffers
-let g:which_key_map['b'] = {
-  \ 'name': '+buffers',
-  \ 'l': [':ls'     , 'list buffers'    ],
-  \ 'p': [':bp'     , 'previous buffer' ],
-  \ 'n': [':bn'     , 'next buffer'     ],
-  \ 'd': [':Bclose' , 'close buffer'    ],
-  \ '1': [':1b'     , 'buffer 1'        ],
-  \ '2': [':2b'     , 'buffer 2'        ],
-  \ '3': [':3b'     , 'buffer 3'        ],
-  \ '4': [':4b'     , 'buffer 4'        ],
-  \ '5': [':5b'     , 'buffer 5'        ],
-  \ '6': [':6b'     , 'buffer 6'        ],
-  \ '7': [':7b'     , 'buffer 7'        ],
-  \ '8': [':8b'     , 'buffer 8'        ],
-  \ '9': [':9b'     , 'buffer 9'        ],
-  \ '0': [':10b'    , 'buffer 0'        ],
-  \ }
+let g:which_key_map['n'] = [':let @/ = ""'    , 'no highlight'    ]
+let g:which_key_map['e'] = [':NvimTreeToggle' , 'toggle explorer' ]
+let g:which_key_map['/'] = ['Commentary'      , 'toggle comment'  ]
 
 " CoC
 let g:which_key_map['c'] = {
@@ -115,37 +107,22 @@ let g:which_key_map['d'] = {
   \ 'W' : 'select output channel' ,
   \ }
 
-" FZF
+" Telescope
 let g:which_key_map['f'] = {
-  \ 'name': '+fzf',
-  \ '/': [':History/'  , 'history'            ],
-  \ ';': [':Commands'  , 'commands'           ],
-  \ 'b': [':Buffers'   , 'open buffers'       ],
-  \ 'c': [':Commits'   , 'commits'            ],
-  \ 'C': [':BCommits'  , 'buffer commits'     ],
-  \ 'f': [':Files'     , 'files'              ],
-  \ 'g': [':GFiles'    , 'git files'          ],
-  \ 'G': [':GFiles?'   , 'modified git files' ],
-  \ 'h': [':History'   , 'file history'       ],
-  \ 'H': [':History:'  , 'command history'    ],
-  \ 'l': [':Lines'     , 'lines'              ],
-  \ 'm': [':Marks'     , 'list marks'         ],
-  \ 'M': [':Maps'      , 'normal maps'        ],
-  \ 'p': [':Helptags'  , 'help tags'          ],
-  \ 'P': [':Tags'      , 'project tags'       ],
-  \ 'S': [':Colors'    , 'color schemes'      ],
-  \ 't': [':Rg'        , 'text Rg'            ],
-  \ 'T': [':BTags'     , 'buffer tags'        ],
-  \ 'w': [':Windows'   , 'search windows'     ],
-  \ 'y': [':Filetypes' , 'file types'         ],
-  \ 'z': [':FZF'       , 'FZF'                ],
+  \ 'name': '+telescope',
+  \ '/': [':Telescope search_history'  , 'history'        ],
+  \ 'b': [':Telescope buffers'         , 'buffers'        ],
+  \ 'c': [':Telescope treesitter'      , 'treesitter'     ],
+  \ 'f': [':Telescope find_files'      , 'files'          ],
+  \ 'h': [':Telescope oldfiles'        , 'file history'   ],
+  \ 't': [':Telescope live_grep'       , 'text'           ],
   \ }
 
 " Git
 let g:which_key_map['g'] = {
   \ 'name': '+git',
   \ 'd': [':Gdiffsplit'                  , 'diff split'   ],
-  \ 'b': [':Gblame'                      , 'blame'        ],
+  \ 'b': [':G blame'                     , 'blame'        ],
   \ 'B': [':GBrowse'                     , 'browse'       ],
   \ 'g': [':G'                           , 'status'       ],
   \ 's': ['<Plug>(GitGutterStageHunk)'   , 'stage hunk'   ],

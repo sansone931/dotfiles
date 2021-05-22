@@ -7,8 +7,8 @@
     "json",
     "python"
   ],
-  "explorer.icon.enableNerdfont": true,
   "eslint.autoFixOnSave": true,
   "python.formatting.provider": "black",
-  "python.linting.flake8Enabled": true
+  "python.linting.flake8Enabled": true,
+  "graphql.filetypes": []
 }

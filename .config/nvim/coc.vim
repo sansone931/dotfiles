@@ -5,13 +5,13 @@ let g:coc_global_extensions = [
   \ 'coc-prettier',
   \ 'coc-styled-components',
   \ 'coc-pyright',
+  \ 'coc-graphql',
   \ 'coc-json',
   \ 'coc-html',
   \ 'coc-yaml',
   \ 'coc-sh',
   \ 'coc-vimlsp',
   \ 'coc-lua',
-  \ 'coc-explorer',
   \ 'coc-highlight',
   \ ]
 

@@ -31,6 +31,11 @@ set updatetime=300
 set nobackup
 set nowritebackup
 
+" nvim-treesitter folding
+set foldmethod=expr
+set nofoldenable
+set foldexpr=nvim_treesitter#foldexpr()
+
 " Nvim providers
 let g:python3_host_prog = "/usr/bin/python"
 let g:node_host_prog = "/usr/lib/node_modules/neovim/bin/cli.js"

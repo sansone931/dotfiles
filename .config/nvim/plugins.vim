@@ -5,18 +5,21 @@ Plug 'junegunn/vim-plug'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'morhetz/gruvbox'
 Plug 'vim-airline/vim-airline'
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
+Plug 'kyazdani42/nvim-web-devicons'
+Plug 'kyazdani42/nvim-tree.lua'
+Plug 'romgrk/barbar.nvim'
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
 Plug 'liuchengxu/vim-which-key'
 Plug 'unblevable/quick-scope'
 Plug 'tpope/vim-commentary'
-Plug 'rbgrouleff/bclose.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
 Plug 'junegunn/gv.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'sheerun/vim-polyglot'
-Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'puremourning/vimspector'
 
 call plug#end()
@@ -36,6 +39,7 @@ autocmd VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
 
 " {{{ morhetz/gruvbox
 let g:gruvbox_italic = 1
+let g:gruvbox_invert_selection = 0
 colorscheme gruvbox
 autocmd VimEnter * highlight Normal guibg=NONE ctermbg=NONE
 " }}}
@@ -44,26 +48,41 @@ autocmd VimEnter * highlight Normal guibg=NONE ctermbg=NONE
 let g:airline_powerline_fonts = 1
 let g:airline_left_sep = ''
 let g:airline_right_sep = ''
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#left_sep = ''
-let g:airline#extensions#tabline#left_alt_sep = ''
-let g:airline#extensions#tabline#right_sep = ''
-let g:airline#extensions#tabline#right_alt_sep = ''
 " }}}
 
-" {{{ junegunn/fzf
-let g:fzf_layout = { 'down': '40%' }
+" {{{ kyazdani42/nvim-tree.lua
+let g:nvim_tree_width = 35
+let g:nvim_tree_ignore = ['.git', 'node_modules', '.cache']
+let g:nvim_tree_follow = 1
+let g:nvim_tree_indent_markers = 1
+let g:nvim_tree_git_hl = 1
+let g:nvim_tree_special_files = []
 
-let $FZF_DEFAULT_OPTS = '--layout=reverse --inline-info'
-let $FZF_DEFAULT_COMMAND="rg --files --hidden --glob '!.git/**'"
+let g:nvim_tree_icons = {
+  \ 'default': '',
+  \ 'symlink': '',
+  \ 'git': {
+  \   'unstaged': "M",
+  \   'staged': "A",
+  \   'unmerged': "C",
+  \   'renamed': "R",
+  \   'untracked': "U",
+  \   'deleted': "D",
+  \   'ignored': "",
+  \   },
+  \ }
+" }}}
 
-" Make Ripgrep ONLY search file contents and not filenames
-command! -bang -nargs=* Rg
-  \ call fzf#vim#grep(
-  \   'rg --column --line-number --hidden --smart-case --no-heading --color=always '.shellescape(<q-args>), 1,
-  \   <bang>0 ? fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'up:60%')
-  \           : fzf#vim#with_preview({'options': '--delimiter : --nth 4.. -e'}, 'right:50%', '?'),
-  \   <bang>0)
+" {{{ nvim-telescope/telescope.nvim
+lua << EOF
+require('telescope').setup{
+  defaults = {
+    file_ignore_patterns = {
+      "*.lock",
+    }
+  }
+}
+EOF
 " }}}
 
 " {{{ unblevable/quick-scope
@@ -83,6 +102,17 @@ autocmd BufLeave *.{js,jsx,ts,tsx} :syntax sync clear
 
 " {{{ vim-python/python-syntax
 let g:python_highlight_all = 1
+" }}}
+
+" {{{ nvim-treesitter/nvim-treesitter
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+  -- Modules and its options go here
+  highlight = { enable = true },
+  incremental_selection = { enable = true },
+  indent = { enable = true },
+}
+EOF
 " }}}
 
 " {{{ puremourning/vimspector
