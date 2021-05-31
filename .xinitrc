@@ -5,8 +5,9 @@ export BROWSER=brave
 
 export QT_QPA_PLATFORMTHEME=qt5ct
 
+lxpolkit &
 unclutter &
-nitrogen --restore &
+~/.fehbg &
 picom --experimental-backends &
 nm-applet --indicator &
 udiskie --tray &
