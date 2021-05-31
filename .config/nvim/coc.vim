@@ -12,7 +12,6 @@ let g:coc_global_extensions = [
   \ 'coc-sh',
   \ 'coc-vimlsp',
   \ 'coc-lua',
-  \ 'coc-highlight',
   \ ]
 
 " Highlight the symbol and its references when holding the cursor.

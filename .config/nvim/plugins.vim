@@ -4,6 +4,7 @@ call plug#begin('~/.local/share/nvim/site/plugged')
 Plug 'junegunn/vim-plug'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'morhetz/gruvbox'
+Plug 'norcalli/nvim-colorizer.lua'
 Plug 'vim-airline/vim-airline'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'kyazdani42/nvim-tree.lua'
@@ -42,6 +43,12 @@ let g:gruvbox_italic = 1
 let g:gruvbox_invert_selection = 0
 colorscheme gruvbox
 autocmd VimEnter * highlight Normal guibg=NONE ctermbg=NONE
+" }}}
+
+" {{{ norcalli/nvim-colorizer.lua
+lua << EOF
+require'colorizer'.setup()
+EOF
 " }}}
 
 " {{{ vim-airline/vim-airline
