@@ -13,20 +13,15 @@ local theme_path = gfs.get_configuration_dir() .. "themes/powerarrow-gruvbox"
 local theme                                     = {}
 theme.icon_theme                                = "Papirus-Dark"
 theme.font                                      = "Terminus 10"
-theme.fg_normal                                 = "#fbf1c7"
+theme.fg_normal                                 = "#ebdbb2"
 theme.fg_focus                                  = "#fe8019"
 theme.fg_urgent                                 = "#fb4934"
 theme.fg_minimize                               = "#7c6f64"
-theme.bg_normal                                 = "#282828"
+theme.bg_normal                                 = "#202020"
 theme.bg_focus                                  = "#3c3836"
 theme.border_width                              = dpi(2)
-theme.border_normal                             = "#3c3836"
+theme.border_normal                             = "#202020"
 theme.border_focus                              = "#d79921"
-theme.border_marked                             = "#9d0006"
-theme.tasklist_bg_focus                         = "#3c3836"
-theme.titlebar_bg_focus                         = theme.bg_focus
-theme.titlebar_bg_normal                        = theme.bg_normal
-theme.titlebar_fg_focus                         = theme.fg_focus
 theme.menu_height                               = dpi(16)
 theme.menu_width                                = dpi(140)
 theme.menu_submenu_icon                         = theme_path .. "/icons/submenu.png"
@@ -90,8 +85,6 @@ theme.titlebar_maximized_button_normal_inactive = theme_path .. "/icons/titlebar
 local markup = lain.util.markup
 local separators = lain.util.separators
 
-local keyboardlayout = awful.widget.keyboardlayout:new()
-
 -- Textclock
 local clock = awful.widget.watch(
     "date +'%a %d %b %R'", 60,
@@ -123,24 +116,6 @@ local cpuicon = wibox.widget.imagebox(theme.widget_cpu)
 local cpu = lain.widget.cpu({
     settings = function()
         widget:set_markup(markup.font(theme.font, " " .. cpu_now.usage .. "% "))
-    end
-})
-
--- Coretemp
-local tempicon = wibox.widget.imagebox(theme.widget_temp)
-local temp = lain.widget.temp({
-    settings = function()
-        widget:set_markup(markup.font(theme.font, " " .. coretemp_now .. "°C "))
-    end
-})
-
--- / fs
-local fsicon = wibox.widget.imagebox(theme.widget_hdd)
--- commented because it needs Gio/Glib >= 2.54
-theme.fs = lain.widget.fs({
-    notification_preset = { fg = theme.fg_normal, bg = theme.bg_normal, font = "Terminus 10" },
-    settings = function()
-        widget:set_markup(markup.font(theme.font, " " .. fs_now["/"].percentage .. "% "))
     end
 })
 
@@ -198,17 +173,6 @@ theme.volume.widget:buttons(awful.util.table.join(
      end)
 ))
 
--- Net
-local neticon = wibox.widget.imagebox(theme.widget_net)
-local net = lain.widget.net({
-    settings = function()
-        widget:set_markup(markup.font(theme.font,
-                          markup("#b8bb26", " " .. string.format("%06.1f", net_now.received))
-                          .. " " ..
-                          markup("#83a598", " " .. string.format("%06.1f", net_now.sent) .. " ")))
-    end
-})
-
 -- Separators
 local spr     = wibox.widget.textbox(' ')
 local arrl_dl = separators.arrow_left(theme.bg_focus, "alpha")
@@ -245,7 +209,6 @@ function theme.at_screen_connect(s)
         layout = wibox.layout.align.horizontal,
         { -- Left widgets
             layout = wibox.layout.fixed.horizontal,
-            --spr,
             s.mytaglist,
             s.mypromptbox,
             spr,
@@ -253,8 +216,8 @@ function theme.at_screen_connect(s)
         s.mytasklist, -- Middle widget
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
+            spr,
             wibox.widget.systray(),
-            keyboardlayout,
             spr,
             arrl_ld,
             light_bg(volicon),
@@ -262,21 +225,12 @@ function theme.at_screen_connect(s)
             arrl_dl,
             memicon,
             mem.widget,
+            spr,
+            cpuicon,
+            cpu.widget,
             arrl_ld,
-            light_bg(cpuicon),
-            light_bg(cpu.widget),
-            arrl_dl,
-            tempicon,
-            temp.widget,
-            arrl_ld,
-            light_bg(fsicon),
-            light_bg(theme.fs.widget),
-            arrl_dl,
-            baticon,
-            bat.widget,
-            arrl_ld,
-            light_bg(neticon),
-            light_bg(net.widget),
+            light_bg(baticon),
+            light_bg(bat.widget),
             arrl_dl,
             clock,
             spr,

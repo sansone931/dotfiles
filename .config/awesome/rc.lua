@@ -1,6 +1,7 @@
 -- {{{ Required libraries
+---@diagnostic disable-next-line: undefined-global
 local awesome, client, root, screen, tag = awesome, client, root, screen, tag
-local string, os, tostring, type = string, os, tostring, type
+local string, tostring, type = string, tostring, type
 
 local gears         = require("gears")
 local awful         = require("awful")
@@ -10,7 +11,6 @@ local beautiful     = require("beautiful")
 local naughty       = require("naughty")
 local menubar       = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup").widget
-                      require("awful.hotkeys_popup.keys")
 local dpi           = require("beautiful.xresources").apply_dpi
 
 local lain          = require("lain")        -- https://github.com/lcpz/lain
@@ -42,13 +42,15 @@ end
 -- }}}
 
 -- {{{ Variable definitions
-local chosen_theme = "powerarrow-gruvbox"
-local modkey       = "Mod4"
-local altkey       = "Mod1"
-local terminal     = "alacritty"
-local editor       = "nvim"
-local scrlocker    = "slock"
-local screenshot   = "maim -n -s -u | xclip -selection clipboard -t image/png -i"
+local chosen_theme      = "powerarrow-gruvbox"
+local modkey            = "Mod4"
+local altkey            = "Mod1"
+local terminal          = "alacritty"
+local editor            = "nvim"
+local scrlocker         = "slock"
+local restore_wallpaper = "~/.fehbg"
+local screenshot        = "maim -s -u -B | tee ~/Pictures/screenshot.png | xclip -selection clipboard -t image/png -i"
+local full_screenshot   = "maim -u | tee ~/Pictures/screenshot.png | xclip -selection clipboard -t image/png -i"
 
 awful.util.terminal = terminal
 awful.util.tagnames = { "1", "2", "3", "4", "5" }
@@ -78,28 +80,29 @@ awful.layout.layouts = {
 }
 
 -- Functions
-local raisevolume = function (amount)
+local increase_volume = function (amount)
     os.execute(string.format("amixer -q set %s %s%%+", beautiful.volume.channel, amount))
     beautiful.volume.update()
 end
 
-local lowervolume = function (amount)
+local decrease_volume = function (amount)
     os.execute(string.format("amixer -q set %s %s%%-", beautiful.volume.channel, amount))
     beautiful.volume.update()
 end
 
-local togglemute = function ()
+local toggle_mute = function ()
     os.execute(string.format("amixer -q set %s toggle", beautiful.volume.togglechannel or beautiful.volume.channel))
     beautiful.volume.update()
 end
 
--- Dropdown terminal
+-- Quake terminal
 local quake = lain.util.quake({ app = terminal,
                                 argname = "--title %s",
                                 extra = "--class QuakeDD",
-                                border = 0,
-                                height = 0.6,
-                                width = 0.6,
+                                border = 1,
+                                height = 675,
+                                width = 1200,
+                                vert = "center",
                                 horiz = "center",
                                 followtag = true,
                                 overlap = true,
@@ -118,8 +121,8 @@ awful.util.taglist_buttons = gears.table.join(
             client.focus:toggle_tag(t)
         end
     end),
-    awful.button({ }, 4, function(t) awful.tag.viewnext(t.screen) end),
-    awful.button({ }, 5, function(t) awful.tag.viewprev(t.screen) end)
+    awful.button({ }, 5, function(t) awful.tag.viewnext(t.screen) end),
+    awful.button({ }, 4, function(t) awful.tag.viewprev(t.screen) end)
 )
 
 awful.util.tasklist_buttons = gears.table.join(
@@ -148,8 +151,8 @@ awful.util.tasklist_buttons = gears.table.join(
             end
         end
     end),
-    awful.button({ }, 4, function () awful.client.focus.byidx(1) end),
-    awful.button({ }, 5, function () awful.client.focus.byidx(-1) end)
+    awful.button({ }, 5, function () awful.client.focus.byidx(1) end),
+    awful.button({ }, 4, function () awful.client.focus.byidx(-1) end)
 )
 
 lain.layout.termfair.nmaster           = 3
@@ -204,6 +207,8 @@ screen.connect_signal("property::geometry", function(s)
             wallpaper = wallpaper(s)
         end
         gears.wallpaper.maximized(wallpaper, s, true)
+    else
+        awful.spawn.with_shell(restore_wallpaper)
     end
 end)
 
@@ -220,11 +225,13 @@ root.buttons(gears.table.join(
 -- {{{ Key bindings
 local globalkeys = gears.table.join(
     -- Take a screenshot
-    awful.key({ modkey, altkey }, "p", function() os.execute(screenshot) end,
+    awful.key({         }, "Print", function() awful.spawn.with_shell(screenshot) end,
               {description = "take a screenshot", group = "hotkeys"}),
+    awful.key({ "Shift" }, "Print", function () awful.spawn.with_shell(full_screenshot) end,
+              {description = "take a full screenshot", group = "hotkeys"}),
 
     -- X screen locker
-    awful.key({ altkey, "Control" }, "l", function () os.execute(scrlocker) end,
+    awful.key({ altkey, "Control" }, "l", function () awful.spawn.with_shell(scrlocker) end,
               {description = "lock screen", group = "hotkeys"}),
 
     -- Hotkeys
@@ -365,38 +372,38 @@ local globalkeys = gears.table.join(
               {description = "dropdown terminal", group = "launcher"}),
 
     -- Brightness
-    awful.key({ }, "XF86MonBrightnessUp", function () os.execute("xbacklight -inc 10") end,
-              {description = "+10%", group = "hotkeys"}),
-    awful.key({ }, "XF86MonBrightnessDown", function () os.execute("xbacklight -dec 10") end,
-              {description = "-10%", group = "hotkeys"}),
+    awful.key({ }, "XF86MonBrightnessUp", function () awful.util.spawn.with_shell("xbacklight -inc 10") end,
+              {description = "increase brightness", group = "hotkeys"}),
+    awful.key({ }, "XF86MonBrightnessDown", function () awful.util.spawn.with_shell("xbacklight -dec 10") end,
+              {description = "decrease brightness", group = "hotkeys"}),
 
     -- ALSA volume control
     awful.key({ }, "XF86AudioRaiseVolume",
         function ()
-            raisevolume(1)
+            increase_volume(1)
         end,
-        {description = "volume up", group = "hotkeys"}),
+        {description = "increase volume", group = "hotkeys"}),
     awful.key({ }, "XF86AudioLowerVolume",
         function ()
-            lowervolume(1)
+            decrease_volume(1)
         end,
-        {description = "volume down", group = "hotkeys"}),
+        {description = "decrease volume", group = "hotkeys"}),
     awful.key({ }, "XF86AudioMute",
-        togglemute,
+        toggle_mute,
         {description = "toggle mute", group = "hotkeys"}),
 
     awful.key({ modkey }, "=",
         function ()
-            raisevolume(5)
+            increase_volume(5)
         end,
         {description = "volume up", group = "hotkeys"}),
     awful.key({ modkey }, "-",
         function ()
-            lowervolume(5)
+            decrease_volume(5)
         end,
         {description = "volume down", group = "hotkeys"}),
     awful.key({ modkey }, "0",
-        togglemute,
+        toggle_mute,
         {description = "toggle mute", group = "hotkeys"}),
 
     -- Menubar
@@ -581,7 +588,7 @@ awful.rules.rules = {
 client.connect_signal("manage", function (c)
     -- Set the windows at the slave,
     -- i.e. put it at the end of others instead of setting it master.
-    -- if not awesome.startup then awful.client.setslave(c) end
+    if not awesome.startup then awful.client.setslave(c) end
 
     c.shape = function (cr, w, h) gears.shape.rectangle(cr, w, h) end
 
