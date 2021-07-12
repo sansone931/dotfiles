@@ -80,19 +80,23 @@ awful.layout.layouts = {
 }
 
 -- Functions
-local increase_volume = function (amount)
-    os.execute(string.format("amixer -q set %s %s%%+", beautiful.volume.channel, amount))
-    beautiful.volume.update()
+local function update_volume(command)
+    awful.spawn.easy_async(
+        command,
+        beautiful.volume.update
+    )
 end
 
-local decrease_volume = function (amount)
-    os.execute(string.format("amixer -q set %s %s%%-", beautiful.volume.channel, amount))
-    beautiful.volume.update()
+local function increase_volume(amount)
+    update_volume(string.format("pamixer -i %s", amount))
 end
 
-local toggle_mute = function ()
-    os.execute(string.format("amixer -q set %s toggle", beautiful.volume.togglechannel or beautiful.volume.channel))
-    beautiful.volume.update()
+local function decrease_volume(amount)
+    update_volume(string.format("pamixer -d %s", amount))
+end
+
+local function toggle_mute()
+    update_volume( "pamixer -t")
 end
 
 -- Quake terminal
@@ -231,7 +235,7 @@ local globalkeys = gears.table.join(
               {description = "take a full screenshot", group = "hotkeys"}),
 
     -- X screen locker
-    awful.key({ altkey, "Control" }, "l", function () awful.spawn.with_shell(scrlocker) end,
+    awful.key({ altkey, "Control" }, "l", function () awful.spawn(scrlocker) end,
               {description = "lock screen", group = "hotkeys"}),
 
     -- Hotkeys

@@ -141,7 +141,7 @@ local bat = lain.widget.bat({
     end
 })
 
--- ALSA volume
+-- ALSA/PulseAudio volume
 local volicon = wibox.widget.imagebox(theme.widget_vol)
 theme.volume = lain.widget.alsa({
     settings = function()
@@ -158,18 +158,23 @@ theme.volume = lain.widget.alsa({
         widget:set_markup(markup.font(theme.font, " " .. volume_now.level .. "% "))
     end
 })
+
+local function update_volume(command)
+    awful.spawn.easy_async(
+        command,
+        beautiful.volume.update
+    )
+end
+
 theme.volume.widget:buttons(awful.util.table.join(
      awful.button({}, 2, function ()
-           os.execute(string.format("amixer -q set %s toggle", beautiful.volume.togglechannel or beautiful.volume.channel))
-           theme.volume.update()
+         update_volume("pamixer -t")
      end),
      awful.button({}, 4, function ()
-           os.execute(string.format("amixer -q set %s 1%%+", beautiful.volume.channel))
-           theme.volume.update()
+         update_volume("pamixer -i 1")
      end),
      awful.button({}, 5, function ()
-           os.execute(string.format("amixer -q set %s 1%%-", beautiful.volume.channel))
-           theme.volume.update()
+         update_volume("pamixer -d 1")
      end)
 ))
 
