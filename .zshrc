@@ -75,10 +75,12 @@ bindkey '^[[Z' undo                                  # Shift+tab undo last actio
 alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 alias cp="cp -i"
 alias mv="mv -i"
+alias rm="rm -i"
 alias ls="ls --color=auto -F"
 alias ll="ls -lGh"
 alias la="ls -lAGh"
 alias less="less -F"
+alias ip="ip -color=auto"
 alias ffmpeg="ffmpeg -hide_banner"
 
 ## Theming section
@@ -93,61 +95,8 @@ setopt prompt_subst
 PROMPT="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M\
  %{$fg[magenta]%}%(4~|%-1~/.../%2~|%~)%{$fg[red]%}]%{$reset_color%}%(?..%{$fg[red]%})$%{$reset_color%}%b "
 
-# variables for prompt git info
-GIT_PROMPT_SYMBOL="%{$fg[blue]%}±"                              # plus/minus     - clean repo
-GIT_PROMPT_PREFIX="%{$fg[green]%}[%{$reset_color%}"
-GIT_PROMPT_SUFFIX="%{$fg[green]%}]%{$reset_color%}"
-GIT_PROMPT_AHEAD="%{$fg[red]%}ANUM%{$reset_color%}"             # A"NUM"         - ahead by "NUM" commits
-GIT_PROMPT_BEHIND="%{$fg[cyan]%}BNUM%{$reset_color%}"           # B"NUM"         - behind by "NUM" commits
-GIT_PROMPT_MERGING="%{$fg_bold[yellow]%}⚡%{$reset_color%}"     # lightning bolt - merge conflict
-GIT_PROMPT_UNTRACKED="%{$fg_bold[red]%}●%{$reset_color%}"       # red circle     - untracked files
-GIT_PROMPT_MODIFIED="%{$fg_bold[yellow]%}●%{$reset_color%}"     # yellow circle  - tracked files modified
-GIT_PROMPT_STAGED="%{$fg_bold[green]%}●%{$reset_color%}"        # green circle   - staged changes present = ready for "git push"
-
-parse_git_branch() {
-  # Show Git branch/tag, or name-rev if on detached head
-  ( git symbolic-ref -q HEAD || git name-rev --name-only --no-undefined --always HEAD ) 2> /dev/null
-}
-
-parse_git_state() {
-  # Show different symbols as appropriate for various Git repository states
-  # Compose this value via multiple conditional appends.
-  local GIT_STATE=""
-  local NUM_AHEAD="$(git log --oneline @{u}.. 2> /dev/null | wc -l | tr -d ' ')"
-  if [ "$NUM_AHEAD" -gt 0 ]; then
-    GIT_STATE=$GIT_STATE${GIT_PROMPT_AHEAD//NUM/$NUM_AHEAD}
-  fi
-  local NUM_BEHIND="$(git log --oneline ..@{u} 2> /dev/null | wc -l | tr -d ' ')"
-  if [ "$NUM_BEHIND" -gt 0 ]; then
-    GIT_STATE=$GIT_STATE${GIT_PROMPT_BEHIND//NUM/$NUM_BEHIND}
-  fi
-  local GIT_DIR="$(git rev-parse --git-dir 2> /dev/null)"
-  if [ -n $GIT_DIR ] && test -r $GIT_DIR/MERGE_HEAD; then
-    GIT_STATE=$GIT_STATE$GIT_PROMPT_MERGING
-  fi
-  if [[ -n $(git ls-files --other --exclude-standard 2> /dev/null) ]]; then
-    GIT_STATE=$GIT_STATE$GIT_PROMPT_UNTRACKED
-  fi
-  if ! git diff --quiet 2> /dev/null; then
-    GIT_STATE=$GIT_STATE$GIT_PROMPT_MODIFIED
-  fi
-  if ! git diff --cached --quiet 2> /dev/null; then
-    GIT_STATE=$GIT_STATE$GIT_PROMPT_STAGED
-  fi
-  if [[ -n $GIT_STATE ]]; then
-    echo "$GIT_PROMPT_PREFIX$GIT_STATE$GIT_PROMPT_SUFFIX"
-  fi
-}
-
-git_prompt_string() {
-  local git_where="$(parse_git_branch)"
-
-  # If inside a Git repository, print its branch and state
-  [ -n "$git_where" ] && echo "$GIT_PROMPT_SYMBOL$(parse_git_state)$GIT_PROMPT_PREFIX%{$fg[yellow]%}${git_where#(refs/heads/|tags/)}$GIT_PROMPT_SUFFIX"
-}
-
 # Prompt (right side)
-RPROMPT='$(git_prompt_string)'
+source $HOME/.config/zsh/git_prompt.zsh
 
 ## Plugins section
 # Use syntax highlighting (https://github.com/zsh-users/zsh-syntax-highlighting)
@@ -168,134 +117,10 @@ ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=8'
 
 # Set terminal window and tab/icon title
-# (https://github.com/ohmyzsh/ohmyzsh/blob/master/lib/termsupport.zsh)
-#
-# usage: title short_tab_title [long_window_title]
-#
-# See: http://www.faqs.org/docs/Linux-mini/Xterm-Title.html#ss3.1
-# Fully supports screen, iterm, and probably most modern xterm and rxvt
-# (In screen, only short_tab_title is used)
-# Limited support for Apple Terminal (Terminal can't set window and tab separately)
-function title {
-  emulate -L zsh
-  setopt prompt_subst
-
-  [[ "$EMACS" == *term* ]] && return
-
-  # if $2 is unset use $1 as default
-  # if it is set and empty, leave it as is
-  : ${2=$1}
-
-  case "$TERM" in
-    cygwin|xterm*|putty*|rxvt*|konsole*|ansi|mlterm*|alacritty|st*)
-      print -Pn "\e]2;${2:q}\a" # set window name
-      print -Pn "\e]1;${1:q}\a" # set tab name
-      ;;
-    screen*|tmux*)
-      print -Pn "\ek${1:q}\e\\" # set screen hardstatus
-      ;;
-    *)
-    # Try to use terminfo to set the title
-    # If the feature is available set title
-    if [[ -n "$terminfo[fsl]" ]] && [[ -n "$terminfo[tsl]" ]]; then
-      echoti tsl
-      print -Pn "$1"
-      echoti fsl
-    fi
-      ;;
-  esac
-}
-
-ZSH_THEME_TERM_TAB_TITLE_IDLE="%15<..<%~%<<" #15 char left truncated PWD
-ZSH_THEME_TERM_TITLE_IDLE="%n@%m:%~"
-
-# Runs before showing the prompt
-function omz_termsupport_precmd {
-  [[ "${DISABLE_AUTO_TITLE:-}" == true ]] && return
-  title $ZSH_THEME_TERM_TAB_TITLE_IDLE $ZSH_THEME_TERM_TITLE_IDLE
-}
-
-# Runs before executing the command
-function omz_termsupport_preexec {
-  [[ "${DISABLE_AUTO_TITLE:-}" == true ]] && return
-
-  emulate -L zsh
-
-  # split command into array of arguments
-  local -a cmdargs
-  cmdargs=("${(z)2}")
-  # if running fg, extract the command from the job description
-  if [[ "${cmdargs[1]}" = fg ]]; then
-    # get the job id from the first argument passed to the fg command
-    local job_id jobspec="${cmdargs[2]#%}"
-    # logic based on jobs arguments:
-    # http://zsh.sourceforge.net/Doc/Release/Jobs-_0026-Signals.html#Jobs
-    # https://www.zsh.org/mla/users/2007/msg00704.html
-    case "$jobspec" in
-      <->) # %number argument:
-        # use the same <number> passed as an argument
-        job_id=${jobspec} ;;
-      ""|%|+) # empty, %% or %+ argument:
-        # use the current job, which appears with a + in $jobstates:
-        # suspended:+:5071=suspended (tty output)
-        job_id=${(k)jobstates[(r)*:+:*]} ;;
-      -) # %- argument:
-        # use the previous job, which appears with a - in $jobstates:
-        # suspended:-:6493=suspended (signal)
-        job_id=${(k)jobstates[(r)*:-:*]} ;;
-      [?]*) # %?string argument:
-        # use $jobtexts to match for a job whose command *contains* <string>
-        job_id=${(k)jobtexts[(r)*${(Q)jobspec}*]} ;;
-      *) # %string argument:
-        # use $jobtexts to match for a job whose command *starts with* <string>
-        job_id=${(k)jobtexts[(r)${(Q)jobspec}*]} ;;
-    esac
-
-    # override preexec function arguments with job command
-    if [[ -n "${jobtexts[$job_id]}" ]]; then
-      1="${jobtexts[$job_id]}"
-      2="${jobtexts[$job_id]}"
-    fi
-  fi
-
-  # cmd name only, or if this is sudo or ssh, the next cmd
-  local CMD=${1[(wr)^(*=*|sudo|ssh|mosh|rake|-*)]:gs/%/%%}
-  local LINE="${2:gs/%/%%}"
-
-  title '$CMD' '%100>...>$LINE%<<'
-}
-
-autoload -U add-zsh-hook
-add-zsh-hook precmd omz_termsupport_precmd
-add-zsh-hook preexec omz_termsupport_preexec
+source $HOME/.config/zsh/termsupport.zsh
 
 # nvm (https://github.com/nvm-sh/nvm)
-export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
-
-autoload -U add-zsh-hook
-load-nvmrc() {
-  local node_version="$(nvm version)"
-  local nvmrc_path="$(nvm_find_nvmrc)"
-
-  if [ -n "$nvmrc_path" ]; then
-    local nvmrc_node_version=$(nvm version "$(cat "${nvmrc_path}")")
-
-    if [ "$nvmrc_node_version" = "N/A" ]; then
-      nvm install
-    elif [ "$nvmrc_node_version" != "$node_version" ]; then
-      nvm use
-    fi
-  elif [ "$node_version" != "$(nvm version default)" ]; then
-    echo "Reverting to nvm default version"
-    nvm use default
-  fi
-}
-add-zsh-hook chpwd load-nvmrc
-load-nvmrc
+source $HOME/.config/zsh/nvm.zsh
 
 # pyenv (https://github.com/pyenv/pyenv)
-if command -v pyenv 1>/dev/null 2>&1; then
-  eval "$(pyenv init --path)"
-  eval "$(pyenv init -)"
-fi
+source $HOME/.config/zsh/pyenv.zsh
