@@ -376,9 +376,9 @@ local globalkeys = gears.table.join(
               {description = "dropdown terminal", group = "launcher"}),
 
     -- Brightness
-    awful.key({ }, "XF86MonBrightnessUp", function () awful.util.spawn.with_shell("xbacklight -inc 10") end,
+    awful.key({ }, "XF86MonBrightnessUp", function () awful.spawn.with_shell("xbacklight -inc 10") end,
               {description = "increase brightness", group = "hotkeys"}),
-    awful.key({ }, "XF86MonBrightnessDown", function () awful.util.spawn.with_shell("xbacklight -dec 10") end,
+    awful.key({ }, "XF86MonBrightnessDown", function () awful.spawn.with_shell("xbacklight -dec 10") end,
               {description = "decrease brightness", group = "hotkeys"}),
 
     -- ALSA volume control
