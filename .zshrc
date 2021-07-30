@@ -1,3 +1,8 @@
+# Set LS_COLORS
+test -r $HOME/.dircolors &&
+  eval $(dircolors -b $HOME/.dircolors) ||
+  eval $(dircolors -b)
+
 ## Options section
 setopt correct              # Auto correct mistakes
 setopt extendedglob         # Extended globbing. Allows using regular expressions with *
@@ -73,15 +78,16 @@ bindkey '^[[Z' undo                                  # Shift+tab undo last actio
 
 ## Alias section
 alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
-alias cp="cp -i"
-alias mv="mv -i"
-alias rm="rm -i"
-alias ls="ls --color=auto -F"
-alias ll="ls -lGh"
-alias la="ls -lAGh"
-alias less="less -F"
-alias ip="ip -color=auto"
-alias ffmpeg="ffmpeg -hide_banner"
+alias cp='cp -i'
+alias mv='mv -i'
+alias rm='rm -i'
+alias ls='ls --color=auto -F'
+alias ll='ls -lh'
+alias la='ll -A'
+alias diff='diff --color=auto'
+alias grep='grep --color=auto'
+alias ip='ip -color=auto'
+alias ffmpeg='ffmpeg -hide_banner'
 
 ## Theming section
 autoload -U compinit colors zcalc
