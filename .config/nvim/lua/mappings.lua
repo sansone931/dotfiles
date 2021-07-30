@@ -1,51 +1,42 @@
+local map = vim.api.nvim_set_keymap
+
+local opts = {
+  silent = {silent = true},
+  noremap = {silent = true, noremap = true},
+  expr = {silent = true, noremap = true, expr = true},
+  expr_nowait = {silent = true, noremap = true, expr = true, nowait = true},
+}
+
 -- Better indenting
-vim.api.nvim_set_keymap("v", "<", "<gv", {noremap = true})
-vim.api.nvim_set_keymap("v", ">", ">gv", {noremap = true})
+map("v", "<", "<gv", opts.noremap)
+map("v", ">", ">gv", opts.noremap)
 
 -- Better window navigation
-vim.api.nvim_set_keymap("n", "<C-h>", "<C-w>h", {noremap = true})
-vim.api.nvim_set_keymap("n", "<C-j>", "<C-w>j", {noremap = true})
-vim.api.nvim_set_keymap("n", "<C-k>", "<C-w>k", {noremap = true})
-vim.api.nvim_set_keymap("n", "<C-l>", "<C-w>l", {noremap = true})
+map("n", "<C-h>", "<C-w>h", opts.noremap)
+map("n", "<C-j>", "<C-w>j", opts.noremap)
+map("n", "<C-k>", "<C-w>k", opts.noremap)
+map("n", "<C-l>", "<C-w>l", opts.noremap)
 
 -- Use ctrl + arrows to resize windows
-vim.api.nvim_set_keymap("n", "<C-Up>", ":resize -2<CR>",
-  {noremap = true, silent = true}
-)
-vim.api.nvim_set_keymap("n", "<C-Down>", ":resize +2<CR>",
-  {noremap = true, silent = true}
-)
-vim.api.nvim_set_keymap("n", "<C-Left>", ":vertical resize -2<CR>",
-  {noremap = true, silent = true}
-)
-vim.api.nvim_set_keymap("n", "<C-Right>", ":vertical resize +2<CR>",
-  {noremap = true, silent = true}
-)
+map("n", "<C-Up>", "<Cmd>resize -2<CR>", opts.noremap)
+map("n", "<C-Down>", "<Cmd>resize +2<CR>", opts.noremap)
+map("n", "<C-Left>", "<Cmd>vertical resize -2<CR>", opts.noremap)
+map("n", "<C-Right>", "<Cmd>vertical resize +2<CR>", opts.noremap)
 
--- Navigation between hunks in current buffer
-vim.api.nvim_set_keymap("n", "[g", ":GitGutterPrevHunk<CR>",
-  {noremap = true, silent = true}
-)
-vim.api.nvim_set_keymap("n", "]g", ":GitGutterNextHunk<CR>",
-  {noremap = true, silent = true}
-)
+-- lewis6991/gitsigns.nvim
+map("n", "[g", '<Cmd>lua require("gitsigns.actions").prev_hunk()<CR>', opts.noremap)
+map("n", "]g", '<Cmd>lua require("gitsigns.actions").next_hunk()<CR>', opts.noremap)
+map("o", "ih", '<Cmd>lua require("gitsigns.actions").select_hunk()<CR>', opts.noremap)
+map("x", "ih", '<Cmd>lua require("gitsigns.actions").select_hunk()<CR>', opts.noremap)
 
 -- {{{ romgrk/barbar.nvim
-vim.api.nvim_set_keymap("n", "<Tab>", ":BufferNext<CR>",
-  {noremap = true, silent = true}
-)
-vim.api.nvim_set_keymap("n", "<S-Tab>", ":BufferPrevious<CR>",
-  {noremap = true, silent = true}
-)
-vim.api.nvim_set_keymap("n", "<A-,>", ":BufferMovePrevious<CR>",
-  {noremap = true, silent = true}
-)
-vim.api.nvim_set_keymap("n", "<A-.>", ":BufferMoveNext<CR>",
-  {noremap = true, silent = true}
-)
-vim.api.nvim_set_keymap("n", "<S-q>", ":BufferClose<CR>",
-  {noremap = true, silent = true}
-)
+map("n", "<Tab>", "<Cmd>BufferNext<CR>", opts.noremap)
+map("n", "<S-Tab>", "<Cmd>BufferPrevious<CR>", opts.noremap)
+map("n", "<A-k>", "<Cmd>BufferNext<CR>", opts.noremap)
+map("n", "<A-j>", "<Cmd>BufferPrevious<CR>", opts.noremap)
+map("n", "<A-h>", "<Cmd>BufferMovePrevious<CR>", opts.noremap)
+map("n", "<A-l>", "<Cmd>BufferMoveNext<CR>", opts.noremap)
+map("n", "<S-q>", "<Cmd>BufferClose<CR>", opts.noremap)
 -- }}}
 
 -- {{{ kyazdani42/nvim-tree.lua
@@ -57,127 +48,137 @@ vim.g.nvim_tree_bindings = {
 }
 -- }}}
 
--- {{{ tpope/vim-commentary
-vim.api.nvim_set_keymap("v", "/", ":Commentary<CR>", {noremap = true})
--- }}}
+-- {{{ folke/which-key.nvim
+local wk = require("which-key")
 
--- {{{ liuchengxu/vim-which-key
 vim.g.mapleader = vim.api.nvim_replace_termcodes("<Space>", true, true, true)
 
-vim.api.nvim_set_keymap("n", "<Leader>", ":<C-u>WhichKey '<Space>'<CR>",
-  {noremap = true, silent = true}
-)
-
-local which_key_map = {}
-
 -- Single key mappings
-which_key_map["n"] = {":let @/ = ''"   , "no highlight"   }
-which_key_map["e"] = {":NvimTreeToggle", "toggle explorer"}
-which_key_map["/"] = {"Commentary"     , "toggle comment" }
+wk.register({
+  ["/"] = {"<Cmd>CommentToggle<CR>" , "toggle comment" },
+  e     = {"<Cmd>NvimTreeToggle<CR>", "toggle explorer"},
+  n     = {"<Cmd>let @/ = ''<CR>"   , "no highlight"   },
+}, {prefix = "<Leader>"})
+
+wk.register({
+  ["/"] = {":CommentToggle<CR>" , "toggle comment" },
+}, {mode = "v", prefix = "<Leader>"})
 
 -- neoclide/coc.nvim
-which_key_map["c"] = {
-  name = "+coc",
-  ["."] = {":CocConfig"                       , "config"            },
-  [";"] = {"<Plug>(coc-refactor)"             , "refactor"          },
-  a     = {"<Plug>(coc-codeaction-line)"      , "code action (line)"},
-  A     = {"<Plug>(coc-codeaction)"           , "code action (file)"},
-  b     = {":CocNext"                         , "next action"       },
-  B     = {":CocPrev"                         , "prev action"       },
-  c     = {":CocList commands"                , "commands"          },
-  d     = {"<Plug>(coc-definition)"           , "definition"        },
-  D     = {"<Plug>(coc-declaration)"          , "declaration"       },
-  e     = {":CocList extensions"              , "extensions"        },
-  f     = {"<Plug>(coc-format)"               , "format"            },
-  h     = {"<Plug>(coc-float-hide)"           , "hide"              },
-  i     = {"<Plug>(coc-implementation)"       , "implementation"    },
-  I     = {":CocList diagnostics"             , "diagnostics"       },
-  j     = {"<Plug>(coc-float-jump)"           , "float jump"        },
-  l     = {"<Plug>(coc-codelens-action)"      , "code lens"         },
-  n     = {"<Plug>(coc-diagnostic-next)"      , "next diagnostic"   },
-  N     = {"<Plug>(coc-diagnostic-next-error)", "next error"        },
-  o     = {":CocList outline"                 , "search outline"    },
-  p     = {"<Plug>(coc-diagnostic-prev)"      , "prev diagnostic"   },
-  P     = {"<Plug>(coc-diagnostic-prev-error)", "prev error"        },
-  q     = {"<Plug>(coc-fix-current)"          , "quickfix"          },
-  r     = {"<Plug>(coc-references)"           , "references"        },
-  R     = {"<Plug>(coc-rename)"               , "rename"            },
-  s     = {":CocList -I symbols"              , "references"        },
-  S     = {":CocList snippets"                , "snippets"          },
-  t     = {"<Plug>(coc-type-definition)"      , "type definition"   },
-  u     = {":CocListResume"                   , "resume list"       },
-  U     = {":CocUpdate"                       , "update CoC"        },
-  z     = {":CocDisable"                      , "disable CoC"       },
-  Z     = {":CocEnable"                       , "enable CoC"        },
-}
+wk.register({
+  c = {
+    name = "coc",
+    ["."] = {"<Cmd>CocConfig<CR>"               , "config"            },
+    [";"] = {"<Plug>(coc-refactor)"             , "refactor"          },
+    a     = {"<Plug>(coc-codeaction-line)"      , "code action (line)"},
+    A     = {"<Plug>(coc-codeaction)"           , "code action (file)"},
+    b     = {"<Cmd>CocNext<CR>"                 , "next action"       },
+    B     = {"<Cmd>CocPrev<CR>"                 , "prev action"       },
+    c     = {"<Cmd>CocList commands<CR>"        , "commands"          },
+    d     = {"<Plug>(coc-definition)"           , "definition"        },
+    D     = {"<Plug>(coc-declaration)"          , "declaration"       },
+    e     = {"<Cmd>CocList extensions<CR>"      , "extensions"        },
+    f     = {"<Plug>(coc-format)"               , "format"            },
+    h     = {"<Plug>(coc-float-hide)"           , "hide"              },
+    i     = {"<Plug>(coc-implementation)"       , "implementation"    },
+    I     = {"<Cmd>CocList diagnostics<CR>"     , "diagnostics"       },
+    j     = {"<Plug>(coc-float-jump)"           , "float jump"        },
+    l     = {"<Plug>(coc-codelens-action)"      , "code lens"         },
+    n     = {"<Plug>(coc-diagnostic-next)"      , "next diagnostic"   },
+    N     = {"<Plug>(coc-diagnostic-next-error)", "next error"        },
+    o     = {"<Cmd>CocList outline<CR>"         , "search outline"    },
+    p     = {"<Plug>(coc-diagnostic-prev)"      , "prev diagnostic"   },
+    P     = {"<Plug>(coc-diagnostic-prev-error)", "prev error"        },
+    q     = {"<Plug>(coc-fix-current)"          , "quickfix"          },
+    r     = {"<Plug>(coc-references)"           , "references"        },
+    R     = {"<Plug>(coc-rename)"               , "rename"            },
+    s     = {"<Cmd>CocList -I symbols<CR>"      , "references"        },
+    S     = {"<Cmd>CocList snippets<CR>"        , "snippets"          },
+    t     = {"<Plug>(coc-type-definition)"      , "type definition"   },
+    u     = {"<Cmd>CocListResume<CR>"           , "resume list"       },
+    U     = {"<Cmd>CocUpdate<CR>"               , "update CoC"        },
+    z     = {"<Cmd>CocDisable<CR>"              , "disable CoC"       },
+    Z     = {"<Cmd>CocEnable<CR>"               , "enable CoC"        },
+  },
+},{prefix = "<Leader>"})
 
 -- puremourning/vimspector
-vim.api.nvim_set_keymap("n", "<Leader>de", ":VimspectorEval<Space>",
-  {noremap = true}
-)
-vim.api.nvim_set_keymap("n", "<Leader>dw", ":VimspectorWatch<Space>",
-  {noremap = true}
-)
-vim.api.nvim_set_keymap("n", "<Leader>dW", ":VimspectorShowOutput<Space>",
-  {noremap = true}
-)
+wk.register({
+  d = {
+    name = "debug",
+    b = {"<Plug>VimspectorToggleBreakpoint"           , "breakpoint"            },
+    B = {"<Plug>VimspectorToggleConditionalBreakpoint", "conditional breakpoint"},
+    c = {"<Plug>VimspectorRunToCursor"                , "run to cursor"         },
+    d = {"<Plug>VimspectorContinue"                   , "continue"              },
+    f = {"<Plug>VimspectorAddFunctionBreakpoint"      , "function breakpoint"   },
+    o = {"<Plug>VimspectorStepOver"                   , "step over"             },
+    O = {"<Plug>VimspectorStepOut"                    , "step out"              },
+    i = {"<Plug>VimspectorStepInto"                   , "step into"             },
+    p = {"<Plug>VimspectorPause"                      , "pause"                 },
+    r = {"<Plug>VimspectorRestart"                    , "restart"               },
+    s = {"<Plug>VimspectorStop"                       , "stop"                  },
+    q = {"<Cmd>VimspectorReset<CR>"                   , "close debugger"        },
+  },
+}, {prefix = "<Leader>"})
 
-which_key_map["d"] = {
-  name = "+debug",
-  b = {"<Plug>VimspectorToggleBreakpoint"           , "breakpoint"            },
-  B = {"<Plug>VimspectorToggleConditionalBreakpoint", "conditional breakpoint"},
-  c = {"<Plug>VimspectorRunToCursor"                , "run to cursor"         },
-  d = {"<Plug>VimspectorContinue"                   , "continue"              },
-  f = {"<Plug>VimspectorAddFunctionBreakpoint"      , "function breakpoint"   },
-  o = {"<Plug>VimspectorStepOver"                   , "step over"             },
-  O = {"<Plug>VimspectorStepOut"                    , "step out"              },
-  i = {"<Plug>VimspectorStepInto"                   , "step into"             },
-  p = {"<Plug>VimspectorPause"                      , "pause"                 },
-  r = {"<Plug>VimspectorRestart"                    , "restart"               },
-  s = {"<Plug>VimspectorStop"                       , "stop"                  },
-  q = {":VimspectorReset"                           , "close debugger"        },
-  e = "send console command" ,
-  w = "watch expression"     ,
-  W = "select output channel",
-}
+wk.register({
+  d = {
+    e = {":VimspectorEval<Space>"      , "send console command" },
+    w = {":VimspectorWatch<Space>"     , "watch expression"     },
+    W = {":VimspectorShowOutput<Space>", "select output channel"},
+  }
+}, {prefix = "<Leader>", silent = false})
 
 -- nvim-telescope/telescope.nvim
-which_key_map["f"] = {
-  name = "+telescope",
-  ["/"] = {":Telescope search_history", "history"     },
-  b     = {":Telescope buffers"       , "buffers"     },
-  c     = {":Telescope treesitter"    , "treesitter"  },
-  f     = {":Telescope find_files"    , "files"       },
-  h     = {":Telescope oldfiles"      , "file history"},
-  s     = {":Telescope treesitter"    , "symbols"     },
-  t     = {":Telescope live_grep"     , "text"        },
-}
+wk.register({
+  f = {
+    name = "telescope",
+    ["/"] = {"<Cmd>Telescope search_history<CR>", "history"     },
+    b     = {"<Cmd>Telescope buffers<CR>"       , "buffers"     },
+    c     = {"<Cmd>Telescope treesitter<CR>"    , "treesitter"  },
+    f     = {"<Cmd>Telescope find_files<CR>"    , "files"       },
+    h     = {"<Cmd>Telescope oldfiles<CR>"      , "file history"},
+    s     = {"<Cmd>Telescope treesitter<CR>"    , "symbols"     },
+    t     = {"<Cmd>Telescope live_grep<CR>"     , "text"        },
+  },
+}, {prefix = "<Leader>"})
 
 -- tpope/vim-fugitive
--- airblade/vim-gitgutter
-which_key_map["g"] = {
-  name = "+git",
-  d = {":Gdiffsplit"                 , "diff split"  },
-  b = {":G blame"                    , "blame"       },
-  g = {":G"                          , "status"      },
-  s = {"<Plug>(GitGutterStageHunk)"  , "stage hunk"  },
-  u = {"<Plug>(GitGutterUndoHunk)"   , "undo hunk"   },
-  p = {"<Plug>(GitGutterPreviewHunk)", "preview hunk"},
-}
+wk.register({
+  g = {
+    name = "+git",
+    d = {"<Cmd>Gdiffsplit<CR>", "diff split"},
+    B = {"<Cmd>G blame<CR>"   , "blame"     },
+    g = {"<Cmd>G<CR>"         , "status"    },
+  },
+}, {prefix = "<Leader>"})
 
-vim.fn["which_key#register"]("<Space>", which_key_map)
+-- lewis6991/gitsigns.nvim
+wk.register({
+  g = {
+    name = "+git",
+    s = {'<Cmd>lua require("gitsigns").stage_hunk()<CR>'     , "stage hunk"     },
+    u = {'<cmd>lua require("gitsigns").undo_stage_hunk()<CR>', "undo stage hunk"},
+    p = {'<cmd>lua require("gitsigns").preview_hunk()<CR>'   , "preview hunk"   },
+    r = {'<cmd>lua require("gitsigns").reset_hunk()<CR>'     , "reset hunk"     },
+    R = {'<cmd>lua require("gitsigns").reset_buffer()<CR>'   , "reset buffer"   },
+    b = {'<cmd>lua require("gitsigns").blame_line(true)<CR>' , "blame line"     },
+  },
+}, {prefix = "<Leader>"})
+
+wk.register({
+  g = {
+    name = "+git",
+    s = {'<cmd>lua require("gitsigns").stage_hunk({vim.fn.line("."), vim.fn.line("v")})<CR>', "stage hunk"},
+    r = {'<cmd>lua require("gitsigns").reset_hunk({vim.fn.line("."), vim.fn.line("v")})<CR>', "reset hunk"},
+  },
+}, {mode = "v", prefix = "<Leader>"})
 -- }}}
 
 -- {{{ neoclide/coc.nvim
 -- Use tab for trigger completion with characters ahead and navigate.
-vim.api.nvim_set_keymap("i", "<Tab>",
-  [[pumvisible() ? "\<C-n>" : Check_back_space() ? "\<Tab>" : coc#refresh()]],
-  {noremap = true, silent = true, expr = true}
-)
-vim.api.nvim_set_keymap("i", "<S-Tab>",
-  [[pumvisible() ? "\<C-p>" : "\<C-h>"]],
-  {noremap = true, silent = true, expr = true}
-)
+map("i", "<Tab>", [[pumvisible() ? "\<C-n>" : Check_back_space() ? "\<Tab>" : coc#refresh()]], opts.expr)
+map("i", "<S-Tab>", [[pumvisible() ? "\<C-p>" : "\<C-h>"]], opts.expr)
 
 vim.cmd [[
   function! Check_back_space() abort
@@ -187,46 +188,26 @@ vim.cmd [[
 ]]
 
 -- Use <c-space> to trigger completion.
-vim.api.nvim_set_keymap("i", "<c-space>", "coc#refresh()",
-  {noremap = true, silent = true, expr = true}
-)
+map("i", "<c-space>", "coc#refresh()", opts.expr)
 
 -- Make <CR> auto-select the first completion item and notify coc.nvim to
 -- format on enter, <CR> could be remapped by other vim plugin
-vim.api.nvim_set_keymap("i", "<CR>",
-  [[pumvisible() ? coc#_select_confirm() : ]] ..
-  [["\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"]],
-  {noremap = true, silent = true, expr = true}
-)
+map("i", "<CR>", [[pumvisible() ? coc#_select_confirm() : ]] ..  [["\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"]], opts.expr)
 
 -- Use `[c` and `]c` to navigate diagnostics
 -- Use `:CocDiagnostics` to get all diagnostics of current buffer in location
 -- list.
-vim.api.nvim_set_keymap("n", "[c", "<Plug>(coc-diagnostic-prev)",
-  {silent = true}
-)
-vim.api.nvim_set_keymap("n", "]c", "<Plug>(coc-diagnostic-next)",
-  {silent = true}
-)
+map("n", "[c", "<Plug>(coc-diagnostic-prev)", opts.silent)
+map("n", "]c", "<Plug>(coc-diagnostic-next)", opts.silent)
 
 -- GoTo code navigation.
-vim.api.nvim_set_keymap("n", "gd", "<Plug>(coc-definition)",
-  {silent = true}
-)
-vim.api.nvim_set_keymap("n", "gy", "<Plug>(coc-type-definition)",
-  {silent = true}
-)
-vim.api.nvim_set_keymap("n", "gi", "<Plug>(coc-implementation)",
-  {silent = true}
-)
-vim.api.nvim_set_keymap("n", "gr", "<Plug>(coc-references)",
-  {silent = true}
-)
+map("n", "gd", "<Plug>(coc-definition)", opts.silent)
+map("n", "gy", "<Plug>(coc-type-definition)", opts.silent)
+map("n", "gi", "<Plug>(coc-implementation)", opts.silent)
+map("n", "gr", "<Plug>(coc-references)", opts.silent)
 
 -- Use K to show documentation in preview window.
-vim.api.nvim_set_keymap("n", "K", ":call Show_documentation()<CR>",
-  {noremap = true, silent = true}
-)
+map("n", "K", "<Cmd>call Show_documentation()<CR>", opts.noremap)
 
 vim.cmd [[
   function! Show_documentation()
@@ -241,40 +222,18 @@ vim.cmd [[
 ]]
 
 -- Formatting selected code.
-vim.api.nvim_set_keymap("x", "<Leader>cf", "<Plug>(coc-format-selected)",
-  {}
-)
+map("x", "<Leader>cf", "<Plug>(coc-format-selected)", opts.silent)
 
 -- Applying codeAction to the selected region.
-vim.api.nvim_set_keymap("x", "<Leader>ca", "<Plug>(coc-codeaction-selected)",
-  {}
-)
+map("x", "<Leader>ca", "<Plug>(coc-codeaction-selected)", opts.silent)
 
 -- Remap <C-f> and <C-b> for scroll float windows/popups.
-vim.api.nvim_set_keymap("n", "<C-f>",
-  [[coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"]],
-  {noremap = true, silent = true, nowait = true, expr = true}
-)
-vim.api.nvim_set_keymap("n", "<C-b>",
-  [[coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"]],
-  {noremap = true, silent = true, nowait = true, expr = true}
-)
+map("n", "<C-f>", [[coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"]], opts.expr_nowait)
+map("n", "<C-b>", [[coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"]], opts.expr_nowait)
 
-vim.api.nvim_set_keymap("i", "<C-f>",
-  [[coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<CR>" : "\<Right>"]],
-  {noremap = true, silent = true, nowait = true, expr = true}
-)
-vim.api.nvim_set_keymap("i", "<C-b>",
-  [[coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<CR>" : "\<Left>"]],
-  {noremap = true, silent = true, nowait = true, expr = true}
-)
+map("i", "<C-f>", [[coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<CR>" : "\<Right>"]], opts.expr_nowait)
+map("i", "<C-b>", [[coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<CR>" : "\<Left>"]], opts.expr_nowait)
 
-vim.api.nvim_set_keymap("v", "<C-f>",
-  [[coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"]],
-  {noremap = true, silent = true, nowait = true, expr = true}
-)
-vim.api.nvim_set_keymap("v", "<C-b>",
-  [[coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"]],
-  {noremap = true, silent = true, nowait = true, expr = true}
-)
+map("v", "<C-f>", [[coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"]], opts.expr_nowait)
+map("v", "<C-b>", [[coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"]], opts.expr_nowait)
 -- }}}
