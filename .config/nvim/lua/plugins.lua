@@ -55,9 +55,21 @@ local plugins = {
     config = function() require("plugins.nvim-treesitter").setup() end,
   },
   {
-    "puremourning/vimspector",
-    config = function() require("plugins.vimspector").setup() end,
+    "mfussenegger/nvim-dap",
+    config = function() require("plugins.nvim-dap").setup() end,
   },
+  {
+    "Pocco81/DAPInstall.nvim",
+    config = function() require("plugins.dapinstall").setup() end,
+  },
+  {
+    "theHamsta/nvim-dap-virtual-text",
+    config = function() require("plugins.nvim-dap-virtual-text").setup() end,
+  },
+  {
+    "rcarriga/nvim-dap-ui",
+    config = function() require("dapui").setup() end,
+  }
 }
 
 -- {{{ Install packer.nvim automatically if it isn't already installed

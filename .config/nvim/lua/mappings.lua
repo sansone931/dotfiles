@@ -102,32 +102,35 @@ wk.register({
   },
 },{prefix = "<Leader>"})
 
--- puremourning/vimspector
-wk.register({
-  d = {
-    name = "debug",
-    b = {"<Plug>VimspectorToggleBreakpoint"           , "breakpoint"            },
-    B = {"<Plug>VimspectorToggleConditionalBreakpoint", "conditional breakpoint"},
-    c = {"<Plug>VimspectorRunToCursor"                , "run to cursor"         },
-    d = {"<Plug>VimspectorContinue"                   , "continue"              },
-    f = {"<Plug>VimspectorAddFunctionBreakpoint"      , "function breakpoint"   },
-    o = {"<Plug>VimspectorStepOver"                   , "step over"             },
-    O = {"<Plug>VimspectorStepOut"                    , "step out"              },
-    i = {"<Plug>VimspectorStepInto"                   , "step into"             },
-    p = {"<Plug>VimspectorPause"                      , "pause"                 },
-    r = {"<Plug>VimspectorRestart"                    , "restart"               },
-    s = {"<Plug>VimspectorStop"                       , "stop"                  },
-    q = {"<Cmd>VimspectorReset<CR>"                   , "close debugger"        },
-  },
-}, {prefix = "<Leader>"})
+-- mfussenegger/nvim-dap
+local function close_debugger()
+  local dap = require("dap")
+  dap.disconnect()
+  dap.close()
+end
+
+local function set_conditional_breakpoint()
+  require("dap").set_breakpoint(
+    vim.fn.input('Breakpoint condition: ')
+  )
+end
 
 wk.register({
   d = {
-    e = {":VimspectorEval<Space>"      , "send console command" },
-    w = {":VimspectorWatch<Space>"     , "watch expression"     },
-    W = {":VimspectorShowOutput<Space>", "select output channel"},
-  }
-}, {prefix = "<Leader>", silent = false})
+    name = "debug",
+    b = {'<Cmd>lua require("dap").toggle_breakpoint()<CR>' , "breakpoint"            },
+    B = {set_conditional_breakpoint                        , "conditional breakpoint"},
+    c = {'<Cmd>lua require("dap").run_to_cursor()<CR>'     , "run to cursor"         },
+    d = {'<Cmd>lua require("dap").continue()<CR>'          , "continue"              },
+    h = {'<Cmd>lua require("dap.ui.variables").hover()<CR>', "show hover"            },
+    i = {'<Cmd>lua require("dap").step_into()<CR>'         , "step into"             },
+    l = {'<Cmd>lua require("dap").run_last()<CR>'          , "run last"              },
+    o = {'<Cmd>lua require("dap").step_over()<CR>'         , "step over"             },
+    O = {'<Cmd>lua require("dap").step_out()<CR>'          , "step out"              },
+    q = {close_debugger                                    , "stop"                  },
+    w = {'<Cmd>lua require("dapui").toggle()<CR>'          , "toggle debugger ui"    },
+  },
+}, {prefix = "<Leader>"})
 
 -- nvim-telescope/telescope.nvim
 wk.register({
