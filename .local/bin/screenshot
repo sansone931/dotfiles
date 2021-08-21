@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+case $1 in
+  --full)
+    args='--hidecursor'
+    ;;
+  *)
+    args='--nodecorations --select --hidecursor'
+    ;;
+esac
+
+maim $args |
+  tee ~/Pictures/screenshot.png |
+  xclip -selection clipboard -t image/png -i
