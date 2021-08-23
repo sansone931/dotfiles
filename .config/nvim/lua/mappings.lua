@@ -1,4 +1,11 @@
+local wk = require("which-key")
 local map = vim.api.nvim_set_keymap
+
+local function t(str)
+  return vim.api.nvim_replace_termcodes(str, true, true, true)
+end
+
+vim.g.mapleader = t"<Space>"
 
 local opts = {
   silent = {silent = true},
@@ -48,12 +55,7 @@ vim.g.nvim_tree_bindings = {
 }
 -- }}}
 
--- {{{ folke/which-key.nvim
-local wk = require("which-key")
-
-vim.g.mapleader = vim.api.nvim_replace_termcodes("<Space>", true, true, true)
-
--- Single key mappings
+-- {{{ Single key mappings
 wk.register({
   ["/"] = {"<Cmd>CommentToggle<CR>" , "toggle comment" },
   e     = {"<Cmd>NvimTreeToggle<CR>", "toggle explorer"},
@@ -61,48 +63,44 @@ wk.register({
 }, {prefix = "<Leader>"})
 
 wk.register({
-  ["/"] = {":CommentToggle<CR>" , "toggle comment" },
+  ["/"] = {":CommentToggle<CR>", "toggle comment"},
+}, {mode = "v", prefix = "<Leader>"})
+-- }}}
+
+-- {{{ neovim/nvim-lspconfig
+map("n", "<S-k>", "<Cmd>lua vim.lsp.buf.hover()<CR>", opts.noremap)
+map("n", "[d", "<Cmd>lua vim.lsp.diagnostic.goto_prev()<CR>", opts.noremap)
+map("n", "]d", "<Cmd>lua vim.lsp.diagnostic.goto_next()<CR>", opts.noremap)
+
+wk.register({
+  l = {
+    name = "lsp",
+    a = {"<Cmd>lua vim.lsp.buf.code_action()<CR>"                 , "code action"     },
+    d = {"<Cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>", "line diagnostics"},
+    f = {"<Cmd>lua vim.lsp.buf.formatting()<CR>"                  , "format"          },
+    r = {"<Cmd>lua vim.lsp.buf.rename()<CR>"                      , "rename"          },
+    q = {"<Cmd>lua vim.lsp.diagnostic.set_loclist()<CR>"          , "quickfix"        },
+  },
+}, {prefix = "<Leader>"})
+
+wk.register({
+  l = {
+    name = "lsp",
+    a = {":lua vim.lsp.buf.range_code_action()<CR>", "code action"},
+    f = {":lua vim.lsp.buf.range_formatting()<CR>" , "format"     },
+  },
 }, {mode = "v", prefix = "<Leader>"})
 
--- neoclide/coc.nvim
 wk.register({
-  c = {
-    name = "coc",
-    ["."] = {"<Cmd>CocConfig<CR>"               , "config"            },
-    [";"] = {"<Plug>(coc-refactor)"             , "refactor"          },
-    a     = {"<Plug>(coc-codeaction-line)"      , "code action (line)"},
-    A     = {"<Plug>(coc-codeaction)"           , "code action (file)"},
-    b     = {"<Cmd>CocNext<CR>"                 , "next action"       },
-    B     = {"<Cmd>CocPrev<CR>"                 , "prev action"       },
-    c     = {"<Cmd>CocList commands<CR>"        , "commands"          },
-    d     = {"<Plug>(coc-definition)"           , "definition"        },
-    D     = {"<Plug>(coc-declaration)"          , "declaration"       },
-    e     = {"<Cmd>CocList extensions<CR>"      , "extensions"        },
-    f     = {"<Plug>(coc-format)"               , "format"            },
-    h     = {"<Plug>(coc-float-hide)"           , "hide"              },
-    i     = {"<Plug>(coc-implementation)"       , "implementation"    },
-    I     = {"<Cmd>CocList diagnostics<CR>"     , "diagnostics"       },
-    j     = {"<Plug>(coc-float-jump)"           , "float jump"        },
-    l     = {"<Plug>(coc-codelens-action)"      , "code lens"         },
-    n     = {"<Plug>(coc-diagnostic-next)"      , "next diagnostic"   },
-    N     = {"<Plug>(coc-diagnostic-next-error)", "next error"        },
-    o     = {"<Cmd>CocList outline<CR>"         , "search outline"    },
-    p     = {"<Plug>(coc-diagnostic-prev)"      , "prev diagnostic"   },
-    P     = {"<Plug>(coc-diagnostic-prev-error)", "prev error"        },
-    q     = {"<Plug>(coc-fix-current)"          , "quickfix"          },
-    r     = {"<Plug>(coc-references)"           , "references"        },
-    R     = {"<Plug>(coc-rename)"               , "rename"            },
-    s     = {"<Cmd>CocList -I symbols<CR>"      , "references"        },
-    S     = {"<Cmd>CocList snippets<CR>"        , "snippets"          },
-    t     = {"<Plug>(coc-type-definition)"      , "type definition"   },
-    u     = {"<Cmd>CocListResume<CR>"           , "resume list"       },
-    U     = {"<Cmd>CocUpdate<CR>"               , "update CoC"        },
-    z     = {"<Cmd>CocDisable<CR>"              , "disable CoC"       },
-    Z     = {"<Cmd>CocEnable<CR>"               , "enable CoC"        },
-  },
-},{prefix = "<Leader>"})
+  d = {"<Cmd>lua vim.lsp.buf.definition()<CR>"     , "definition"     },
+  D = {"<Cmd>lua vim.lsp.buf.declaration()<CR>"    , "declaration"    },
+  i = {"<Cmd>lua vim.lsp.buf.implementation()<CR>" , "implementation" },
+  r = {"<Cmd>lua vim.lsp.buf.references()<CR>"     , "references"     },
+  y = {"<Cmd>lua vim.lsp.buf.type_definition()<CR>", "type definition"},
+}, {prefix = "g"})
+-- }}}
 
--- mfussenegger/nvim-dap
+-- {{{ mfussenegger/nvim-dap
 local function close_debugger()
   local dap = require("dap")
   dap.disconnect()
@@ -131,8 +129,9 @@ wk.register({
     w = {'<Cmd>lua require("dapui").toggle()<CR>'          , "toggle debugger ui"    },
   },
 }, {prefix = "<Leader>"})
+-- }}}
 
--- nvim-telescope/telescope.nvim
+-- {{{ nvim-telescope/telescope.nvim
 wk.register({
   f = {
     name = "telescope",
@@ -140,23 +139,27 @@ wk.register({
     b     = {"<Cmd>Telescope buffers<CR>"       , "buffers"     },
     c     = {"<Cmd>Telescope treesitter<CR>"    , "treesitter"  },
     f     = {"<Cmd>Telescope find_files<CR>"    , "files"       },
+    g     = {"<Cmd>Telescope git_status<CR>"    , "git status"  },
     h     = {"<Cmd>Telescope oldfiles<CR>"      , "file history"},
     s     = {"<Cmd>Telescope treesitter<CR>"    , "symbols"     },
     t     = {"<Cmd>Telescope live_grep<CR>"     , "text"        },
   },
 }, {prefix = "<Leader>"})
+-- }}}
 
--- tpope/vim-fugitive
+-- {{{ tpope/vim-fugitive
 wk.register({
   g = {
     name = "+git",
-    d = {"<Cmd>Gdiffsplit<CR>", "diff split"},
-    B = {"<Cmd>G blame<CR>"   , "blame"     },
-    g = {"<Cmd>G<CR>"         , "status"    },
+    d = {"<Cmd>Gdiffsplit<CR>", "diff split"     },
+    B = {"<Cmd>G blame<CR>"   , "blame"          },
+    g = {"<Cmd>G<CR>"         , "status"         },
+    x = {"<Cmd>GBrowse<CR>"   , "show in browser"},
   },
 }, {prefix = "<Leader>"})
+-- }}}
 
--- lewis6991/gitsigns.nvim
+-- {{{ lewis6991/gitsigns.nvim
 wk.register({
   g = {
     name = "+git",
@@ -178,65 +181,45 @@ wk.register({
 }, {mode = "v", prefix = "<Leader>"})
 -- }}}
 
--- {{{ neoclide/coc.nvim
--- Use tab for trigger completion with characters ahead and navigate.
-map("i", "<Tab>", [[pumvisible() ? "\<C-n>" : Check_back_space() ? "\<Tab>" : coc#refresh()]], opts.expr)
-map("i", "<S-Tab>", [[pumvisible() ? "\<C-p>" : "\<C-h>"]], opts.expr)
+-- {{{ hrsh7th/nvim-compe
+map("i", "<C-Space>", "compe#complete()", opts.expr)
+map("i", "<CR>", "compe#confirm(luaeval(\"require 'nvim-autopairs'.autopairs_cr()\"))", opts.expr)
+map("i", "<C-e>", "compe#close('<C-e>')", opts.expr)
+map("i", "<C-f>", "compe#scroll({ 'delta': +4 })", opts.expr)
+map("i", "<C-d>", "compe#scroll({ 'delta': -4 })", opts.expr)
 
-vim.cmd [[
-  function! Check_back_space() abort
-    let col = col('.') - 1
-    return !col || getline('.')[col - 1]  =~# '\s'
-  endfunction
-]]
+local check_back_space = function()
+  local col = vim.fn.col(".") - 1
+  return col == 0 or vim.fn.getline("."):sub(col, col):match("%s") ~= nil
+end
 
--- Use <c-space> to trigger completion.
-map("i", "<c-space>", "coc#refresh()", opts.expr)
+-- Use (s-)tab to:
+--  move to prev/next item in completion menuone
+--  jump to prev/next snippet's placeholder
+_G.tab_complete = function()
+  if vim.fn.pumvisible() == 1 then
+    return t "<C-n>"
+  elseif vim.fn['vsnip#available'](1) == 1 then
+    return t "<Plug>(vsnip-expand-or-jump)"
+  elseif check_back_space() then
+    return t "<Tab>"
+  else
+    return vim.fn['compe#complete']()
+  end
+end
+_G.s_tab_complete = function()
+  if vim.fn.pumvisible() == 1 then
+    return t "<C-p>"
+  elseif vim.fn['vsnip#jumpable'](-1) == 1 then
+    return t "<Plug>(vsnip-jump-prev)"
+  else
+    -- If <S-Tab> is not working in your terminal, change it to <C-h>
+    return t "<S-Tab>"
+  end
+end
 
--- Make <CR> auto-select the first completion item and notify coc.nvim to
--- format on enter, <CR> could be remapped by other vim plugin
-map("i", "<CR>", [[pumvisible() ? coc#_select_confirm() : ]] ..  [["\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"]], opts.expr)
-
--- Use `[c` and `]c` to navigate diagnostics
--- Use `:CocDiagnostics` to get all diagnostics of current buffer in location
--- list.
-map("n", "[c", "<Plug>(coc-diagnostic-prev)", opts.silent)
-map("n", "]c", "<Plug>(coc-diagnostic-next)", opts.silent)
-
--- GoTo code navigation.
-map("n", "gd", "<Plug>(coc-definition)", opts.silent)
-map("n", "gy", "<Plug>(coc-type-definition)", opts.silent)
-map("n", "gi", "<Plug>(coc-implementation)", opts.silent)
-map("n", "gr", "<Plug>(coc-references)", opts.silent)
-
--- Use K to show documentation in preview window.
-map("n", "K", "<Cmd>call Show_documentation()<CR>", opts.noremap)
-
-vim.cmd [[
-  function! Show_documentation()
-    if (index(['vim','help'], &filetype) >= 0)
-      execute 'h '.expand('<cword>')
-    elseif (coc#rpc#ready())
-      call CocActionAsync('doHover')
-    else
-      execute '!' . &keywordprg . " " . expand('<cword>')
-    endif
-  endfunction
-]]
-
--- Formatting selected code.
-map("x", "<Leader>cf", "<Plug>(coc-format-selected)", opts.silent)
-
--- Applying codeAction to the selected region.
-map("x", "<Leader>ca", "<Plug>(coc-codeaction-selected)", opts.silent)
-
--- Remap <C-f> and <C-b> for scroll float windows/popups.
-map("n", "<C-f>", [[coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"]], opts.expr_nowait)
-map("n", "<C-b>", [[coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"]], opts.expr_nowait)
-
-map("i", "<C-f>", [[coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<CR>" : "\<Right>"]], opts.expr_nowait)
-map("i", "<C-b>", [[coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<CR>" : "\<Left>"]], opts.expr_nowait)
-
-map("v", "<C-f>", [[coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"]], opts.expr_nowait)
-map("v", "<C-b>", [[coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"]], opts.expr_nowait)
+map("i", "<Tab>", "v:lua.tab_complete()", {expr = true})
+map("s", "<Tab>", "v:lua.tab_complete()", {expr = true})
+map("i", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
+map("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
 -- }}}

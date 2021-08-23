@@ -44,13 +44,15 @@ function gitsigns.setup()
       follow_files = true
     },
     current_line_blame = true,
-    current_line_blame_delay = 1000,
-    current_line_blame_position = "eol",
+    current_line_blame_opts = {
+      virt_text = true,
+      virt_text_pos = "eol",
+      delay = 1000,
+    },
     sign_priority = 6,
     update_debounce = 100,
     status_formatter = nil, -- Use default
     word_diff = false,
-    use_decoration_api = true,
     use_internal_diff = true,  -- If luajit is present
   }
 
