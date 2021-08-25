@@ -1,9 +1,9 @@
 --- norcalli/nvim-colorizer.lua
 -- @module plugins.nvim-colorizer
-local nvim_colorizer = {}
+local M = {}
 
-function nvim_colorizer.setup()
+function M.setup()
   require("colorizer").setup()
 end
 
-return nvim_colorizer
+return M

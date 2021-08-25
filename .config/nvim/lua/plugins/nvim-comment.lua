@@ -1,15 +1,17 @@
 --- terrortylor/nvim-comment
 -- @module plugins.nvim-comment
-local nvim_comment = {}
+local M = {}
 
-function nvim_comment.setup()
-  require("nvim_comment").setup {
+function M.setup()
+  require("nvim_comment").setup({
     comment_empty = false,
     create_mappings = false,
     hook = function()
       require("ts_context_commentstring.internal").update_commentstring()
-    end
-  }
+    end,
+  })
+
+  require("mappings.nvim-comment").setup()
 end
 
-return nvim_comment
+return M

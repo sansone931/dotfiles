@@ -1,9 +1,9 @@
 --- nvim-telescope/telescope.nvim
 -- @module plugins.telescope
-local telescope = {}
+local M = {}
 
-function telescope.setup()
-  require("telescope").setup{
+function M.setup()
+  require("telescope").setup({
     defaults = {
       vimgrep_arguments = {
         "rg",
@@ -12,7 +12,7 @@ function telescope.setup()
         "--with-filename",
         "--line-number",
         "--column",
-        "--smart-case"
+        "--smart-case",
       },
       prompt_prefix = "> ",
       selection_caret = "> ",
@@ -29,9 +29,9 @@ function telescope.setup()
           mirror = false,
         },
       },
-      file_sorter =  require("telescope.sorters").get_fuzzy_file,
+      file_sorter = require("telescope.sorters").get_fuzzy_file,
       file_ignore_patterns = {},
-      generic_sorter =  require("telescope.sorters").get_generic_fuzzy_sorter,
+      generic_sorter = require("telescope.sorters").get_generic_fuzzy_sorter,
       winblend = 0,
       border = {},
       borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
@@ -44,9 +44,11 @@ function telescope.setup()
       qflist_previewer = require("telescope.previewers").vim_buffer_qflist.new,
 
       -- Developer configurations: Not meant for general override
-      buffer_previewer_maker = require("telescope.previewers").buffer_previewer_maker
-    }
-  }
+      buffer_previewer_maker = require("telescope.previewers").buffer_previewer_maker,
+    },
+  })
+
+  require("mappings.telescope").setup()
 end
 
-return telescope
+return M

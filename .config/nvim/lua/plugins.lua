@@ -56,7 +56,12 @@ local plugins = {
       require("plugins.lualine").setup()
     end,
   },
-  { "romgrk/barbar.nvim" },
+  {
+    "romgrk/barbar.nvim",
+    config = function()
+      require("plugins.barbar").setup()
+    end,
+  },
   { "nvim-lua/popup.nvim" },
   { "nvim-lua/plenary.nvim" },
   {
@@ -84,7 +89,12 @@ local plugins = {
       require("plugins.nvim-comment").setup()
     end,
   },
-  { "tpope/vim-fugitive" },
+  {
+    "tpope/vim-fugitive",
+    config = function()
+      require("plugins.vim-fugitive").setup()
+    end,
+  },
   { "tpope/vim-rhubarb" },
   {
     "lewis6991/gitsigns.nvim",
@@ -126,23 +136,30 @@ local plugins = {
   },
 }
 
--- {{{ Install packer.nvim automatically if it isn't already installed
-local install_path = vim.fn.stdpath("data")
-  .. "/site/pack/packer/start/packer.nvim"
+--- @module plugins
+local M = {}
 
-if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
-  vim.fn.system({
-    "git",
-    "clone",
-    "https://github.com/wbthomason/packer.nvim",
-    install_path,
-  })
+function M.setup()
+  -- {{{ Install packer.nvim automatically if it isn't already installed
+  local install_path = vim.fn.stdpath("data")
+    .. "/site/pack/packer/start/packer.nvim"
 
-  vim.cmd([[packadd packer.nvim]])
+  if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
+    vim.fn.system({
+      "git",
+      "clone",
+      "https://github.com/wbthomason/packer.nvim",
+      install_path,
+    })
+
+    vim.cmd([[packadd packer.nvim]])
+  end
+  -- }}}
+
+  -- Load plugins
+  require("packer").startup(function(use)
+    use(plugins)
+  end)
 end
--- }}}
 
--- Load plugins
-require("packer").startup(function(use)
-  use(plugins)
-end)
+return M

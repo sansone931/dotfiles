@@ -1,10 +1,10 @@
 --- kyazdani42/nvim-tree.lua
 -- @module plugins.nvim-tree
-local nvim_tree = {}
+local M = {}
 
-function nvim_tree.setup()
+function M.setup()
   vim.g.nvim_tree_width = 35
-  vim.g.nvim_tree_ignore = {".git", "node_modules", ".cache"}
+  vim.g.nvim_tree_ignore = { ".git", "node_modules", ".cache" }
   vim.g.nvim_tree_follow = 1
   vim.g.nvim_tree_indent_markers = 1
   vim.g.nvim_tree_git_hl = 1
@@ -21,9 +21,11 @@ function nvim_tree.setup()
       renamed = "R",
       untracked = "U",
       deleted = "D",
-      ignored = ""
-    }
+      ignored = "",
+    },
   }
+
+  require("mappings.nvim-tree").setup()
 end
 
-return nvim_tree
+return M

@@ -1,9 +1,9 @@
 --- lewis6991/gitsigns.nvim
 -- @module plugins.gitsigns
-local gitsigns = {}
+local M = {}
 
-function gitsigns.setup()
-  require("gitsigns").setup {
+function M.setup()
+  require("gitsigns").setup({
     signs = {
       add = {
         hl = "GitSignsAdd",
@@ -41,7 +41,7 @@ function gitsigns.setup()
     keymaps = {},
     watch_index = {
       interval = 1000,
-      follow_files = true
+      follow_files = true,
     },
     current_line_blame = true,
     current_line_blame_opts = {
@@ -53,15 +53,17 @@ function gitsigns.setup()
     update_debounce = 100,
     status_formatter = nil, -- Use default
     word_diff = false,
-    use_internal_diff = true,  -- If luajit is present
-  }
+    use_internal_diff = true, -- If luajit is present
+  })
 
-  vim.cmd [[
+  vim.cmd([[
     augroup gitsigns
       autocmd!
       autocmd VimEnter * highlight link GitSignsCurrentLineBlame GruvboxBg4
     augroup END
-  ]]
+  ]])
+
+  require("mappings.gitsigns").setup()
 end
 
-return gitsigns
+return M

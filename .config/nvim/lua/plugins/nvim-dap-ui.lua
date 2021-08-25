@@ -1,9 +1,9 @@
 --- rcarriga/nvim-dap-ui
 -- @module plugins.nvim-dap-ui
-local nvim_dap_ui = {}
+local M = {}
 
-function nvim_dap_ui.setup()
-  require("dapui").setup {
+function M.setup()
+  require("dapui").setup({
     icons = { expanded = "▾", collapsed = "▸" },
     mappings = {
       -- Use a table to apply multiple mappings
@@ -40,7 +40,7 @@ function nvim_dap_ui.setup()
       max_width = nil, -- Floats will be treated as percentage of your screen.
     },
     windows = { indent = 1 },
-  }
+  })
 end
 
-return nvim_dap_ui
+return M

@@ -1,8 +1,8 @@
 --- Pocco81/DAPInstall.nvim
 -- @module plugins.dapinstall
-local dapinstall = {}
+local M = {}
 
-function dapinstall.setup()
+function M.setup()
   local dap_install = require("dap-install")
   local dbg_list = require("dap-install.debuggers_list").debuggers
 
@@ -11,4 +11,4 @@ function dapinstall.setup()
   end
 end
 
-return dapinstall
+return M

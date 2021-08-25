@@ -1,14 +1,16 @@
 --- mfussenegger/nvim-dap
 -- @module plugins.nvim-dap
-local nvim_dap = {}
+local M = {}
 
-function nvim_dap.setup()
+function M.setup()
   local dap = require("dap")
 
   dap.defaults.fallback.external_terminal = {
     command = "/usr/bin/alacritty",
-    args = {"-e"},
+    args = { "-e" },
   }
+
+  require("mappings.nvim-dap").setup()
 end
 
-return nvim_dap
+return M

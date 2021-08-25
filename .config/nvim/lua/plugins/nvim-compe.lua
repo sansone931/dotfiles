@@ -36,6 +36,8 @@ function M.setup()
       emoji = { kind = " ﲃ  (Emoji)", filetypes = { "markdown", "text" } },
     },
   })
+
+  require("mappings.nvim-compe").setup()
 end
 
 return M
