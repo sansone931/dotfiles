@@ -30,6 +30,14 @@ local M = gears.table.join(
   }),
   -- }}}
 
+  -- Emoji picker
+  awful.key({ modkey }, "e", function()
+    awful.spawn.with_shell(variables.emoji_picker)
+  end, {
+    description = "emoji picker",
+    group = "hotkeys",
+  }),
+
   -- X screen locker
   awful.key({ altkey, "Control" }, "l", function()
     awful.spawn(variables.scrlocker)
@@ -317,11 +325,11 @@ local M = gears.table.join(
   }),
   -- }}}
 
-  -- Menubar
+  -- Application launcher
   awful.key({ modkey }, "p", function()
-    menubar.show()
+    awful.spawn.with_shell(variables.application_launcher)
   end, {
-    description = "show the menubar",
+    description = "application launcher",
     group = "launcher",
   })
 )

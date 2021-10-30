@@ -9,6 +9,8 @@ local M = {
   restore_wallpaper = "nitrogen --restore",
   screenshot = "screenshot",
   full_screenshot = "screenshot --full",
+  application_launcher = "rofi -show",
+  emoji_picker = "splatmoji type",
 }
 
 return M
