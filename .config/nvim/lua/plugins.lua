@@ -102,7 +102,6 @@ local plugins = {
       require("plugins.gitsigns").setup()
     end,
   },
-  { "sheerun/vim-polyglot" },
   {
     "nvim-treesitter/nvim-treesitter",
     run = ":TSUpdate",

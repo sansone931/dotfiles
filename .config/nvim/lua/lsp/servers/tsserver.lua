@@ -10,10 +10,7 @@ function M.setup()
 
       -- format on save
       vim.cmd([[
-      augroup tsserver
-        autocmd!
         autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()
-      augroup END
       ]])
 
       -- {{{ jose-elias-alvarez/nvim-lsp-ts-utils
