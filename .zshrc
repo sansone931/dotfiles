@@ -76,6 +76,11 @@ bindkey '^[[1;5C' forward-word
 bindkey '^H' backward-kill-word                      # delete previous word with ctrl+backspace
 bindkey '^[[Z' undo                                  # Shift+tab undo last action
 
+# Edit command line in editor with ctrl+x ctrl+e
+autoload -Uz edit-command-line
+zle -N edit-command-line
+bindkey '^X^E' edit-command-line
+
 ## Alias section
 alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 alias cp='cp -i'
@@ -88,6 +93,7 @@ alias diff='diff --color=auto'
 alias grep='grep --color=auto'
 alias ip='ip -color=auto'
 alias ffmpeg='ffmpeg -hide_banner'
+alias copy='xclip -se c'
 
 ## Theming section
 autoload -U compinit colors zcalc
