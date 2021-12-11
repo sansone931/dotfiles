@@ -3,7 +3,7 @@
 local M = {}
 
 function M.setup()
-  vim.g.dap_virtual_text = true
+  require("nvim-dap-virtual-text").setup()
 end
 
 return M

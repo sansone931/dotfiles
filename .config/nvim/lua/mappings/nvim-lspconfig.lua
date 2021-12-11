@@ -8,17 +8,17 @@ function M.setup()
   local opts = { silent = true, noremap = true }
 
   map("n", "<S-k>", "<Cmd>lua vim.lsp.buf.hover()<CR>", opts)
-  map("n", "[d", "<Cmd>lua vim.lsp.diagnostic.goto_prev()<CR>", opts)
-  map("n", "]d", "<Cmd>lua vim.lsp.diagnostic.goto_next()<CR>", opts)
+  map("n", "[d", '<Cmd>lua vim.diagnostic.goto_prev({ float = { source = "always" } })<CR>', opts)
+  map("n", "]d", '<Cmd>lua vim.diagnostic.goto_next({ float = { source = "always" } })<CR>', opts)
 
   wk.register({
     l = {
       name = "lsp",
-      a = { "<Cmd>lua vim.lsp.buf.code_action()<CR>"                 , "code action"      },
-      d = { "<Cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>", "line diagnostics" },
-      f = { "<Cmd>lua vim.lsp.buf.formatting()<CR>"                  , "format"           },
-      r = { "<Cmd>lua vim.lsp.buf.rename()<CR>"                      , "rename"           },
-      q = { "<Cmd>lua vim.lsp.diagnostic.set_loclist()<CR>"          , "quickfix"         },
+      a = { "<Cmd>lua vim.lsp.buf.code_action()<CR>"                            , "code action"      },
+      d = { '<Cmd>lua vim.diagnostic.open_float(nil, { source = "always" })<CR>', "line diagnostics" },
+      f = { "<Cmd>lua vim.lsp.buf.formatting()<CR>"                             , "format"           },
+      r = { "<Cmd>lua vim.lsp.buf.rename()<CR>"                                 , "rename"           },
+      q = { "<Cmd>lua vim.diagnostic.setloclist()<CR>"                          , "quickfix"         },
     },
   }, { prefix = "<Leader>" })
 

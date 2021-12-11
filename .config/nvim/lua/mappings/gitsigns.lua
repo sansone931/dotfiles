@@ -15,12 +15,12 @@ function M.setup()
   wk.register({
     g = {
       name = "+git",
-      s = { '<Cmd>lua require("gitsigns").stage_hunk()<CR>'     , "stage hunk"      },
-      u = { '<Cmd>lua require("gitsigns").undo_stage_hunk()<CR>', "undo stage hunk" },
-      p = { '<Cmd>lua require("gitsigns").preview_hunk()<CR>'   , "preview hunk"    },
-      r = { '<Cmd>lua require("gitsigns").reset_hunk()<CR>'     , "reset hunk"      },
-      R = { '<Cmd>lua require("gitsigns").reset_buffer()<CR>'   , "reset buffer"    },
-      b = { '<Cmd>lua require("gitsigns").blame_line(true)<CR>' , "blame line"      },
+      s = { '<Cmd>lua require("gitsigns").stage_hunk()<CR>'               , "stage hunk"      },
+      u = { '<Cmd>lua require("gitsigns").undo_stage_hunk()<CR>'          , "undo stage hunk" },
+      p = { '<Cmd>lua require("gitsigns").preview_hunk()<CR>'             , "preview hunk"    },
+      r = { '<Cmd>lua require("gitsigns").reset_hunk()<CR>'               , "reset hunk"      },
+      R = { '<Cmd>lua require("gitsigns").reset_buffer()<CR>'             , "reset buffer"    },
+      b = { '<Cmd>lua require("gitsigns").blame_line({ full = true })<CR>', "blame line"      },
     },
   }, { prefix = "<Leader>" })
 

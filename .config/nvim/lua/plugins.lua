@@ -13,10 +13,6 @@ local plugins = {
     end,
   },
   {
-    "jose-elias-alvarez/nvim-lsp-ts-utils",
-    branch = "main",
-  },
-  {
     "hrsh7th/nvim-compe",
     config = function()
       require("plugins.nvim-compe").setup()
@@ -28,9 +24,6 @@ local plugins = {
       require("plugins.nvim-autopairs").setup()
     end,
   },
-  { "hrsh7th/vim-vsnip" },
-  { "hrsh7th/vim-vsnip-integ" },
-  { "rafamadriz/friendly-snippets" },
   {
     "gruvbox-community/gruvbox",
     config = function()

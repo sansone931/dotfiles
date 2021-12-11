@@ -31,7 +31,6 @@ function M.setup()
       calc = { kind = "   (Calc)" },
       nvim_lsp = { kind = "   (LSP)" },
       nvim_lua = true,
-      vsnip = { kind = "   (Snippet)" },
       spell = { kind = "   (Spell)" },
       emoji = { kind = " ﲃ  (Emoji)", filetypes = { "markdown", "text" } },
     },
