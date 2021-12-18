@@ -7,6 +7,13 @@ vim.cmd([[
   augroup END
 ]])
 
+vim.cmd([[
+  augroup git_commit
+    autocmd!
+    autocmd FileType gitcommit setlocal spell textwidth=72 colorcolumn=72
+  augroup END
+]])
+
 vim.opt.clipboard = "unnamedplus"
 vim.opt.cmdheight = 2
 vim.opt.colorcolumn = { 80 }

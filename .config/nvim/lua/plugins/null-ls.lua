@@ -3,7 +3,8 @@
 local M = {}
 
 function M.setup()
-  local builtins = require("null-ls").builtins
+  local null_ls = require("null-ls")
+  local builtins = null_ls.builtins
 
   local sources = {
     -- {{{ Formatters
@@ -27,8 +28,7 @@ function M.setup()
     -- }}}
   }
 
-  require("null-ls").config({ sources = sources })
-  require("lspconfig")["null-ls"].setup({})
+  null_ls.setup({ sources = sources })
 end
 
 return M
