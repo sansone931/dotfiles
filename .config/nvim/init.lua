@@ -51,8 +51,8 @@ vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 vim.g.python3_host_prog = "/usr/bin/python"
 vim.g.node_host_prog = "/usr/lib/node_modules/neovim/bin/cli.js"
 
--- Needed for nvim-compe
-vim.opt.completeopt = "menuone,noselect"
+-- Needed for nvim-cmp
+vim.opt.completeopt = "menu,menuone,noselect"
 
 -- {{{ Base mappings
 local map = vim.api.nvim_set_keymap

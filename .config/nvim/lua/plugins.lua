@@ -12,10 +12,15 @@ local plugins = {
       require("plugins.null-ls").setup()
     end,
   },
+  { "L3MON4D3/LuaSnip" },
+  { "hrsh7th/cmp-nvim-lsp" },
+  { "hrsh7th/cmp-buffer" },
+  { "hrsh7th/cmp-path" },
+  { "hrsh7th/cmp-cmdline" },
   {
-    "hrsh7th/nvim-compe",
+    "hrsh7th/nvim-cmp",
     config = function()
-      require("plugins.nvim-compe").setup()
+      require("plugins.nvim-cmp").setup()
     end,
   },
   {
