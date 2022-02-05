@@ -1,4 +1,4 @@
---- morhetz/gruvbox
+--- gruvbox-community/gruvbox
 -- @module plugins.gruvbox
 local M = {}
 

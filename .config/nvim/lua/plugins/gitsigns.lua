@@ -9,9 +9,9 @@ function M.setup()
   })
 
   vim.cmd([[
-    augroup gitsigns
+    augroup gitsigns_colors
       autocmd!
-      autocmd VimEnter * highlight link GitSignsCurrentLineBlame GruvboxBg4
+      autocmd ColorScheme * highlight link GitSignsCurrentLineBlame GruvboxBg4
     augroup END
   ]])
 

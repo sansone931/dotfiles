@@ -22,6 +22,7 @@ vim.opt.diffopt:append("vertical")
 vim.opt.expandtab = true
 vim.opt.hidden = true
 vim.opt.ignorecase = true
+vim.opt.linebreak = true
 vim.opt.list = true
 vim.opt.mouse = "a"
 vim.opt.showmode = false
@@ -81,7 +82,7 @@ map("n", "<C-Left>", "<Cmd>vertical resize -2<CR>", opts)
 map("n", "<C-Right>", "<Cmd>vertical resize +2<CR>", opts)
 
 -- Disable search highlight
-map("n", "<Leader>n", "<Cmd>let @/ = ''<CR>", opts)
+map("n", "<Leader>n", "<Cmd>nohlsearch<CR>", opts)
 -- }}}
 
 -- Initialize plugins

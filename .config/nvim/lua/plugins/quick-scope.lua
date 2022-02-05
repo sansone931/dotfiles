@@ -8,8 +8,8 @@ function M.setup()
   vim.cmd([[
   augroup qs_colors
     autocmd!
-    autocmd VimEnter * highlight QuickScopePrimary guifg='#458588' gui=underline ctermfg=155 cterm=underline
-    autocmd VimEnter * highlight QuickScopeSecondary guifg='#cc241d' gui=underline ctermfg=81 cterm=underline
+    autocmd ColorScheme * highlight QuickScopePrimary guifg='#458588' gui=underline ctermfg=155 cterm=underline
+    autocmd ColorScheme * highlight QuickScopeSecondary guifg='#cc241d' gui=underline ctermfg=81 cterm=underline
   augroup END
   ]])
 end
