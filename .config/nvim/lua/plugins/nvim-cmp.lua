@@ -122,31 +122,6 @@ function M.setup()
       { name = "cmdline" },
     }),
   })
-
-  vim.cmd([[
-    augroup cmp_colors
-      autocmd!
-      autocmd ColorScheme * highlight link CmpItemAbbr GruvboxFg0
-      autocmd ColorScheme * highlight link CmpItemAbbrDeprecated GruvboxFg0
-      autocmd ColorScheme * highlight link CmpItemAbbrMatch GruvboxBlue
-      autocmd ColorScheme * highlight link CmpItemAbbrMatchFuzzy GruvboxAqua
-      autocmd ColorScheme * highlight link CmpItemKind GruvboxOrange
-      autocmd ColorScheme * highlight link CmpItemKindClass GruvboxGreen
-      autocmd ColorScheme * highlight link CmpItemKindConstructor GruvboxGreen
-      autocmd ColorScheme * highlight link CmpItemKindField GruvboxAqua
-      autocmd ColorScheme * highlight link CmpItemKindFile GruvboxOrange
-      autocmd ColorScheme * highlight link CmpItemKindFolder GruvboxOrange
-      autocmd ColorScheme * highlight link CmpItemKindFunction GruvboxPurple
-      autocmd ColorScheme * highlight link CmpItemKindInterface GruvboxGreen
-      autocmd ColorScheme * highlight link CmpItemKindKeyword Keyword
-      autocmd ColorScheme * highlight link CmpItemKindMethod GruvboxPurple
-      autocmd ColorScheme * highlight link CmpItemKindSnippet GruvboxYellow
-      autocmd ColorScheme * highlight link CmpItemKindText GruvboxFg0
-      autocmd ColorScheme * highlight link CmpItemKindValue GruvboxOrange
-      autocmd ColorScheme * highlight link CmpItemKindVariable GruvboxBlue
-      autocmd ColorScheme * highlight link CmpItemMenu GruvboxGray
-    augroup END
-  ]])
 end
 
 return M

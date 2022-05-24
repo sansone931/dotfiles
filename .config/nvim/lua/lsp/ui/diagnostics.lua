@@ -9,11 +9,13 @@ function M.setup()
     --   spacing = 4,
     --   source = "always",
     -- },
+    float = {
+      source = "always",
+    },
     signs = true,
     underline = true,
     update_in_insert = false,
     severity_sort = false,
-    source = "always",
   })
 end
 

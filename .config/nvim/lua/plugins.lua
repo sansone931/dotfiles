@@ -31,6 +31,7 @@ local plugins = {
   },
   {
     "gruvbox-community/gruvbox",
+    after = { "quick-scope", "gitsigns.nvim" },
     config = function()
       require("plugins.gruvbox").setup()
     end,
@@ -116,6 +117,7 @@ local plugins = {
   },
   {
     "Pocco81/DAPInstall.nvim",
+    commit = "24923c3819a450a772bb8f675926d530e829665f",
     config = function()
       require("plugins.dapinstall").setup()
     end,
