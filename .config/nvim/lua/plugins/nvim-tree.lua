@@ -3,23 +3,6 @@
 local M = {}
 
 function M.setup()
-  vim.g.nvim_tree_git_hl = 1
-  vim.g.nvim_tree_special_files = {}
-
-  vim.g.nvim_tree_icons = {
-    default = "",
-    symlink = "",
-    git = {
-      unstaged = "M",
-      staged = "A",
-      unmerged = "C",
-      renamed = "R",
-      untracked = "U",
-      deleted = "D",
-      ignored = "",
-    },
-  }
-
   local tree_cb = require("nvim-tree.config").nvim_tree_callback
 
   require("nvim-tree").setup({
@@ -41,6 +24,25 @@ function M.setup()
     filters = {
       dotfiles = false,
       custom = { ".git", "node_modules", ".cache" },
+    },
+    renderer = {
+      highlight_git = true,
+      special_files = {},
+      icons = {
+        glyphs = {
+          default = "",
+          symlink = "",
+          git = {
+            unstaged = "M",
+            staged = "A",
+            unmerged = "C",
+            renamed = "R",
+            untracked = "U",
+            deleted = "D",
+            ignored = "",
+          },
+        },
+      },
     },
   })
 
