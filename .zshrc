@@ -30,7 +30,7 @@ autoload -Uz bracketed-paste-url-magic
 zle -N bracketed-paste bracketed-paste-url-magic
 
 # history
-HISTFILE=$HOME/.zsh_history
+HISTFILE=$HOME/.zhistory
 HISTSIZE=10000
 SAVEHIST=10000
 setopt BANG_HIST                 # Treat the '!' character specially during expansion.
@@ -130,9 +130,3 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=8'
 
 # Set terminal window and tab/icon title
 source $HOME/.config/zsh/termsupport.zsh
-
-# nvm (https://github.com/nvm-sh/nvm)
-source $HOME/.config/zsh/nvm.zsh
-
-# pyenv (https://github.com/pyenv/pyenv)
-source $HOME/.config/zsh/pyenv.zsh
