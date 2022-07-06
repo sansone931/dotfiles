@@ -31,9 +31,15 @@ local plugins = {
   },
   {
     "gruvbox-community/gruvbox",
-    after = { "quick-scope", "gitsigns.nvim" },
+    disable = true,
     config = function()
       require("plugins.gruvbox").setup()
+    end,
+  },
+  {
+    "shaunsingh/nord.nvim",
+    config = function()
+      require("plugins.nord").setup()
     end,
   },
   {

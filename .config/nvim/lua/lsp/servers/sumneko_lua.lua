@@ -29,6 +29,11 @@ function M.setup()
         },
       },
     },
+    on_attach = function(client)
+      -- formatting is handled by null-ls
+      client.resolved_capabilities.document_formatting = false
+      client.resolved_capabilities.document_range_formatting = false
+    end,
   })
 end
 

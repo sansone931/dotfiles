@@ -3,18 +3,7 @@
 local M = {}
 
 function M.setup()
-  require("gitsigns").setup({
-    keymaps = {},
-    current_line_blame = true,
-  })
-
-  vim.cmd([[
-    augroup gitsigns_colors
-      autocmd!
-      autocmd ColorScheme * highlight link GitSignsCurrentLineBlame GruvboxBg4
-    augroup END
-  ]])
-
+  require("gitsigns").setup()
   require("mappings.gitsigns").setup()
 end
 
