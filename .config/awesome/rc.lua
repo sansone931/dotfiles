@@ -8,7 +8,6 @@ pcall(require, "luarocks.loader")
 
 local awful = require("awful")
 require("awful.autofocus")
-local beautiful = require("beautiful")
 
 require("theme").setup()
 require("menu").setup_main_menu()
@@ -19,16 +18,17 @@ awful.util.tagnames = { "1", "2", "3", "4", "5" }
 awful.util.taglist_buttons = require("mappings.taglist-buttons")
 awful.util.tasklist_buttons = require("mappings.tasklist-buttons")
 
+-- XDG autostart
+require("autostart").setup()
+
 -- Layout
 require("layout").setup()
 
 -- Global mappings
 require("mappings").setup_global_mappings()
 
--- Screen
-awful.screen.connect_for_each_screen(function(s)
-  beautiful.at_screen_connect(s)
-end)
+-- Screen and Panel
+require("screen").setup()
 
 -- Rules
 require("rules").setup()

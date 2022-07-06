@@ -267,14 +267,14 @@ local M = gears.table.join(
 
   -- {{{ Brightness
   awful.key({}, "XF86MonBrightnessUp", function()
-    awful.spawn.with_shell("xbacklight -inc 10")
+    awful.spawn.with_shell("brightnessctl set 10+")
   end, {
     description = "change brightness",
     group = "hotkeys",
   }),
 
   awful.key({}, "XF86MonBrightnessDown", function()
-    awful.spawn.with_shell("xbacklight -dec 10")
+    awful.spawn.with_shell("brightnessctl set 10-")
   end, {
     description = "change brightness",
     group = "hotkeys",

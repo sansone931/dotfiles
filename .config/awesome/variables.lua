@@ -10,7 +10,7 @@ local M = {
   screenshot = "screenshot",
   full_screenshot = "screenshot --full",
   application_launcher = "rofi -show",
-  emoji_picker = "splatmoji type",
+  emoji_picker = "rofimoji",
 }
 
 return M
