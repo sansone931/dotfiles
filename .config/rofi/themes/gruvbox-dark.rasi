@@ -40,7 +40,7 @@ window {
     padding:          2;
     background-color: var(background);
     border:           2;
-    width:            800px;
+    width:            32em;
 }
 mainbox {
     padding: 0;
