@@ -6,7 +6,6 @@ function M.setup()
   local tree_cb = require("nvim-tree.config").nvim_tree_callback
 
   require("nvim-tree").setup({
-    disable_netrw = false,
     update_focused_file = {
       enable = true,
     },
@@ -21,17 +20,12 @@ function M.setup()
       number = true,
       relativenumber = true,
     },
-    filters = {
-      dotfiles = false,
-      custom = { ".git", "node_modules", ".cache" },
-    },
     renderer = {
       highlight_git = true,
       special_files = {},
       icons = {
         glyphs = {
           default = "",
-          symlink = "",
           git = {
             unstaged = "M",
             staged = "A",
