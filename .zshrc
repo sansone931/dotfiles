@@ -15,6 +15,8 @@ setopt appendhistory        # Immediately append history instead of overwriting
 setopt histignorealldups    # If a new command is a duplicate, remove the older one
 setopt autocd               # if only directory path is entered, cd there.
 
+unsetopt flow_control       # Disable output flow control via start/stop characters (^S/^Q)
+
 zstyle ':completion:*' menu select
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' \
   'r:|[._-]=* r:|=*' 'l:|=* r:|=*'                         # Case insensitive tab completion
