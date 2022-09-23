@@ -7,6 +7,7 @@ function M.setup()
   table.insert(runtime_path, "lua/?/init.lua")
 
   require("lspconfig").sumneko_lua.setup({
+    capabilities = require("plugins.nvim-cmp").capabilities,
     settings = {
       Lua = {
         runtime = {
