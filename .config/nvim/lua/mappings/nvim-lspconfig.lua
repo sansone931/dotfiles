@@ -14,21 +14,13 @@ function M.setup()
   wk.register({
     l = {
       name = "lsp",
-      a = { "<Cmd>lua vim.lsp.buf.code_action()<CR>"  , "code action"      },
-      d = { '<Cmd>lua vim.diagnostic.open_float()<CR>', "line diagnostics" },
-      f = { "<Cmd>lua vim.lsp.buf.formatting()<CR>"   , "format"           },
-      r = { "<Cmd>lua vim.lsp.buf.rename()<CR>"       , "rename"           },
-      q = { "<Cmd>lua vim.diagnostic.setloclist()<CR>", "quickfix"         },
+      a = { "<Cmd>lua vim.lsp.buf.code_action()<CR>"           , "code action"      },
+      d = { '<Cmd>lua vim.diagnostic.open_float()<CR>'         , "line diagnostics" },
+      f = { "<Cmd>lua vim.lsp.buf.format({ async = true })<CR>", "format"           },
+      r = { "<Cmd>lua vim.lsp.buf.rename()<CR>"                , "rename"           },
+      q = { "<Cmd>lua vim.diagnostic.setloclist()<CR>"         , "quickfix"         },
     },
   }, { prefix = "<Leader>" })
-
-  wk.register({
-    l = {
-      name = "lsp",
-      a = { ":lua vim.lsp.buf.range_code_action()<CR>", "code action" },
-      f = { ":lua vim.lsp.buf.range_formatting()<CR>" , "format"      },
-    },
-  }, { mode = "v", prefix = "<Leader>" })
 
   wk.register({
     d = { "<Cmd>lua vim.lsp.buf.definition()<CR>"     , "definition"      },
