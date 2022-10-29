@@ -2,12 +2,7 @@
 -- @module plugins.nvim-cmp
 local M = {}
 
-local function get_capabilities()
-  local capabilities = vim.lsp.protocol.make_client_capabilities()
-  return require("cmp_nvim_lsp").update_capabilities(capabilities)
-end
-
-M.capabilities = get_capabilities()
+M.capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 function M.setup()
   local kind_icons = {
