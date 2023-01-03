@@ -68,6 +68,12 @@ local plugins = {
       require("plugins.barbar").setup()
     end,
   },
+  {
+    "stevearc/dressing.nvim",
+    config = function()
+      require("plugins.dressing").setup()
+    end,
+  },
   { "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
   {
     "nvim-telescope/telescope.nvim",
