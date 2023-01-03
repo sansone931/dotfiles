@@ -1,10 +1,7 @@
 --- kyazdani42/nvim-tree.lua
--- @module plugins.nvim-tree
 local M = {}
 
 function M.setup()
-  local tree_cb = require("nvim-tree.config").nvim_tree_callback
-
   require("nvim-tree").setup({
     update_focused_file = {
       enable = true,
@@ -13,8 +10,8 @@ function M.setup()
       width = 35,
       mappings = {
         list = {
-          { key = "l", cb = tree_cb("edit") },
-          { key = "h", cb = tree_cb("close_node") },
+          { key = "l", action = "edit" },
+          { key = "h", action = "close_node" },
         },
       },
       number = true,

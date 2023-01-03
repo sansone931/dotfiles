@@ -1,10 +1,10 @@
 --- hrsh7th/nvim-cmp
--- @module plugins.nvim-cmp
 local M = {}
 
 M.capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 function M.setup()
+  -- https://github.com/microsoft/vscode-codicons/raw/main/dist/codicon.ttf
   local kind_icons = {
     Text = " ",
     Method = " ",
@@ -108,7 +108,7 @@ function M.setup()
     }),
   })
 
-  cmp.setup.cmdline("/", {
+  cmp.setup.cmdline({ "/", "?" }, {
     mapping = cmp.mapping.preset.cmdline(),
     sources = {
       { name = "buffer" },

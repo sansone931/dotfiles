@@ -1,4 +1,4 @@
---- @module lsp.ui
+--- lsp ui
 local M = {}
 
 function M.setup()

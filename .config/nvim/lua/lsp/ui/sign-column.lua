@@ -1,4 +1,4 @@
---- @module lsp.ui.sign-column
+--- lsp sign column
 local M = {}
 
 function M.setup()

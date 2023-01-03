@@ -1,4 +1,5 @@
---- @module lsp.servers.tsserver
+--- tsserver
+-- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#tsserver
 local M = {}
 
 function M.setup()

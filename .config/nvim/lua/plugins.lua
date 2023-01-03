@@ -11,6 +11,7 @@ local plugins = {
     config = function()
       require("plugins.null-ls").setup()
     end,
+    requires = { "nvim-lua/plenary.nvim" },
   },
   { "L3MON4D3/LuaSnip" },
   { "hrsh7th/cmp-nvim-lsp" },
@@ -67,14 +68,13 @@ local plugins = {
       require("plugins.barbar").setup()
     end,
   },
-  { "nvim-lua/popup.nvim" },
-  { "nvim-lua/plenary.nvim" },
   { "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
   {
     "nvim-telescope/telescope.nvim",
     config = function()
       require("plugins.telescope").setup()
     end,
+    requires = { "nvim-lua/plenary.nvim" },
   },
   {
     "folke/which-key.nvim",
@@ -142,7 +142,6 @@ local plugins = {
   },
 }
 
---- @module plugins
 local M = {}
 
 function M.setup()

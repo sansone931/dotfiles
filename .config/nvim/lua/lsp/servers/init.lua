@@ -1,7 +1,7 @@
---- @module lsp.servers
+--- Server configurations
+-- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
 local M = {}
 
--- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
 function M.setup()
   require("lsp.servers.pyright").setup()
   require("lsp.servers.sumneko_lua").setup()
