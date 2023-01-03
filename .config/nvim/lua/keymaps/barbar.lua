@@ -3,8 +3,8 @@ local M = {}
 
 function M.setup()
   local wk = require("which-key")
-  local map = vim.api.nvim_set_keymap
-  local opts = { silent = true, noremap = true }
+  local map = vim.keymap.set
+  local opts = { silent = true }
 
   map("n", "<S-Tab>", "<Cmd>BufferPrevious<CR>", opts)
   map("n", "<Tab>", "<Cmd>BufferNext<CR>", opts)

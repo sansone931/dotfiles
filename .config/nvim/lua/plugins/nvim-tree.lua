@@ -37,7 +37,7 @@ function M.setup()
     },
   })
 
-  require("mappings.nvim-tree").setup()
+  require("keymaps.nvim-tree").setup()
 end
 
 return M

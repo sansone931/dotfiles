@@ -2,7 +2,7 @@
 local M = {}
 
 function M.setup()
-  require("mappings.vim-fugitive").setup()
+  require("keymaps.vim-fugitive").setup()
 end
 
 return M

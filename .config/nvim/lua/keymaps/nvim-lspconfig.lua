@@ -3,8 +3,8 @@ local M = {}
 
 function M.setup()
   local wk = require("which-key")
-  local map = vim.api.nvim_set_keymap
-  local opts = { silent = true, noremap = true }
+  local map = vim.keymap.set
+  local opts = { silent = true }
 
   map("n", "<S-k>", "<Cmd>lua vim.lsp.buf.hover()<CR>", opts)
   map("n", "[d", '<Cmd>lua vim.diagnostic.goto_prev()<CR>', opts)

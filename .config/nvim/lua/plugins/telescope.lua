@@ -15,7 +15,7 @@ function M.setup()
   })
 
   require("telescope").load_extension("fzf")
-  require("mappings.telescope").setup()
+  require("keymaps.telescope").setup()
 end
 
 return M

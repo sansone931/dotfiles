@@ -3,8 +3,8 @@ local M = {}
 
 function M.setup()
   local wk = require("which-key")
-  local map = vim.api.nvim_set_keymap
-  local opts = { silent = true, noremap = true }
+  local map = vim.keymap.set
+  local opts = { silent = true }
 
   map("n", "[g", '<Cmd>lua require("gitsigns.actions").prev_hunk()<CR>', opts)
   map("n", "]g", '<Cmd>lua require("gitsigns.actions").next_hunk()<CR>', opts)

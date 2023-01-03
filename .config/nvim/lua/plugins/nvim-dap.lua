@@ -9,7 +9,7 @@ function M.setup()
     args = { "-e" },
   }
 
-  require("mappings.nvim-dap").setup()
+  require("keymaps.nvim-dap").setup()
 end
 
 return M

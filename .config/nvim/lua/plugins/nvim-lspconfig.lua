@@ -5,7 +5,7 @@ function M.setup()
   require("lsp.servers").setup()
   require("lsp.ui").setup()
 
-  require("mappings.nvim-lspconfig").setup()
+  require("keymaps.nvim-lspconfig").setup()
 end
 
 return M

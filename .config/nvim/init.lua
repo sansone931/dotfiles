@@ -66,8 +66,8 @@ vim.opt.completeopt = "menu,menuone,noselect"
 vim.g.python3_host_prog = "/usr/bin/python"
 vim.g.node_host_prog = "/usr/lib/node_modules/neovim/bin/cli.js"
 
--- {{{ Base mappings
-local map = vim.api.nvim_set_keymap
+-- {{{ Base keymaps
+local map = vim.keymap.set
 
 local function t(str)
   return vim.api.nvim_replace_termcodes(str, true, true, true)
@@ -75,7 +75,7 @@ end
 
 vim.g.mapleader = t("<Space>")
 
-local opts = { silent = true, noremap = true }
+local opts = { silent = true }
 
 -- Better indenting
 map("v", "<", "<gv", opts)

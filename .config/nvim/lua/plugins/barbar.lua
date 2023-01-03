@@ -2,7 +2,7 @@
 local M = {}
 
 function M.setup()
-  require("mappings.barbar").setup()
+  require("keymaps.barbar").setup()
 end
 
 return M

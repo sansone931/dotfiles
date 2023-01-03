@@ -10,7 +10,7 @@ function M.setup()
     end,
   })
 
-  require("mappings.nvim-comment").setup()
+  require("keymaps.nvim-comment").setup()
 end
 
 return M
