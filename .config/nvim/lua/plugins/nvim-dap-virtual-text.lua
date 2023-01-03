@@ -1,5 +1,4 @@
 --- theHamsta/nvim-dap-virtual-text
--- @module plugins.nvim-dap-virtual-text
 local M = {}
 
 function M.setup()

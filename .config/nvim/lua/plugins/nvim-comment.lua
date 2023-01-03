@@ -1,5 +1,4 @@
 --- terrortylor/nvim-comment
--- @module plugins.nvim-comment
 local M = {}
 
 function M.setup()

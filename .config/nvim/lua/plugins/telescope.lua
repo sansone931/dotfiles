@@ -1,5 +1,4 @@
 --- nvim-telescope/telescope.nvim
--- @module plugins.telescope
 local M = {}
 
 function M.setup()

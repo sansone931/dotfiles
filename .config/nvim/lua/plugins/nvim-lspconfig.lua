@@ -1,5 +1,4 @@
 --- neovim/nvim-lspconfig
--- @module plugins.nvim-lspconfig
 local M = {}
 
 function M.setup()

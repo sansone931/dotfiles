@@ -1,5 +1,4 @@
 --- hoob3rt/lualine.nvim
--- @module plugins.lualine
 local M = {}
 
 function M.setup()

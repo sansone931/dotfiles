@@ -1,5 +1,4 @@
 --- kyazdani42/nvim-tree.lua
--- @module mappings.nvim-tree
 local M = {}
 
 function M.setup()

@@ -1,5 +1,4 @@
 --- Pocco81/DAPInstall.nvim
--- @module plugins.dapinstall
 local M = {}
 
 function M.setup()

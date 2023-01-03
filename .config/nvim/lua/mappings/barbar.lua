@@ -1,5 +1,4 @@
 --- romgrk/barbar.nvim
--- @module mappings.barbar
 local M = {}
 
 function M.setup()

@@ -1,5 +1,4 @@
 --- unblevable/quick-scope
--- @module plugins.quick-scope
 local M = {}
 
 function M.setup()

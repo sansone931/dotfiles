@@ -1,5 +1,4 @@
 --- shaunsingh/nord.nvim
--- @module plugins.nord
 local M = {}
 
 function M.setup()

@@ -1,5 +1,4 @@
 --- norcalli/nvim-colorizer.lua
--- @module plugins.nvim-colorizer
 local M = {}
 
 function M.setup()

@@ -1,5 +1,4 @@
 --- rcarriga/nvim-dap-ui
--- @module plugins.nvim-dap-ui
 local M = {}
 
 function M.setup()

@@ -1,5 +1,4 @@
 --- lewis6991/gitsigns.nvim
--- @module mappings.gitsigns
 local M = {}
 
 function M.setup()

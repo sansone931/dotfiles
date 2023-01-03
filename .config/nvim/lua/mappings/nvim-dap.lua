@@ -1,5 +1,4 @@
 --- mfussenegger/nvim-dap
--- @module mappings.nvim-dap
 local M = {}
 
 function M.setup()

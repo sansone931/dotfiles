@@ -1,5 +1,4 @@
 --- folke/which-key.nvim
--- @module plugins.which-key
 local M = {}
 
 function M.setup()

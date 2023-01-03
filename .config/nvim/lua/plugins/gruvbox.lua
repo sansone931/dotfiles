@@ -1,5 +1,4 @@
 --- gruvbox-community/gruvbox
--- @module plugins.gruvbox
 local M = {}
 
 function M.setup()

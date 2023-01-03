@@ -1,5 +1,4 @@
 --- tpope/vim-fugitive
--- @module mappings.vim-fugitive
 local M = {}
 
 function M.setup()

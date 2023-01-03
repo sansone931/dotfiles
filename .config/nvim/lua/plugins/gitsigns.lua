@@ -1,5 +1,4 @@
 --- lewis6991/gitsigns.nvim
--- @module plugins.gitsigns
 local M = {}
 
 function M.setup()
