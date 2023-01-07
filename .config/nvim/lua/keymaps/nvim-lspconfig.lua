@@ -17,17 +17,8 @@ function M.setup()
       d = { '<Cmd>lua vim.diagnostic.open_float()<CR>'         , "line diagnostics" },
       f = { "<Cmd>lua vim.lsp.buf.format({ async = true })<CR>", "format"           },
       r = { "<Cmd>lua vim.lsp.buf.rename()<CR>"                , "rename"           },
-      q = { "<Cmd>lua vim.diagnostic.setloclist()<CR>"         , "quickfix"         },
     },
   }, { prefix = "<Leader>" })
-
-  wk.register({
-    d = { "<Cmd>lua vim.lsp.buf.definition()<CR>"     , "definition"      },
-    D = { "<Cmd>lua vim.lsp.buf.declaration()<CR>"    , "declaration"     },
-    i = { "<Cmd>lua vim.lsp.buf.implementation()<CR>" , "implementation"  },
-    r = { "<Cmd>lua vim.lsp.buf.references()<CR>"     , "references"      },
-    y = { "<Cmd>lua vim.lsp.buf.type_definition()<CR>", "type definition" },
-  }, { prefix = "g" })
 end
 
 return M
