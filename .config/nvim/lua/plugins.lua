@@ -1,6 +1,15 @@
 local plugins = {
   { "wbthomason/packer.nvim" },
   {
+    "williamboman/mason.nvim",
+    config = function()
+      require("plugins.mason").setup()
+    end,
+  },
+  { "williamboman/mason-lspconfig.nvim" },
+  { "jay-babu/mason-null-ls.nvim" },
+  { "jayp0521/mason-nvim-dap.nvim" },
+  {
     "neovim/nvim-lspconfig",
     config = function()
       require("plugins.nvim-lspconfig").setup()
@@ -125,13 +134,6 @@ local plugins = {
     "mfussenegger/nvim-dap",
     config = function()
       require("plugins.nvim-dap").setup()
-    end,
-  },
-  {
-    "Pocco81/DAPInstall.nvim",
-    commit = "24923c3819a450a772bb8f675926d530e829665f",
-    config = function()
-      require("plugins.dapinstall").setup()
     end,
   },
   {

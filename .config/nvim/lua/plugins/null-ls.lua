@@ -21,6 +21,11 @@ function M.setup()
   }
 
   null_ls.setup({ sources = sources })
+
+  -- Automatically install sources with mason.nvim
+  require("mason-null-ls").setup({
+    automatic_installation = true,
+  })
 end
 
 return M
