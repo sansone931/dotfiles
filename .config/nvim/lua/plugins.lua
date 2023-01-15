@@ -117,6 +117,7 @@ local plugins = {
       require("plugins.gitsigns").setup()
     end,
   },
+  { "tpope/vim-unimpaired" },
   {
     "folke/which-key.nvim",
     config = function()
