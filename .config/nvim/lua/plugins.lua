@@ -22,6 +22,24 @@ local plugins = {
     end,
     requires = { "nvim-lua/plenary.nvim" },
   },
+  {
+    "mfussenegger/nvim-dap",
+    config = function()
+      require("plugins.nvim-dap").setup()
+    end,
+  },
+  {
+    "rcarriga/nvim-dap-ui",
+    config = function()
+      require("plugins.nvim-dap-ui").setup()
+    end,
+  },
+  {
+    "theHamsta/nvim-dap-virtual-text",
+    config = function()
+      require("plugins.nvim-dap-virtual-text").setup()
+    end,
+  },
   { "L3MON4D3/LuaSnip" },
   { "hrsh7th/cmp-nvim-lsp" },
   { "hrsh7th/cmp-buffer" },
@@ -37,25 +55,6 @@ local plugins = {
     "windwp/nvim-autopairs",
     config = function()
       require("plugins.nvim-autopairs").setup()
-    end,
-  },
-  {
-    "gruvbox-community/gruvbox",
-    disable = true,
-    config = function()
-      require("plugins.gruvbox").setup()
-    end,
-  },
-  {
-    "shaunsingh/nord.nvim",
-    config = function()
-      require("plugins.nord").setup()
-    end,
-  },
-  {
-    "norcalli/nvim-colorizer.lua",
-    config = function()
-      require("plugins.nvim-colorizer").setup()
     end,
   },
   { "kyazdani42/nvim-web-devicons" },
@@ -91,23 +90,18 @@ local plugins = {
     end,
     requires = { "nvim-lua/plenary.nvim" },
   },
-  {
-    "folke/which-key.nvim",
-    config = function()
-      require("plugins.which-key").setup()
-    end,
-  },
-  {
-    "unblevable/quick-scope",
-    config = function()
-      require("plugins.quick-scope").setup()
-    end,
-  },
   { "JoosepAlviste/nvim-ts-context-commentstring" },
   {
     "terrortylor/nvim-comment",
     config = function()
       require("plugins.nvim-comment").setup()
+    end,
+  },
+  {
+    "nvim-treesitter/nvim-treesitter",
+    run = ":TSUpdate",
+    config = function()
+      require("plugins.nvim-treesitter").setup()
     end,
   },
   {
@@ -124,28 +118,34 @@ local plugins = {
     end,
   },
   {
-    "nvim-treesitter/nvim-treesitter",
-    run = ":TSUpdate",
+    "folke/which-key.nvim",
     config = function()
-      require("plugins.nvim-treesitter").setup()
+      require("plugins.which-key").setup()
     end,
   },
   {
-    "mfussenegger/nvim-dap",
+    "unblevable/quick-scope",
     config = function()
-      require("plugins.nvim-dap").setup()
+      require("plugins.quick-scope").setup()
     end,
   },
   {
-    "theHamsta/nvim-dap-virtual-text",
+    "norcalli/nvim-colorizer.lua",
     config = function()
-      require("plugins.nvim-dap-virtual-text").setup()
+      require("plugins.nvim-colorizer").setup()
     end,
   },
   {
-    "rcarriga/nvim-dap-ui",
+    "gruvbox-community/gruvbox",
+    disable = true,
     config = function()
-      require("plugins.nvim-dap-ui").setup()
+      require("plugins.gruvbox").setup()
+    end,
+  },
+  {
+    "shaunsingh/nord.nvim",
+    config = function()
+      require("plugins.nord").setup()
     end,
   },
 }
