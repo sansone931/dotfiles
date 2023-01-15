@@ -1,7 +1,9 @@
 # Set LS_COLORS
-test -r $HOME/.dircolors &&
-  eval $(dircolors -b $HOME/.dircolors) ||
-  eval $(dircolors -b)
+if [ -f $HOME/.dircolors ]; then
+   eval $(dircolors -b $HOME/.dircolors)
+else
+   eval $(dircolors -b)
+fi
 
 ## Options section
 setopt correct              # Auto correct mistakes
@@ -114,21 +116,35 @@ source $HOME/.config/zsh/git_prompt.zsh
 
 ## Plugins section
 # Use syntax highlighting (https://github.com/zsh-users/zsh-syntax-highlighting)
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+if [ -f /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
+  source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fi
 
 # Use history substring search (https://github.com/zsh-users/zsh-history-substring-search)
-source /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
-# bind UP and DOWN arrow keys to history substring search
-zmodload zsh/terminfo
-bindkey "^P" history-substring-search-up
-bindkey "^N" history-substring-search-down
-bindkey '^[[A' history-substring-search-up
-bindkey '^[[B' history-substring-search-down
+if [ -f /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh ]; then
+  source /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
+
+  # bind UP and DOWN arrow keys to history substring search
+  zmodload zsh/terminfo
+  bindkey "^P" history-substring-search-up
+  bindkey "^N" history-substring-search-down
+  bindkey '^[[A' history-substring-search-up
+  bindkey '^[[B' history-substring-search-down
+fi
 
 # Use autosuggestion (https://github.com/zsh-users/zsh-autosuggestions)
-source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=8'
+if [ -f /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
+  source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+  ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
+  ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=8'
+fi
 
 # Set terminal window and tab/icon title
 source $HOME/.config/zsh/termsupport.zsh
+
+
+# Untracked local configuration
+if [ -f $HOME/.config/zsh/local.zsh ]; then
+  source $HOME/.config/zsh/local.zsh
+fi
