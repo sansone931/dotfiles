@@ -7,10 +7,12 @@ function M.setup()
   wk.register({
     g = {
       name = "+git",
-      d = { "<Cmd>Gdiffsplit<CR>", "diff split"      },
-      B = { "<Cmd>G blame<CR>"   , "blame"           },
-      g = { "<Cmd>G<CR>"         , "status"          },
-      x = { "<Cmd>GBrowse<CR>"   , "show in browser" },
+      d = { "<Cmd>Gdiffsplit!<CR>", "diff split"      },
+      B = { "<Cmd>Git blame<CR>"  , "blame"           },
+      g = { "<Cmd>Git<CR>"        , "status"          },
+      h = { "<Cmd>0Gclog<CR>"     , "file history"    },
+      l = { "<Cmd>Git log<CR>"    , "log"             },
+      x = { "<Cmd>GBrowse<CR>"    , "show in browser" },
     },
   }, { prefix = "<Leader>" })
 end
