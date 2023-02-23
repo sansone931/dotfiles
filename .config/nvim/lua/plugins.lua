@@ -92,9 +92,9 @@ local plugins = {
   },
   { "JoosepAlviste/nvim-ts-context-commentstring" },
   {
-    "terrortylor/nvim-comment",
+    "numToStr/Comment.nvim",
     config = function()
-      require("plugins.nvim-comment").setup()
+      require("plugins.comment").setup()
     end,
   },
   {
