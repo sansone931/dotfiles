@@ -4,7 +4,7 @@ local M = {}
 
 function M.setup()
   require("lsp.servers.pyright").setup()
-  require("lsp.servers.sumneko_lua").setup()
+  require("lsp.servers.lua_ls").setup()
   require("lsp.servers.tsserver").setup()
 end
 

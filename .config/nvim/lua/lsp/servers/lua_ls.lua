@@ -1,9 +1,9 @@
---- sumneko_lua
--- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#sumneko_lua
+--- lua_ls
+-- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#lua_ls
 local M = {}
 
 function M.setup()
-  require("lspconfig").sumneko_lua.setup({
+  require("lspconfig").lua_ls.setup({
     capabilities = require("plugins.nvim-cmp").capabilities,
     settings = {
       Lua = {
