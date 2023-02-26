@@ -2,7 +2,9 @@
 local M = {}
 
 function M.setup()
-  require("which-key").setup({
+  local wk = require("which-key")
+
+  wk.setup({
     plugins = {
       spelling = {
         enabled = true, -- enabling this will show WhichKey when pressing z= to select spelling suggestions
@@ -17,6 +19,18 @@ function M.setup()
       border = "single", -- none, single, double, shadow
     },
   })
+
+  wk.register({
+    ["<Leader>b"] = { name = "buffers" },
+    ["<Leader>d"] = { name = "debug" },
+    ["<Leader>f"] = { name = "telescope" },
+    ["<Leader>g"] = { name = "git" },
+    ["<Leader>l"] = { name = "lsp" },
+  })
+
+  wk.register({
+    ["<Leader>g"] = { name = "git" },
+  }, { mode = "x" })
 end
 
 return M

@@ -2,11 +2,12 @@
 local M = {}
 
 function M.setup()
-  local wk = require("which-key")
-
-  wk.register({
-    e = { "<Cmd>NvimTreeToggle<CR>", "toggle explorer" },
-  }, { prefix = "<Leader>" })
+  vim.keymap.set(
+    "n",
+    "<Leader>e",
+    "<Cmd>NvimTreeToggle<CR>",
+    { desc = "Toggle explorer" }
+  )
 end
 
 return M

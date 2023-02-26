@@ -67,34 +67,50 @@ vim.g.python3_host_prog = "/usr/bin/python"
 vim.g.node_host_prog = "/usr/lib/node_modules/neovim/bin/cli.js"
 
 -- {{{ Base keymaps
-local map = vim.keymap.set
+vim.g.mapleader = " "
 
-local function t(str)
-  return vim.api.nvim_replace_termcodes(str, true, true, true)
-end
+vim.keymap.set("v", "<", "<gv", { desc = "Shift left" })
+vim.keymap.set("v", ">", ">gv", { desc = "Shift right" })
 
-vim.g.mapleader = t("<Space>")
+vim.keymap.set("n", "<C-h>", "<C-w>h", { desc = "Go to the left window" })
+vim.keymap.set("n", "<C-j>", "<C-w>j", { desc = "Go to the down window" })
+vim.keymap.set("n", "<C-k>", "<C-w>k", { desc = "Go to the up window" })
+vim.keymap.set("n", "<C-l>", "<C-w>l", { desc = "Go to the right window" })
 
-local opts = { silent = true }
+vim.keymap.set(
+  "n",
+  "<C-Up>",
+  "<Cmd>resize -2<CR>",
+  { desc = "Decrease window height" }
+)
 
--- Better indenting
-map("v", "<", "<gv", opts)
-map("v", ">", ">gv", opts)
+vim.keymap.set(
+  "n",
+  "<C-Down>",
+  "<Cmd>resize +2<CR>",
+  { desc = "Increase window height" }
+)
 
--- Better window navigation
-map("n", "<C-h>", "<C-w>h", opts)
-map("n", "<C-j>", "<C-w>j", opts)
-map("n", "<C-k>", "<C-w>k", opts)
-map("n", "<C-l>", "<C-w>l", opts)
+vim.keymap.set(
+  "n",
+  "<C-Left>",
+  "<Cmd>vertical resize -2<CR>",
+  { desc = "Decrease window width" }
+)
 
--- Use ctrl + arrows to resize windows
-map("n", "<C-Up>", "<Cmd>resize -2<CR>", opts)
-map("n", "<C-Down>", "<Cmd>resize +2<CR>", opts)
-map("n", "<C-Left>", "<Cmd>vertical resize -2<CR>", opts)
-map("n", "<C-Right>", "<Cmd>vertical resize +2<CR>", opts)
+vim.keymap.set(
+  "n",
+  "<C-Right>",
+  "<Cmd>vertical resize +2<CR>",
+  { desc = "Increase window width" }
+)
 
--- Disable search highlight
-map("n", "<Leader>n", "<Cmd>nohlsearch<CR>", opts)
+vim.keymap.set(
+  "n",
+  "<Leader>n",
+  "<Cmd>nohlsearch<CR>",
+  { desc = "Stop search highlight" }
+)
 -- }}}
 
 -- Initialize plugins

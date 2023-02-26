@@ -2,34 +2,31 @@
 local M = {}
 
 function M.setup()
-  local wk = require("which-key")
+  local dap = require("dap")
 
-  local function set_conditional_breakpoint()
-    require("dap").set_breakpoint(
-      vim.fn.input('Breakpoint condition: ')
-    )
-  end
+  vim.keymap.set("n", "<Leader>db", dap.toggle_breakpoint, {
+    desc = "Toggle breakpoint",
+  })
 
-  wk.register({
-    d = {
-      name = "debug",
-      b = { '<Cmd>lua require("dap").toggle_breakpoint()<CR>'       , "breakpoint"             },
-      B = { set_conditional_breakpoint                              , "conditional breakpoint" },
-      c = { '<Cmd>lua require("dap").run_to_cursor()<CR>'           , "run to cursor"          },
-      d = { '<Cmd>lua require("dap").continue()<CR>'                , "continue"               },
-      D = { '<Cmd>lua require("dap").run_last()<CR>'                , "run last"               },
-      i = { '<Cmd>lua require("dap").step_into()<CR>'               , "step into"              },
-      k = { '<Cmd>lua require("dapui").eval()<CR>'                  , "evaluate"               },
-      o = { '<Cmd>lua require("dap").step_over()<CR>'               , "step over"              },
-      O = { '<Cmd>lua require("dap").step_out()<CR>'                , "step out"               },
-      p = { '<Cmd>lua require("dap").step_back()<CR>'               , "step back"              },
-      P = { '<Cmd>lua require("dap").pause()<CR>'                   , "pause"                  },
-      q = { '<Cmd>lua require("dap").terminate()<CR>'               , "terminate"              },
-      v = { '<Cmd>DapVirtualTextToggle<CR>'                         , "toggle virtual text"    },
-      V = { '<Cmd>DapVirtualTextForceRefresh<CR>'                   , "virtual text refresh"   },
-      w = { '<Cmd>lua require("dapui").toggle({ reset = true })<CR>', "toggle ui"              },
-    },
-  }, { prefix = "<Leader>" })
+  vim.keymap.set("n", "<Leader>dB", function()
+    dap.set_breakpoint(vim.fn.input("Breakpoint condition: "))
+  end, { desc = "Set conditional breakpoint" })
+
+  vim.keymap.set(
+    "n",
+    "<Leader>dc",
+    dap.run_to_cursor,
+    { desc = "Run to cursor" }
+  )
+
+  vim.keymap.set("n", "<Leader>dd", dap.continue, { desc = "Continue" })
+  vim.keymap.set("n", "<Leader>dD", dap.run_last, { desc = "Run last" })
+  vim.keymap.set("n", "<Leader>di", dap.step_into, { desc = "Step into" })
+  vim.keymap.set("n", "<Leader>do", dap.step_over, { desc = "Step over" })
+  vim.keymap.set("n", "<Leader>dO", dap.step_out, { desc = "Step out" })
+  vim.keymap.set("n", "<Leader>dp", dap.step_back, { desc = "Step back" })
+  vim.keymap.set("n", "<Leader>dP", dap.pause, { desc = "Pause" })
+  vim.keymap.set("n", "<Leader>dq", dap.terminate, { desc = "Terminate" })
 end
 
 return M

@@ -2,44 +2,180 @@
 local M = {}
 
 function M.setup()
-  local wk = require("which-key")
-  local map = vim.keymap.set
-  local opts = { silent = true }
+  vim.keymap.set(
+    "n",
+    "<S-Tab>",
+    "<Cmd>BufferPrevious<CR>",
+    { desc = "Previous buffer" }
+  )
 
-  map("n", "<S-Tab>", "<Cmd>BufferPrevious<CR>", opts)
-  map("n", "<Tab>", "<Cmd>BufferNext<CR>", opts)
-  map("n", "<A-,>", "<Cmd>BufferPrevious<CR>", opts)
-  map("n", "<A-.>", "<Cmd>BufferNext<CR>", opts)
-  map("n", "<A-<>", "<Cmd>BufferMovePrevious<CR>", opts)
-  map("n", "<A->>", "<Cmd>BufferMoveNext<CR>", opts)
-  map("n", "<A-1>", "<Cmd>BufferGoto 1<CR>", opts)
-  map("n", "<A-2>", "<Cmd>BufferGoto 2<CR>", opts)
-  map("n", "<A-3>", "<Cmd>BufferGoto 3<CR>", opts)
-  map("n", "<A-4>", "<Cmd>BufferGoto 4<CR>", opts)
-  map("n", "<A-5>", "<Cmd>BufferGoto 5<CR>", opts)
-  map("n", "<A-6>", "<Cmd>BufferGoto 6<CR>", opts)
-  map("n", "<A-7>", "<Cmd>BufferGoto 7<CR>", opts)
-  map("n", "<A-8>", "<Cmd>BufferGoto 8<CR>", opts)
-  map("n", "<A-9>", "<Cmd>BufferGoto 9<CR>", opts)
-  map("n", "<A-0>", "<Cmd>BufferLast<CR>", opts)
-  map("n", "<A-p>", "<Cmd>BufferPin<CR>", opts)
-  map("n", "<A-c>", "<Cmd>BufferClose<CR>", opts)
-  map("n", "<S-q>", "<Cmd>BufferClose<CR>", opts)
+  vim.keymap.set("n", "<Tab>", "<Cmd>BufferNext<CR>", { desc = "Next buffer" })
 
-  wk.register({
-    b = {
-      name = "buffers",
-      c = { "<Cmd>BufferClose!<CR>"            , "close buffer (force)"           },
-      D = { "<Cmd>BufferOrderByDirectory<CR>"  , "sort buffers by directory"      },
-      e = { "<Cmd>BufferCloseAllButCurrent<CR>", "close all but current buffer"   },
-      h = { "<Cmd>BufferCloseBuffersLeft<CR>"  , "close all buffers to the left"  },
-      j = { "<Cmd>BufferPick<CR>"              , "jump to buffer"                 },
-      l = { "<Cmd>BufferCloseBuffersRight<CR>" , "close all buffers to the right" },
-      L = { "<Cmd>BufferOrderByLanguage<CR>"   , "sort buffers by language"       },
-      p = { "<Cmd>BufferPin<CR>"               , "pin/unpin buffer"               },
-      P = { "<Cmd>BufferCloseAllButPinned<CR>" , "close all but pinned buffers"   },
-    }
-  }, { prefix = "<Leader>" })
+  vim.keymap.set(
+    "n",
+    "<A-,>",
+    "<Cmd>BufferPrevious<CR>",
+    { desc = "Previous buffer" }
+  )
+
+  vim.keymap.set("n", "<A-.>", "<Cmd>BufferNext<CR>", { desc = "Next buffer" })
+
+  vim.keymap.set(
+    "n",
+    "<A-<>",
+    "<Cmd>BufferMovePrevious<CR>",
+    { desc = "Move buffer to the left" }
+  )
+
+  vim.keymap.set(
+    "n",
+    "<A->>",
+    "<Cmd>BufferMoveNext<CR>",
+    { desc = "Move buffer to the right" }
+  )
+
+  vim.keymap.set(
+    "n",
+    "<A-1>",
+    "<Cmd>BufferGoto 1<CR>",
+    { desc = "Go to buffer 1" }
+  )
+
+  vim.keymap.set(
+    "n",
+    "<A-2>",
+    "<Cmd>BufferGoto 2<CR>",
+    { desc = "Go to buffer 2" }
+  )
+
+  vim.keymap.set(
+    "n",
+    "<A-3>",
+    "<Cmd>BufferGoto 3<CR>",
+    { desc = "Go to buffer 3" }
+  )
+
+  vim.keymap.set(
+    "n",
+    "<A-4>",
+    "<Cmd>BufferGoto 4<CR>",
+    { desc = "Go to buffer 4" }
+  )
+
+  vim.keymap.set(
+    "n",
+    "<A-5>",
+    "<Cmd>BufferGoto 5<CR>",
+    { desc = "Go to buffer 5" }
+  )
+
+  vim.keymap.set(
+    "n",
+    "<A-6>",
+    "<Cmd>BufferGoto 6<CR>",
+    { desc = "Go to buffer 6" }
+  )
+
+  vim.keymap.set(
+    "n",
+    "<A-7>",
+    "<Cmd>BufferGoto 7<CR>",
+    { desc = "Go to buffer 7" }
+  )
+
+  vim.keymap.set(
+    "n",
+    "<A-8>",
+    "<Cmd>BufferGoto 8<CR>",
+    { desc = "Go to buffer 8" }
+  )
+
+  vim.keymap.set(
+    "n",
+    "<A-9>",
+    "<Cmd>BufferGoto 9<CR>",
+    { desc = "Go to buffer 9" }
+  )
+
+  vim.keymap.set(
+    "n",
+    "<A-0>",
+    "<Cmd>BufferLast<CR>",
+    { desc = "Go to last buffer" }
+  )
+
+  vim.keymap.set(
+    "n",
+    "<A-p>",
+    "<Cmd>BufferPin<CR>",
+    { desc = "Toggle buffer pin" }
+  )
+
+  vim.keymap.set(
+    "n",
+    "<A-c>",
+    "<Cmd>BufferClose<CR>",
+    { desc = "Close buffer" }
+  )
+
+  vim.keymap.set("n", "Q", "<Cmd>BufferClose<CR>", { desc = "Close buffer" })
+
+  vim.keymap.set(
+    "n",
+    "<Leader>bc",
+    "<Cmd>BufferClose!<CR>",
+    { desc = "Close buffer (force)" }
+  )
+
+  vim.keymap.set(
+    "n",
+    "<Leader>bD",
+    "<Cmd>BufferOrderByDirectory<CR>",
+    { desc = "Sort buffers by directory" }
+  )
+
+  vim.keymap.set(
+    "n",
+    "<Leader>be",
+    "<Cmd>BufferCloseAllButCurrent<CR>",
+    { desc = "Close all but current buffer" }
+  )
+
+  vim.keymap.set(
+    "n",
+    "<Leader>bh",
+    "<Cmd>BufferCloseBuffersLeft<CR>",
+    { desc = "Close all buffers to the left" }
+  )
+
+  vim.keymap.set("n", "<Leader>bj", "<Cmd>BufferPick<CR>", {
+    desc = "Jump to buffer",
+  })
+
+  vim.keymap.set(
+    "n",
+    "<Leader>bl",
+    "<Cmd>BufferCloseBuffersRight<CR>",
+    { desc = "Close all buffers to the right" }
+  )
+
+  vim.keymap.set(
+    "n",
+    "<Leader>bL",
+    "<Cmd>BufferOrderByLanguage<CR>",
+    { desc = "Sort buffers by language" }
+  )
+
+  vim.keymap.set("n", "<Leader>bp", "<Cmd>BufferPin<CR>", {
+    desc = "Toggle buffer pin",
+  })
+
+  vim.keymap.set(
+    "n",
+    "<Leader>bP",
+    "<Cmd>BufferCloseAllButPinned<CR>",
+    { desc = "Close all but pinned buffers" }
+  )
 end
 
 return M

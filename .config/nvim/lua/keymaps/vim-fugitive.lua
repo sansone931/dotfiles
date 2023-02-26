@@ -2,19 +2,31 @@
 local M = {}
 
 function M.setup()
-  local wk = require("which-key")
+  vim.keymap.set(
+    "n",
+    "<Leader>gd",
+    "<Cmd>Gdiffsplit!<CR>",
+    { desc = "Diff split" }
+  )
 
-  wk.register({
-    g = {
-      name = "+git",
-      d = { "<Cmd>Gdiffsplit!<CR>", "diff split"      },
-      B = { "<Cmd>Git blame<CR>"  , "blame"           },
-      g = { "<Cmd>Git<CR>"        , "status"          },
-      h = { "<Cmd>0Gclog<CR>"     , "file history"    },
-      l = { "<Cmd>Git log<CR>"    , "log"             },
-      x = { "<Cmd>GBrowse<CR>"    , "show in browser" },
-    },
-  }, { prefix = "<Leader>" })
+  vim.keymap.set("n", "<Leader>gB", "<Cmd>Git blame<CR>", { desc = "Blame" })
+  vim.keymap.set("n", "<Leader>gg", "<Cmd>Git<CR>", { desc = "Status" })
+
+  vim.keymap.set(
+    "n",
+    "<Leader>gh",
+    "<Cmd>0Gclog<CR>",
+    { desc = "File commit history" }
+  )
+
+  vim.keymap.set("n", "<Leader>gl", "<Cmd>Git log<CR>", { desc = "Log" })
+
+  vim.keymap.set(
+    "n",
+    "<Leader>gx",
+    "<Cmd>GBrowse<CR>",
+    { desc = "Open in browser" }
+  )
 end
 
 return M

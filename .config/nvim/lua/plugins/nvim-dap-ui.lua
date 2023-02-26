@@ -18,6 +18,8 @@ function M.setup()
     dapui.close()
     dap.repl.close()
   end
+
+  require("keymaps.nvim-dap-ui").setup()
 end
 
 return M
