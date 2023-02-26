@@ -6,7 +6,7 @@ function M.setup()
     Error = " ",
     Warn = " ",
     Hint = " ",
-    Information = " ",
+    Info = " ",
   }
 
   for type, icon in pairs(signs) do
