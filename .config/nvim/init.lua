@@ -1,70 +1,62 @@
--- Autocommands {{{
-vim.cmd([[
-  augroup format_options
-    autocmd!
-    autocmd BufWinEnter * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
-    autocmd BufRead * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
-    autocmd BufNewFile * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
-  augroup END
-]])
+-- {{{ Autocommands
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "gitcommit",
+  group = vim.api.nvim_create_augroup("git_commit", {}),
+  callback = function()
+    vim.opt_local.spell = true
+    vim.opt_local.textwidth = 72
+    vim.opt_local.colorcolumn = { 73 }
+  end,
+})
 
-vim.cmd([[
-  augroup git_commit
-    autocmd!
-    autocmd FileType gitcommit setlocal spell textwidth=72 colorcolumn=72
-  augroup END
-]])
+vim.api.nvim_create_autocmd("ColorScheme", {
+  group = vim.api.nvim_create_augroup("highlights", {}),
+  callback = function()
+    vim.cmd([[
+      highlight QuickScopePrimary guifg='#458588' gui=underline ctermfg=155 cterm=underline
+      highlight QuickScopeSecondary guifg='#cc241d' gui=underline ctermfg=81 cterm=underline
+    ]])
+  end,
+})
 
-vim.cmd([[
-augroup qs_colors
-  autocmd!
-  autocmd ColorScheme * highlight QuickScopePrimary guifg='#458588' gui=underline ctermfg=155 cterm=underline
-  autocmd ColorScheme * highlight QuickScopeSecondary guifg='#cc241d' gui=underline ctermfg=81 cterm=underline
-augroup END
-]])
+vim.api.nvim_create_autocmd("TextYankPost", {
+  group = vim.api.nvim_create_augroup("yank_highlight", {}),
+  callback = function()
+    vim.highlight.on_yank({ higroup = "Search" })
+  end,
+})
 -- }}}
 
--- Options {{{
+-- {{{ Options
+vim.opt.breakindent = true
 vim.opt.clipboard = "unnamedplus"
-vim.opt.cmdheight = 2
-vim.opt.colorcolumn = { 80 }
+vim.opt.colorcolumn = { 81 }
+vim.opt.completeopt = { "menuone", "noselect" }
 vim.opt.cursorline = true
 vim.opt.diffopt:append("vertical")
 vim.opt.expandtab = true
-vim.opt.hidden = true
+vim.opt.foldenable = false
+vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+vim.opt.foldmethod = "expr"
 vim.opt.ignorecase = true
 vim.opt.linebreak = true
 vim.opt.list = true
-vim.opt.mouse = "a"
-vim.opt.showmode = false
-vim.opt.wrap = false
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.shiftwidth = 2
-vim.opt.shortmess:append("c")
+vim.opt.showmode = false
 vim.opt.showtabline = 2
 vim.opt.signcolumn = "yes"
 vim.opt.smartcase = true
-vim.opt.smartindent = true
-vim.opt.softtabstop = 2
+vim.opt.softtabstop = -1
+vim.opt.spelloptions:append("camel")
 vim.opt.splitbelow = true
 vim.opt.splitright = true
 vim.opt.termguicolors = true
+vim.opt.textwidth = 80
 vim.opt.timeoutlen = 500
-vim.opt.updatetime = 300
-
--- nvim-treesitter folding
-vim.opt.foldmethod = "expr"
-vim.opt.foldenable = false
-vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
-
--- Needed for nvim-cmp
-vim.opt.completeopt = "menu,menuone,noselect"
+vim.opt.wrap = false
 -- }}}
-
--- Nvim providers
-vim.g.python3_host_prog = "/usr/bin/python"
-vim.g.node_host_prog = "/usr/lib/node_modules/neovim/bin/cli.js"
 
 -- {{{ Base keymaps
 vim.g.mapleader = " "
