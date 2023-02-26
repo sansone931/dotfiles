@@ -7,6 +7,8 @@ function M.setup()
     automatic_installation = true,
   })
 
+  require("neodev").setup()
+
   require("lsp.servers").setup()
   require("lsp.ui").setup()
 
