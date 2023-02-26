@@ -141,7 +141,6 @@ local plugins = {
   },
   {
     "gruvbox-community/gruvbox",
-    disable = true,
     config = function()
       require("plugins.gruvbox").setup()
     end,
@@ -152,6 +151,7 @@ local plugins = {
       require("plugins.nord").setup()
     end,
   },
+  { "folke/tokyonight.nvim" },
 }
 
 local M = {}
