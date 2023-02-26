@@ -9,6 +9,7 @@ local plugins = {
   { "williamboman/mason-lspconfig.nvim" },
   { "jay-babu/mason-null-ls.nvim" },
   { "jayp0521/mason-nvim-dap.nvim" },
+  { "b0o/schemastore.nvim" },
   {
     "neovim/nvim-lspconfig",
     config = function()
