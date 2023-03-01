@@ -2,22 +2,17 @@
 local M = {}
 
 function M.setup()
-  local api = require("Comment.api")
-
   vim.keymap.set("n", "<Leader>/", function()
-    if vim.v.count == 0 then
-      api.toggle.linewise.current()
-    else
-      api.toggle.linewise.count(vim.v.count)
-    end
-  end, { desc = "Toggle comment" })
+    return vim.v.count == 0 and "<Plug>(comment_toggle_linewise_current)"
+      or "<Plug>(comment_toggle_linewise_count)"
+  end, { expr = true, desc = "Toggle comment" })
 
-  local esc = vim.api.nvim_replace_termcodes("<ESC>", true, false, true)
-
-  vim.keymap.set("x", "<Leader>/", function()
-    vim.api.nvim_feedkeys(esc, "nx", false)
-    api.toggle.linewise(vim.fn.visualmode())
-  end, { desc = "Toggle comment" })
+  vim.keymap.set(
+    "x",
+    "<Leader>/",
+    "<Plug>(comment_toggle_linewise_visual)",
+    { desc = "Toggle comment" }
+  )
 end
 
 return M
