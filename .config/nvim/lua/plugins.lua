@@ -140,6 +140,12 @@ local plugins = {
     end,
   },
   {
+    "lukas-reineke/indent-blankline.nvim",
+    config = function()
+      require("plugins.indent-blankline").setup()
+    end,
+  },
+  {
     "gruvbox-community/gruvbox",
     config = function()
       require("plugins.gruvbox").setup()
