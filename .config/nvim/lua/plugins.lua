@@ -100,6 +100,7 @@ local plugins = {
       require("plugins.comment").setup()
     end,
   },
+  { "nvim-treesitter/nvim-treesitter-textobjects" },
   {
     "nvim-treesitter/nvim-treesitter",
     run = ":TSUpdate",
