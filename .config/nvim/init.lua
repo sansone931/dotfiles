@@ -105,8 +105,5 @@ vim.keymap.set(
 )
 -- }}}
 
--- Colorscheme
-vim.cmd.colorscheme("tokyonight")
-
 -- Initialize plugins
 require("plugins").setup()

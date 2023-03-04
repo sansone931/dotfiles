@@ -1,5 +1,4 @@
 local plugins = {
-  { "wbthomason/packer.nvim" },
   {
     "williamboman/mason.nvim",
     config = function()
@@ -22,7 +21,7 @@ local plugins = {
     config = function()
       require("plugins.null-ls").setup()
     end,
-    requires = { "nvim-lua/plenary.nvim" },
+    dependencies = { "nvim-lua/plenary.nvim" },
   },
   {
     "mfussenegger/nvim-dap",
@@ -85,13 +84,13 @@ local plugins = {
       require("plugins.dressing").setup()
     end,
   },
-  { "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
+  { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
   {
     "nvim-telescope/telescope.nvim",
     config = function()
       require("plugins.telescope").setup()
     end,
-    requires = { "nvim-lua/plenary.nvim" },
+    dependencies = { "nvim-lua/plenary.nvim" },
   },
   { "JoosepAlviste/nvim-ts-context-commentstring" },
   {
@@ -103,7 +102,7 @@ local plugins = {
   { "nvim-treesitter/nvim-treesitter-textobjects" },
   {
     "nvim-treesitter/nvim-treesitter",
-    run = ":TSUpdate",
+    build = ":TSUpdate",
     config = function()
       require("plugins.nvim-treesitter").setup()
     end,
@@ -130,7 +129,7 @@ local plugins = {
   },
   {
     "unblevable/quick-scope",
-    config = function()
+    init = function()
       require("plugins.quick-scope").setup()
     end,
   },
@@ -158,32 +157,33 @@ local plugins = {
       require("plugins.nord").setup()
     end,
   },
-  { "folke/tokyonight.nvim" },
+  {
+    "folke/tokyonight.nvim",
+    lazy = false,
+    priority = 1000,
+    config = function()
+      vim.cmd.colorscheme("tokyonight")
+    end,
+  },
 }
 
 local M = {}
 
 function M.setup()
-  -- {{{ Install packer.nvim automatically if it isn't already installed
-  local install_path = vim.fn.stdpath("data")
-    .. "/site/pack/packer/start/packer.nvim"
-
-  if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
+  local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+  if not vim.loop.fs_stat(lazypath) then
     vim.fn.system({
       "git",
       "clone",
-      "https://github.com/wbthomason/packer.nvim",
-      install_path,
+      "--filter=blob:none",
+      "https://github.com/folke/lazy.nvim.git",
+      "--branch=stable",
+      lazypath,
     })
-
-    vim.cmd([[packadd packer.nvim]])
   end
-  -- }}}
+  vim.opt.rtp:prepend(lazypath)
 
-  -- Load plugins
-  require("packer").startup(function(use)
-    use(plugins)
-  end)
+  require("lazy").setup(plugins)
 end
 
 return M
