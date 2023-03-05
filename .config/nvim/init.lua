@@ -42,8 +42,10 @@ vim.opt.ignorecase = true
 vim.opt.linebreak = true
 vim.opt.list = true
 vim.opt.number = true
+vim.opt.pumheight = 12
 vim.opt.relativenumber = true
 vim.opt.shiftwidth = 2
+vim.opt.shortmess:append("I")
 vim.opt.showmode = false
 vim.opt.showtabline = 2
 vim.opt.signcolumn = "yes"
@@ -69,40 +71,12 @@ vim.keymap.set("n", "<C-j>", "<C-w>j", { desc = "Go to the down window" })
 vim.keymap.set("n", "<C-k>", "<C-w>k", { desc = "Go to the up window" })
 vim.keymap.set("n", "<C-l>", "<C-w>l", { desc = "Go to the right window" })
 
-vim.keymap.set(
-  "n",
-  "<C-Up>",
-  "<Cmd>resize -2<CR>",
-  { desc = "Decrease window height" }
-)
+vim.keymap.set("n", "<C-Up>", "<Cmd>resize -2<CR>", { desc = "Decrease window height" })
+vim.keymap.set("n", "<C-Down>", "<Cmd>resize +2<CR>", { desc = "Increase window height" })
+vim.keymap.set("n", "<C-Left>", "<Cmd>vertical resize -2<CR>", { desc = "Decrease window width" })
+vim.keymap.set("n", "<C-Right>", "<Cmd>vertical resize +2<CR>", { desc = "Increase window width" })
 
-vim.keymap.set(
-  "n",
-  "<C-Down>",
-  "<Cmd>resize +2<CR>",
-  { desc = "Increase window height" }
-)
-
-vim.keymap.set(
-  "n",
-  "<C-Left>",
-  "<Cmd>vertical resize -2<CR>",
-  { desc = "Decrease window width" }
-)
-
-vim.keymap.set(
-  "n",
-  "<C-Right>",
-  "<Cmd>vertical resize +2<CR>",
-  { desc = "Increase window width" }
-)
-
-vim.keymap.set(
-  "n",
-  "<Leader>n",
-  "<Cmd>nohlsearch<CR>",
-  { desc = "Stop search highlight" }
-)
+vim.keymap.set("n", "<Leader>n", "<Cmd>nohlsearch<CR>", { desc = "Stop search highlight" })
 -- }}}
 
 -- {{{ Plugins
