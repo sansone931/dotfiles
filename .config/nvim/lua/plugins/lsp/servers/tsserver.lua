@@ -4,7 +4,7 @@ local M = {}
 
 function M.setup()
   require("lspconfig").tsserver.setup({
-    capabilities = require("plugins.nvim-cmp").capabilities,
+    capabilities = require("cmp_nvim_lsp").default_capabilities(),
     on_attach = function(client)
       -- formatting is handled by null-ls
       client.server_capabilities.documentFormattingProvider = false

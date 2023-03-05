@@ -4,7 +4,7 @@ local M = {}
 
 function M.setup()
   require("lspconfig").pyright.setup({
-    capabilities = require("plugins.nvim-cmp").capabilities,
+    capabilities = require("cmp_nvim_lsp").default_capabilities(),
   })
 end
 
