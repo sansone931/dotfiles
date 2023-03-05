@@ -1,8 +1,7 @@
 configuration {
   modi: "drun";
-  font: "Iosevka Extended 12";
   show-icons: true;
   dpi: 1;
 }
 
-@theme "gruvbox-dark"
+@theme "Arc-Dark"
