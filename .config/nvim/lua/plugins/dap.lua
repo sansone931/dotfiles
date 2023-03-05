@@ -2,12 +2,22 @@ return {
   {
     "mfussenegger/nvim-dap",
     dependencies = {
-      {
-        "jayp0521/mason-nvim-dap.nvim",
-        dependencies = { "williamboman/mason.nvim", config = true },
-      },
+      "jayp0521/mason-nvim-dap.nvim",
       "rcarriga/nvim-dap-ui",
       "theHamsta/nvim-dap-virtual-text",
+    },
+    cmd = {
+      "DapContinue",
+      "DapLoadLaunchJSON",
+      "DapRestartFrame",
+      "DapSetLogLevel",
+      "DapShowLog",
+      "DapStepInto",
+      "DapStepOut",
+      "DapStepOver",
+      "DapTerminate",
+      "DapToggleBreakpoint",
+      "DapToggleRepl",
     },
     keys = function()
       local dap = require("dap")
@@ -74,7 +84,6 @@ return {
 
   {
     "rcarriga/nvim-dap-ui",
-    lazy = true,
     keys = function()
       local dapui = require("dapui")
 
@@ -99,20 +108,13 @@ return {
       dap.listeners.after.event_initialized["dapui_config"] = function()
         dapui.open({ reset = true })
       end
-      dap.listeners.before.event_terminated["dapui_config"] = function()
-        dapui.close()
-        dap.repl.close()
-      end
-      dap.listeners.before.event_exited["dapui_config"] = function()
-        dapui.close()
-        dap.repl.close()
-      end
+      dap.listeners.before.event_terminated["dapui_config"] = dapui.close
+      dap.listeners.before.event_exited["dapui_config"] = dapui.close
     end,
   },
 
   {
     "theHamsta/nvim-dap-virtual-text",
-    lazy = true,
     keys = {
       { "<Leader>dv", "<Cmd>DapVirtualTextToggle<CR>", desc = "Toggle virtual text" },
       { "<Leader>dV", "<Cmd>DapVirtualTextForceRefresh<CR>", desc = "Refresh virtual text" },

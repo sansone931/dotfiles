@@ -2,6 +2,20 @@ return {
   {
     "kyazdani42/nvim-tree.lua",
     dependencies = { "kyazdani42/nvim-web-devicons" },
+    cmd = {
+      "NvimTreeOpen",
+      "NvimTreeClose",
+      "NvimTreeToggle",
+      "NvimTreeFocus",
+      "NvimTreeRefresh",
+      "NvimTreeFindFile",
+      "NvimTreeFindFileToggle",
+      "NvimTreeClipboard",
+      "NvimTreeResize",
+      "NvimTreeCollapse",
+      "NvimTreeCollapseKeepBuffers",
+      "NvimTreeGenerateOnAttach",
+    },
     keys = {
       { "<Leader>e", "<Cmd>NvimTreeToggle<CR>", desc = "Toggle explorer" },
     },

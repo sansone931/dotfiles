@@ -3,10 +3,7 @@ return {
     "neovim/nvim-lspconfig",
     event = { "BufReadPre", "BufNewFile" },
     dependencies = {
-      {
-        "williamboman/mason-lspconfig.nvim",
-        dependencies = { "williamboman/mason.nvim", config = true },
-      },
+      "williamboman/mason-lspconfig.nvim",
       "hrsh7th/cmp-nvim-lsp",
       "folke/neodev.nvim",
       "b0o/schemastore.nvim",
@@ -54,10 +51,7 @@ return {
     "jose-elias-alvarez/null-ls.nvim",
     event = { "BufReadPre", "BufNewFile" },
     dependencies = {
-      {
-        "jay-babu/mason-null-ls.nvim",
-        dependencies = { "williamboman/mason.nvim", config = true },
-      },
+      "jay-babu/mason-null-ls.nvim",
       "nvim-lua/plenary.nvim",
     },
     config = function()

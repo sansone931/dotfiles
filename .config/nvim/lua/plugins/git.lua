@@ -20,6 +20,7 @@ return {
   {
     "lewis6991/gitsigns.nvim",
     event = { "BufReadPre", "BufNewFile" },
+    cmd = "Gitsigns",
     keys = function()
       local gitsigns = require("gitsigns")
       local actions = require("gitsigns.actions")

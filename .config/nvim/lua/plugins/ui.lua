@@ -61,28 +61,33 @@ return {
 
   {
     "lukas-reineke/indent-blankline.nvim",
-    event = { "BufReadPost", "BufNewFile" },
-    keys = function()
+    event = { "BufReadPre", "BufNewFile" },
+    config = function()
+      require("indent_blankline").setup({
+        show_current_context = true,
+        use_treesitter_scope = true,
+        show_trailing_blankline_indent = false,
+      })
+
       local fold_keymaps = { "zo", "zO", "zc", "zC", "za", "zA", "zv", "zx", "zX", "zm", "zM", "zr", "zR" }
 
       for _, keymap in pairs(fold_keymaps) do
         vim.keymap.set({ "n", "x" }, keymap, keymap .. "<Cmd>IndentBlanklineRefresh<CR>")
       end
 
-      return {
-        { "<Leader>i", "<Cmd>IndentBlanklineToggle!<CR>", desc = "Toggle indent guides" },
-      }
+      vim.keymap.set("n", "<Leader>i", "<Cmd>IndentBlanklineToggle!<CR>", { desc = "Toggle indent guides" })
     end,
-    opts = {
-      show_current_context = true,
-      use_treesitter_scope = true,
-      show_trailing_blankline_indent = false,
-    },
   },
 
   {
     "norcalli/nvim-colorizer.lua",
-    event = { "BufReadPost", "BufNewFile" },
+    event = { "BufReadPre", "BufNewFile" },
+    cmd = {
+      "ColorizerAttachToBuffer",
+      "ColorizerDetachFromBuffer",
+      "ColorizerReloadAllBuffers",
+      "ColorizerToggle",
+    },
     config = function()
       require("colorizer").setup()
     end,
