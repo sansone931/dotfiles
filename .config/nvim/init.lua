@@ -5,7 +5,6 @@ vim.api.nvim_create_autocmd("FileType", {
   callback = function()
     vim.opt_local.spell = true
     vim.opt_local.textwidth = 72
-    vim.opt_local.colorcolumn = { 73 }
   end,
 })
 
@@ -30,7 +29,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 -- {{{ Options
 vim.opt.breakindent = true
 vim.opt.clipboard = "unnamedplus"
-vim.opt.colorcolumn = { 81 }
+vim.opt.colorcolumn = "+1"
 vim.opt.completeopt = { "menuone", "noselect" }
 vim.opt.cursorline = true
 vim.opt.diffopt:append("vertical")
