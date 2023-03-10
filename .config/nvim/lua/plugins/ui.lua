@@ -2,7 +2,7 @@ return {
   {
     "nvim-lualine/lualine.nvim",
     event = "VeryLazy",
-    dependencies = { "kyazdani42/nvim-web-devicons" },
+    dependencies = { "nvim-tree/nvim-web-devicons" },
     opts = {
       extensions = { "fugitive", "nvim-tree" },
     },
@@ -11,7 +11,7 @@ return {
   {
     "romgrk/barbar.nvim",
     event = "VeryLazy",
-    dependencies = { "kyazdani42/nvim-web-devicons" },
+    dependencies = { "nvim-tree/nvim-web-devicons" },
     keys = {
       { "<A-h>", "<Cmd>BufferPrevious<CR>", desc = "Previous buffer" },
       { "<A-l>", "<Cmd>BufferNext<CR>", desc = "Next buffer" },
