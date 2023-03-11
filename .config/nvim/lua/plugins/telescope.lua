@@ -1,61 +1,5 @@
 return {
   {
-    "nvim-tree/nvim-tree.lua",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
-    cmd = {
-      "NvimTreeOpen",
-      "NvimTreeClose",
-      "NvimTreeToggle",
-      "NvimTreeFocus",
-      "NvimTreeRefresh",
-      "NvimTreeFindFile",
-      "NvimTreeFindFileToggle",
-      "NvimTreeClipboard",
-      "NvimTreeResize",
-      "NvimTreeCollapse",
-      "NvimTreeCollapseKeepBuffers",
-      "NvimTreeGenerateOnAttach",
-    },
-    keys = {
-      { "<Leader>e", "<Cmd>NvimTreeToggle<CR>", desc = "Toggle explorer" },
-    },
-    opts = {
-      update_focused_file = {
-        enable = true,
-      },
-      view = {
-        width = 35,
-        mappings = {
-          list = {
-            { key = "l", action = "edit" },
-            { key = "h", action = "close_node" },
-          },
-        },
-        number = true,
-        relativenumber = true,
-      },
-      renderer = {
-        highlight_git = true,
-        special_files = {},
-        icons = {
-          glyphs = {
-            default = "",
-            git = {
-              unstaged = "M",
-              staged = "A",
-              unmerged = "C",
-              renamed = "R",
-              untracked = "U",
-              deleted = "D",
-              ignored = "",
-            },
-          },
-        },
-      },
-    },
-  },
-
-  {
     "nvim-telescope/telescope.nvim",
     dependencies = {
       {
@@ -108,19 +52,6 @@ return {
 
       require("telescope").load_extension("fzf")
       require("telescope").load_extension("notify")
-    end,
-  },
-
-  {
-    "unblevable/quick-scope",
-    keys = {
-      { "f", mode = { "n", "x" } },
-      { "F", mode = { "n", "x" } },
-      { "t", mode = { "n", "x" } },
-      { "T", mode = { "n", "x" } },
-    },
-    init = function()
-      vim.g.qs_highlight_on_keys = { "f", "F", "t", "T" }
     end,
   },
 }

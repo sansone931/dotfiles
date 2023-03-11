@@ -78,6 +78,7 @@ return {
       })
     end,
   },
+
   {
     "stevearc/dressing.nvim",
     event = "VeryLazy",
@@ -148,6 +149,19 @@ return {
     },
     config = function()
       require("colorizer").setup()
+    end,
+  },
+
+  {
+    "unblevable/quick-scope",
+    keys = {
+      { "f", mode = { "n", "x" } },
+      { "F", mode = { "n", "x" } },
+      { "t", mode = { "n", "x" } },
+      { "T", mode = { "n", "x" } },
+    },
+    init = function()
+      vim.g.qs_highlight_on_keys = { "f", "F", "t", "T" }
     end,
   },
 }
