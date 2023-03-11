@@ -7,6 +7,7 @@ return {
       "hrsh7th/cmp-nvim-lsp",
       "folke/neodev.nvim",
       "b0o/schemastore.nvim",
+      "j-hui/fidget.nvim",
     },
     keys = {
       { "K", vim.lsp.buf.hover, desc = "Show hover" },
