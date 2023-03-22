@@ -1,13 +1,4 @@
 -- {{{ Autocommands
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = "gitcommit",
-  group = vim.api.nvim_create_augroup("git_commit", {}),
-  callback = function()
-    vim.opt_local.spell = true
-    vim.opt_local.textwidth = 72
-  end,
-})
-
 vim.api.nvim_create_autocmd("ColorScheme", {
   group = vim.api.nvim_create_augroup("highlights", {}),
   callback = function()
@@ -29,7 +20,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 -- {{{ Options
 vim.opt.breakindent = true
 vim.opt.clipboard = "unnamedplus"
-vim.opt.colorcolumn = "+1"
+vim.opt.colorcolumn = { "+1" }
 vim.opt.completeopt = { "menuone", "noselect" }
 vim.opt.cursorline = true
 vim.opt.diffopt:append("vertical")
@@ -46,7 +37,6 @@ vim.opt.relativenumber = true
 vim.opt.shiftwidth = 2
 vim.opt.shortmess:append("I")
 vim.opt.showmode = false
-vim.opt.showtabline = 2
 vim.opt.signcolumn = "yes"
 vim.opt.smartcase = true
 vim.opt.softtabstop = -1
@@ -59,11 +49,11 @@ vim.opt.timeoutlen = 500
 vim.opt.wrap = false
 -- }}}
 
--- {{{ Base keymaps
+-- {{{ Keymaps
 vim.g.mapleader = " "
 
-vim.keymap.set("v", "<", "<gv", { desc = "Shift left" })
-vim.keymap.set("v", ">", ">gv", { desc = "Shift right" })
+vim.keymap.set("x", "<", "<gv", { desc = "Shift left" })
+vim.keymap.set("x", ">", ">gv", { desc = "Shift right" })
 
 vim.keymap.set("n", "<C-h>", "<C-w>h", { desc = "Go to the left window" })
 vim.keymap.set("n", "<C-j>", "<C-w>j", { desc = "Go to the down window" })
