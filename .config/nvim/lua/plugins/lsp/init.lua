@@ -12,20 +12,11 @@ return {
     keys = {
       { "K", vim.lsp.buf.hover, desc = "Show hover" },
       { "gK", vim.lsp.buf.signature_help, desc = "Show signature help" },
-      {
-        "<C-k>",
-        vim.lsp.buf.signature_help,
-        mode = "i",
-        desc = "Show signature help",
-      },
+      { "<C-k>", vim.lsp.buf.signature_help, mode = "i", desc = "Show signature help" },
       { "[d", vim.diagnostic.goto_prev, desc = "Previous diagnostic" },
       { "]d", vim.diagnostic.goto_next, desc = "Next diagnostic" },
       { "<Leader>la", vim.lsp.buf.code_action, desc = "Show code actions" },
-      {
-        "<Leader>ld",
-        vim.diagnostic.open_float,
-        desc = "Show line diagnostics",
-      },
+      { "<Leader>ld", vim.diagnostic.open_float, desc = "Show line diagnostics" },
       {
         "<Leader>lf",
         function()
@@ -60,6 +51,15 @@ return {
         virtual_text = false,
         float = {
           source = "always",
+          format = function(diagnostic)
+            local code = diagnostic.code or (diagnostic.user_data and diagnostic.user_data.lsp.code)
+
+            if code then
+              return string.format("%s [%s]", diagnostic.message, code)
+            end
+
+            return diagnostic.message
+          end,
         },
       })
       -- }}}
