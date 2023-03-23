@@ -5,7 +5,7 @@ else
    eval $(dircolors -b)
 fi
 
-## Options section
+# {{{ Options
 setopt correct              # Auto correct mistakes
 setopt extendedglob         # Extended globbing. Allows using regular expressions with *
 setopt nocaseglob           # Case insensitive globbing
@@ -19,6 +19,10 @@ setopt autocd               # if only directory path is entered, cd there.
 
 unsetopt flow_control       # Disable output flow control via start/stop characters (^S/^Q)
 
+# completion
+autoload -Uz compinit
+compinit
+
 zstyle ':completion:*' menu select
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' \
   'r:|[._-]=* r:|=*' 'l:|=* r:|=*'                         # Case insensitive tab completion
@@ -27,7 +31,7 @@ zstyle ':completion:*' rehash true                         # automatically find 
 # Speed up completions
 zstyle ':completion:*' accept-exact '*(N)'
 zstyle ':completion:*' use-cache on
-zstyle ':completion:*' cache-path ~/.zsh/cache
+zstyle ':completion:*' cache-path ~/.cache/zsh
 
 # bracketed paste url magic
 autoload -Uz bracketed-paste-url-magic
@@ -52,8 +56,9 @@ setopt HIST_VERIFY               # Don't execute immediately upon history expans
 setopt HIST_BEEP                 # Beep when accessing nonexistent history.
 
 WORDCHARS=${WORDCHARS//\/[&.;]}    # Don't consider certain characters part of the word
+# }}}
 
-## Keybindings section
+# {{{ Keybindings
 bindkey -e
 bindkey '^[[7~' beginning-of-line                    # Home key
 bindkey '^[[H' beginning-of-line                     # Home key
@@ -77,16 +82,14 @@ bindkey '^[Oc' forward-word
 bindkey '^[Od' backward-word
 bindkey '^[[1;5D' backward-word
 bindkey '^[[1;5C' forward-word
-bindkey '^H' backward-kill-word                      # delete previous word with ctrl+backspace
-bindkey '^[[Z' undo                                  # Shift+tab undo last action
 
 # Edit command line in editor with ctrl+x ctrl+e
 autoload -Uz edit-command-line
 zle -N edit-command-line
 bindkey '^X^E' edit-command-line
+# }}}
 
-## Alias section
-alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+# {{{ Aliases
 alias cp='cp -i'
 alias mv='mv -i'
 alias rm='rm -i'
@@ -96,12 +99,10 @@ alias la='ll -A'
 alias diff='diff --color=auto'
 alias grep='grep --color=auto'
 alias ip='ip -color=auto'
-alias ffmpeg='ffmpeg -hide_banner'
-alias copy='xclip -se c'
+# }}}
 
-## Theming section
-autoload -U compinit colors zcalc
-compinit -d
+# {{{ Theming
+autoload -Uz colors
 colors
 
 # enable substitution for prompt
@@ -113,8 +114,9 @@ PROMPT="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M\
 
 # Prompt (right side)
 source $HOME/.config/zsh/git_prompt.zsh
+# }}}
 
-## Plugins section
+# {{{ Plugins
 # Use syntax highlighting (https://github.com/zsh-users/zsh-syntax-highlighting)
 if [ -f /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
   source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
@@ -139,10 +141,7 @@ if [ -f /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh ]; th
   ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
   ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=8'
 fi
-
-# Set terminal window and tab/icon title
-source $HOME/.config/zsh/termsupport.zsh
-
+# }}}
 
 # Untracked local configuration
 if [ -f $HOME/.config/zsh/local.zsh ]; then
