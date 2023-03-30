@@ -32,7 +32,7 @@ return {
       { "<A-q>", "<Cmd>BufferClose<CR>", desc = "Close buffer" },
       { "<Leader>bc", "<Cmd>BufferClose!<CR>", desc = "Close buffer (force)" },
       { "<Leader>bD", "<Cmd>BufferOrderByDirectory<CR>", desc = "Sort buffers by directory" },
-      { "<Leader>be", "<Cmd>BufferCloseAllButCurrent<CR>", desc = "Close all but current buffer" },
+      { "<Leader>be", "<Cmd>BufferCloseAllButVisible<CR>", desc = "Close all but visible buffers" },
       { "<Leader>bh", "<Cmd>BufferCloseBuffersLeft<CR>", desc = "Close all buffers to the left" },
       { "<Leader>bj", "<Cmd>BufferPick<CR>", desc = "Jump to buffer" },
       { "<Leader>bl", "<Cmd>BufferCloseBuffersRight<CR>", desc = "Close all buffers to the right" },
@@ -42,8 +42,11 @@ return {
     },
     config = function()
       require("bufferline").setup({
-        highlight_visible = false,
-        icon_pinned = "󰐃",
+        icons = {
+          pinned = {
+            button = "󰐃",
+          },
+        },
       })
 
       -- Integration with nvim-tree
