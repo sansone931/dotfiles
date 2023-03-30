@@ -11,6 +11,7 @@ return {
     cmd = "Telescope",
     keys = function()
       local builtin = require("telescope.builtin")
+      local extensions = require("telescope").extensions
 
       local document_diagnostics = function()
         builtin.diagnostics({ bufnr = 0 })
@@ -26,7 +27,7 @@ return {
         { "<Leader>fh", builtin.oldfiles, desc = "Oldfiles" },
         { "<Leader>fk", builtin.keymaps, desc = "Keymaps" },
         { "<Leader>fm", builtin.man_pages, desc = "Man pages" },
-        { "<Leader>fn", builtin.notifications, desc = "Notifications" },
+        { "<Leader>fn", extensions.notify.notify, desc = "Notifications" },
         { "<Leader>fq", builtin.quickfix, desc = "Quickfix" },
         { "<Leader>fr", builtin.resume, desc = "Resume last search" },
         { "<Leader>fs", builtin.lsp_document_symbols, desc = "Document symbols" },

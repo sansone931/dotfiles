@@ -95,6 +95,15 @@ return {
   {
     "rcarriga/nvim-notify",
     event = "VeryLazy",
+    keys = {
+      {
+        "<Leader>N",
+        function()
+          require("notify").dismiss({ silent = true, pending = true })
+        end,
+        desc = "Clear notifications",
+      },
+    },
     config = function()
       vim.notify = require("notify")
     end,
