@@ -20,7 +20,11 @@ return {
       "DapToggleRepl",
     },
     keys = function()
-      local dap = require("dap")
+      local ok, dap = pcall(require, "dap")
+
+      if not ok then
+        return
+      end
 
       return {
         { "<Leader>db", dap.toggle_breakpoint, desc = "Toggle breakpoint" },
@@ -85,7 +89,11 @@ return {
   {
     "rcarriga/nvim-dap-ui",
     keys = function()
-      local dapui = require("dapui")
+      local ok, dapui = pcall(require, "dapui")
+
+      if not ok then
+        return
+      end
 
       return {
 

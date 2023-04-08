@@ -10,8 +10,14 @@ return {
     },
     cmd = "Telescope",
     keys = function()
+      local ok, telescope = pcall(require, "telescope")
+
+      if not ok then
+        return
+      end
+
       local builtin = require("telescope.builtin")
-      local extensions = require("telescope").extensions
+      local extensions = telescope.extensions
 
       local document_diagnostics = function()
         builtin.diagnostics({ bufnr = 0 })

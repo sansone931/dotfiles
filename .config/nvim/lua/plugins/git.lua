@@ -22,13 +22,18 @@ return {
     event = { "BufReadPre", "BufNewFile" },
     cmd = "Gitsigns",
     keys = function()
-      local gitsigns = require("gitsigns")
+      local ok, gitsigns = pcall(require, "gitsigns")
+
+      if not ok then
+        return
+      end
+
       local actions = require("gitsigns.actions")
 
       return {
-        { "[g", actions.prev_hunk, desc = "Previous hunk" },
-        { "]g", actions.next_hunk, desc = "Next hunk" },
-        { "ih", actions.select_hunk, mode = { "o", "x" }, desc = "Select hunk" },
+        { "[g", actions.prev_hunk, mode = { "n", "x" }, desc = "Previous hunk" },
+        { "]g", actions.next_hunk, mode = { "n", "x" }, desc = "Next hunk" },
+        { "ih", ':<C-U>Gitsigns select_hunk<CR>', mode = { "o", "x" }, desc = "Select hunk" },
         { "<Leader>gs", gitsigns.stage_hunk, desc = "Stage hunk" },
         { "<Leader>gu", gitsigns.undo_stage_hunk, desc = "Undo stage hunk" },
         { "<Leader>gp", gitsigns.preview_hunk, desc = "Preview hunk" },
