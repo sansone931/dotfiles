@@ -44,10 +44,13 @@ return {
         { "<Leader>dp", dap.step_back, desc = "Step back" },
         { "<Leader>dP", dap.pause, desc = "Pause" },
         { "<Leader>dq", dap.terminate, desc = "Terminate" },
+        { "<Leader>dQ", dap.disconnect, desc = "Disconnect" },
       }
     end,
     config = function()
       local dap = require("dap")
+
+      vim.fn.sign_define("DapStopped", { linehl = "Visual" })
 
       dap.defaults.fallback.external_terminal = {
         command = "/usr/bin/alacritty",
@@ -71,12 +74,7 @@ return {
 
       -- Load configuration from .vscode/launch.json
       require("dap.ext.vscode").load_launchjs(nil, {
-        node = {
-          "javascript",
-          "javascriptreact",
-          "typescript",
-          "typescriptreact",
-        },
+        node = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
       })
 
       -- Automatically install adapters with mason.nvim
