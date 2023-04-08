@@ -41,10 +41,11 @@ return {
       { "<Leader>bP", "<Cmd>BufferCloseAllButPinned<CR>", desc = "Close all but pinned buffers" },
     },
     config = function()
-      require("bufferline").setup({
+      require("barbar").setup({
         icons = {
           pinned = {
             button = "󰐃",
+            filename = true,
           },
         },
       })
@@ -52,7 +53,7 @@ return {
       -- Integration with nvim-tree
       vim.api.nvim_create_autocmd("FileType", {
         callback = function(tbl)
-          local set_offset = require("bufferline.api").set_offset
+          local set_offset = require("barbar.api").set_offset
 
           local bufwinid
           local last_width
