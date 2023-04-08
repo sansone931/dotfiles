@@ -48,19 +48,9 @@ return {
       end
 
       vim.diagnostic.config({
+        severity_sort = true,
         virtual_text = false,
-        float = {
-          source = "always",
-          format = function(diagnostic)
-            local code = diagnostic.code or (diagnostic.user_data and diagnostic.user_data.lsp.code)
-
-            if code then
-              return string.format("%s [%s]", diagnostic.message, code)
-            end
-
-            return diagnostic.message
-          end,
-        },
+        float = { source = "always" },
       })
       -- }}}
 
