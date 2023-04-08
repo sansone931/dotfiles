@@ -7,6 +7,7 @@ function M.setup()
   require("plugins.lsp.servers.lua_ls").setup()
   require("plugins.lsp.servers.pyright").setup()
   require("plugins.lsp.servers.tsserver").setup()
+  require("plugins.lsp.servers.eslint").setup()
   require("plugins.lsp.servers.graphql").setup()
 end
 

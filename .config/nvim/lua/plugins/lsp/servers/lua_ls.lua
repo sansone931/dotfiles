@@ -12,7 +12,6 @@ function M.setup()
       },
     },
     on_attach = function(client)
-      -- formatting is handled by null-ls
       client.server_capabilities.documentFormattingProvider = false
     end,
   })
