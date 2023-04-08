@@ -66,8 +66,9 @@ return {
             -- Source
             vim_item.menu = ({
               nvim_lsp = "[LSP]",
-              buffer = "[Buffer]",
+              buffer = "[Buf]",
               path = "[Path]",
+              cmdline = "[Cmd]",
             })[entry.source.name]
             return vim_item
           end,
@@ -75,9 +76,9 @@ return {
         mapping = cmp.mapping.preset.insert({
           ["<C-b>"] = cmp.mapping.scroll_docs(-4),
           ["<C-f>"] = cmp.mapping.scroll_docs(4),
-          ["<C-Space>"] = cmp.mapping.complete({}),
+          ["<C-Space>"] = cmp.mapping.complete(),
           ["<C-e>"] = cmp.mapping.abort(),
-          ["<CR>"] = cmp.mapping.confirm({ select = false }),
+          ["<CR>"] = cmp.mapping.confirm(),
 
           ["<Tab>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
@@ -89,10 +90,7 @@ return {
             else
               fallback()
             end
-          end, {
-            "i",
-            "s",
-          }),
+          end, { "i", "s" }),
 
           ["<S-Tab>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
@@ -102,10 +100,7 @@ return {
             else
               fallback()
             end
-          end, {
-            "i",
-            "s",
-          }),
+          end, { "i", "s" }),
         }),
       })
 
@@ -120,7 +115,6 @@ return {
         mapping = cmp.mapping.preset.cmdline(),
         sources = cmp.config.sources({
           { name = "path" },
-        }, {
           { name = "cmdline" },
         }),
       })
