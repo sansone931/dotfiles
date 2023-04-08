@@ -39,4 +39,10 @@ return {
     "tpope/vim-unimpaired",
     event = "VeryLazy",
   },
+
+  {
+    "kylechui/nvim-surround",
+    event = "VeryLazy",
+    config = true,
+  },
 }
