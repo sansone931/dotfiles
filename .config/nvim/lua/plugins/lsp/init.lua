@@ -12,7 +12,7 @@ return {
     keys = {
       { "K", vim.lsp.buf.hover, desc = "Show hover" },
       { "gK", vim.lsp.buf.signature_help, desc = "Show signature help" },
-      { "<C-k>", vim.lsp.buf.signature_help, mode = "i", desc = "Show signature help" },
+      { "<C-K>", vim.lsp.buf.signature_help, mode = "i", desc = "Show signature help" },
       { "[d", vim.diagnostic.goto_prev, mode = { "n", "x" }, desc = "Previous diagnostic" },
       { "]d", vim.diagnostic.goto_next, mode = { "n", "x" }, desc = "Next diagnostic" },
       { "<Leader>la", vim.lsp.buf.code_action, desc = "Show code actions" },

@@ -74,10 +74,10 @@ return {
           end,
         },
         mapping = cmp.mapping.preset.insert({
-          ["<C-b>"] = cmp.mapping.scroll_docs(-4),
-          ["<C-f>"] = cmp.mapping.scroll_docs(4),
+          ["<C-B>"] = cmp.mapping.scroll_docs(-4),
+          ["<C-F>"] = cmp.mapping.scroll_docs(4),
           ["<C-Space>"] = cmp.mapping.complete(),
-          ["<C-e>"] = cmp.mapping.abort(),
+          ["<C-E>"] = cmp.mapping.abort(),
           ["<CR>"] = cmp.mapping.confirm(),
 
           ["<Tab>"] = cmp.mapping(function(fallback)
