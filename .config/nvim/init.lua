@@ -1,14 +1,4 @@
 -- {{{ Autocommands
-vim.api.nvim_create_autocmd("ColorScheme", {
-  group = vim.api.nvim_create_augroup("highlights", {}),
-  callback = function()
-    vim.cmd([[
-      highlight QuickScopePrimary guifg='#458588' gui=underline ctermfg=155 cterm=underline
-      highlight QuickScopeSecondary guifg='#cc241d' gui=underline ctermfg=81 cterm=underline
-    ]])
-  end,
-})
-
 vim.api.nvim_create_autocmd("TextYankPost", {
   group = vim.api.nvim_create_augroup("yank_highlight", {}),
   callback = function()
