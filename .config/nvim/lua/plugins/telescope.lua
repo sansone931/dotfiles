@@ -47,6 +47,8 @@ return {
       }
     end,
     config = function()
+      local action_layout = require("telescope.actions.layout")
+
       require("telescope").setup({
         defaults = {
           sorting_strategy = "ascending",
@@ -56,6 +58,16 @@ return {
             },
           },
           set_env = { ["COLORTERM"] = "truecolor" },
+          mappings = {
+            n = {
+              ["<M-p>"] = action_layout.toggle_preview,
+            },
+            i = {
+              ["<C-u>"] = false,
+              ["<C-d>"] = false,
+              ["<M-p>"] = action_layout.toggle_preview,
+            },
+          },
         },
       })
 
