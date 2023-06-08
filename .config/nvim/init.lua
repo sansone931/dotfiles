@@ -23,7 +23,6 @@ vim.opt.linebreak = true
 vim.opt.list = true
 vim.opt.number = true
 vim.opt.pumheight = 12
-vim.opt.relativenumber = true
 vim.opt.shiftwidth = 2
 vim.opt.shortmess:append("I")
 vim.opt.showmode = false

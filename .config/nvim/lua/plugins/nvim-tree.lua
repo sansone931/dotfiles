@@ -37,8 +37,6 @@ return {
       },
       view = {
         width = 35,
-        number = true,
-        relativenumber = true,
       },
       renderer = {
         highlight_git = true,
