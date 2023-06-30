@@ -32,8 +32,6 @@ return {
         automatic_installation = true,
       })
 
-      require("neodev").setup()
-
       -- {{{ UI
       local signs = {
         Error = " ",
@@ -54,7 +52,28 @@ return {
       })
       -- }}}
 
-      require("plugins.lsp.servers").setup()
+      -- Disable "No information available" messages
+      vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+        silent = true,
+      })
+
+      -- {{{ Server configurations
+      -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
+      local servers = {
+        "jsonls",
+        "lua_ls",
+        "pyright",
+        "tsserver",
+        "eslint",
+        "graphql",
+      }
+
+      require("neodev").setup()
+
+      for _, server in pairs(servers) do
+        require("plugins.lsp.servers." .. server).setup()
+      end
+      -- }}}
     end,
   },
 
