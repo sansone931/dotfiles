@@ -7,7 +7,6 @@ return {
       "hrsh7th/cmp-nvim-lsp",
       "folke/neodev.nvim",
       "b0o/schemastore.nvim",
-      "j-hui/fidget.nvim",
     },
     keys = {
       { "K", vim.lsp.buf.hover, desc = "Show hover" },
@@ -51,11 +50,6 @@ return {
         float = { source = "always" },
       })
       -- }}}
-
-      -- Disable "No information available" messages
-      vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-        silent = true,
-      })
 
       -- {{{ Server configurations
       -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md

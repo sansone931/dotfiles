@@ -97,35 +97,33 @@ return {
   },
 
   {
-    "rcarriga/nvim-notify",
+    "folke/noice.nvim",
     event = "VeryLazy",
-    keys = {
-      {
-        "<Leader>N",
-        function()
-          require("notify").dismiss({ silent = true, pending = true })
-        end,
-        desc = "Clear notifications",
-      },
+    dependencies = {
+      "MunifTanjim/nui.nvim",
     },
-    config = function()
-      vim.notify = require("notify")
-    end,
-  },
-
-  {
-    "j-hui/fidget.nvim",
-    lazy = true,
     opts = {
-      text = {
-        spinner = "dots",
+      cmdline = {
+        enabled = false,
       },
-      window = {
-        blend = 0,
+      messages = {
+        enabled = false,
       },
-      sources = {
-        ["null-ls"] = {
-          ignore = true,
+      lsp = {
+        hover = {
+          silent = true,
+        },
+        override = {
+          ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+          ["vim.lsp.util.stylize_markdown"] = true,
+          ["cmp.entry.get_documentation"] = true,
+        },
+      },
+      views = {
+        mini = {
+          position = {
+            row = -2,
+          },
         },
       },
     },
