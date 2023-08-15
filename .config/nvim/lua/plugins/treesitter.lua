@@ -11,7 +11,7 @@ return {
         incremental_selection = { enable = true },
         indent = { enable = true },
         context_commentstring = { enable = true, enable_autocmd = false },
-        autotag = { enable = true },
+        autotag = { enable = true, enable_close_on_slash = false },
         textobjects = {
           select = {
             enable = true,
