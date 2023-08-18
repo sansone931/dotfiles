@@ -60,6 +60,8 @@ return {
         "tsserver",
         "eslint",
         "graphql",
+        "marksman",
+        "rust_analyzer",
       }
 
       require("neodev").setup()
