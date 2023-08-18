@@ -62,12 +62,22 @@ return {
         type = "executable",
         command = "debugpy",
       }
+
+      dap.adapters.codelldb = {
+        type = "server",
+        port = "${port}",
+        executable = {
+          command = "codelldb",
+          args = { "--port", "${port}" },
+        },
+      }
       -- }}}
 
       -- {{{ Load configuration from .dap.json
       local dap_ext_vscode = require("dap.ext.vscode")
 
       dap_ext_vscode.type_to_filetypes = {
+        codelldb = { "c", "cpp", "rust" },
         node2 = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
       }
 
