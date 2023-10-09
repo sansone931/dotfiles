@@ -132,21 +132,8 @@ return {
   {
     "lukas-reineke/indent-blankline.nvim",
     event = { "BufReadPre", "BufNewFile" },
-    config = function()
-      require("indent_blankline").setup({
-        show_current_context = true,
-        use_treesitter_scope = true,
-        show_trailing_blankline_indent = false,
-      })
-
-      local fold_keymaps = { "zo", "zO", "zc", "zC", "za", "zA", "zv", "zx", "zX", "zm", "zM", "zr", "zR" }
-
-      for _, keymap in pairs(fold_keymaps) do
-        vim.keymap.set({ "n", "x" }, keymap, keymap .. "<Cmd>IndentBlanklineRefresh<CR>")
-      end
-
-      vim.keymap.set("n", "<Leader>i", "<Cmd>IndentBlanklineToggle!<CR>", { desc = "Toggle indent guides" })
-    end,
+    main = "ibl",
+    config = true,
   },
 
   {
