@@ -27,6 +27,7 @@ return {
         { "<Leader>fd", document_diagnostics, desc = "Document diagnostics" },
         { "<Leader>fD", builtin.diagnostics, desc = "Workspace diagnostics" },
         { "<Leader>ff", builtin.find_files, desc = "Files" },
+        { "<Leader>fg", builtin.git_status, desc = "Git status" },
         { "<Leader>fh", builtin.oldfiles, desc = "Oldfiles" },
         { "<Leader>fk", builtin.keymaps, desc = "Keymaps" },
         { "<Leader>fm", builtin.man_pages, desc = "Man pages" },
@@ -43,6 +44,7 @@ return {
       }
     end,
     config = function()
+      local actions = require("telescope.actions")
       local action_layout = require("telescope.actions.layout")
 
       require("telescope").setup({
@@ -62,6 +64,18 @@ return {
               ["<C-u>"] = false,
               ["<C-d>"] = false,
               ["<M-p>"] = action_layout.toggle_preview,
+            },
+          },
+        },
+        pickers = {
+          git_status = {
+            mappings = {
+              n = {
+                ["<Tab>"] = actions.toggle_selection + actions.move_selection_worse,
+              },
+              i = {
+                ["<Tab>"] = actions.toggle_selection + actions.move_selection_worse,
+              },
             },
           },
         },
