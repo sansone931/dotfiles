@@ -109,8 +109,7 @@ colors
 setopt prompt_subst
 
 # Prompt (left side)
-PROMPT="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M\
- %{$fg[magenta]%}%(4~|%-1~/.../%2~|%~)%{$fg[red]%}]%{$reset_color%}%(?..%{$fg[red]%})$%{$reset_color%}%b "
+PROMPT="%B%{$fg[green]%}%M%{$reset_color%}:%B%{$fg[blue]%}%(4~|%-1~/.../%2~|%~)%{$reset_color%}%(?..%{$fg[red]%})$%{$reset_color%}%b "
 
 # Prompt (right side)
 source $HOME/.config/zsh/git_prompt.zsh
