@@ -54,14 +54,15 @@ return {
       -- {{{ Server configurations
       -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
       local servers = {
-        "jsonls",
-        "lua_ls",
-        "pyright",
-        "tsserver",
+        "astro",
         "eslint",
         "graphql",
+        "jsonls",
+        "lua_ls",
         "marksman",
+        "pyright",
         "rust_analyzer",
+        "tsserver",
       }
 
       require("neodev").setup()
