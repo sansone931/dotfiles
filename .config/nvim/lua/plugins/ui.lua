@@ -102,6 +102,9 @@ return {
     dependencies = {
       "MunifTanjim/nui.nvim",
     },
+    keys = {
+      { "<Leader>N", "<Cmd>Noice<CR>", desc = "Show message history" },
+    },
     opts = {
       cmdline = {
         enabled = false,
