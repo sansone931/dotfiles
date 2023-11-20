@@ -1,7 +1,10 @@
 return {
   {
     "numToStr/Comment.nvim",
-    dependencies = { "JoosepAlviste/nvim-ts-context-commentstring" },
+    dependencies = {
+      "JoosepAlviste/nvim-ts-context-commentstring",
+      opts = { enable_autocmd = false },
+    },
     keys = {
       { "gc", desc = "Comment toggle linewise" },
       { "gc", mode = "x", desc = "Comment toggle linewise (visual)" },
