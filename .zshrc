@@ -125,10 +125,12 @@ fi
 if [ -f /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh ]; then
   source /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
 
+  export HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND='fg=magenta,bold,standout'
+  export HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND='fg=red,bold,standout'
+
   # bind UP and DOWN arrow keys to history substring search
-  zmodload zsh/terminfo
-  bindkey "^P" history-substring-search-up
-  bindkey "^N" history-substring-search-down
+  bindkey '^P' history-substring-search-up
+  bindkey '^N' history-substring-search-down
   bindkey '^[[A' history-substring-search-up
   bindkey '^[[B' history-substring-search-down
 fi
