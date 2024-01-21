@@ -54,6 +54,7 @@ vim.keymap.set("n", "<C-Down>", "<Cmd>resize +2<CR>", { desc = "Increase window 
 vim.keymap.set("n", "<C-Left>", "<Cmd>vertical resize -2<CR>", { desc = "Decrease window width" })
 vim.keymap.set("n", "<C-Right>", "<Cmd>vertical resize +2<CR>", { desc = "Increase window width" })
 
+vim.keymap.set("n", "<A-u>", "<Cmd>nohlsearch<CR>", { desc = "Stop search highlight" })
 vim.keymap.set("n", "<Leader>n", "<Cmd>nohlsearch<CR>", { desc = "Stop search highlight" })
 
 vim.keymap.set("c", "<C-A>", "<Home>", { desc = "Start of line" })
