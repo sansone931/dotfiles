@@ -8,7 +8,8 @@ return {
       { "<Leader>gg", "<Cmd>Git<CR>", desc = "Status" },
       { "<Leader>gh", "<Cmd>0Gclog<CR>", desc = "File commit history" },
       { "<Leader>gl", "<Cmd>Git log<CR>", desc = "Log" },
-      { "<Leader>gx", "<Cmd>GBrowse<CR>", desc = "Open in browser" },
+      { "<Leader>gx", ":0GBrowse<CR>", mode = { "n", "x" }, desc = "Open in browser" },
+      { "<Leader>gX", ":0GBrowse :%<C-Left>", mode = { "n", "x" }, desc = "Open in browser (prompt)" },
     },
   },
 
@@ -33,7 +34,7 @@ return {
       return {
         { "[g", actions.prev_hunk, mode = { "n", "x" }, desc = "Previous hunk" },
         { "]g", actions.next_hunk, mode = { "n", "x" }, desc = "Next hunk" },
-        { "ih", ':<C-U>Gitsigns select_hunk<CR>', mode = { "o", "x" }, desc = "Select hunk" },
+        { "ih", ":<C-U>Gitsigns select_hunk<CR>", mode = { "o", "x" }, desc = "Select hunk" },
         { "<Leader>gs", gitsigns.stage_hunk, desc = "Stage hunk" },
         { "<Leader>gu", gitsigns.undo_stage_hunk, desc = "Undo stage hunk" },
         { "<Leader>gp", gitsigns.preview_hunk, desc = "Preview hunk" },
