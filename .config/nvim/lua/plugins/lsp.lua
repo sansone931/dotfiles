@@ -60,7 +60,6 @@ return {
         "jsonls",
         "lua_ls",
         "marksman",
-        "pyright",
         "rust_analyzer",
         "tsserver",
       }
@@ -86,15 +85,8 @@ return {
       local builtins = null_ls.builtins
 
       local sources = {
-        -- {{{ Formatters
         builtins.formatting.prettierd, -- https://github.com/fsouza/prettierd
-        builtins.formatting.black, -- https://github.com/psf/black
         builtins.formatting.stylua, -- https://github.com/JohnnyMorganz/StyLua
-        -- }}}
-
-        -- {{{ Linters
-        builtins.diagnostics.flake8, -- https://github.com/PyCGA/flake8
-        -- }}}
       }
 
       null_ls.setup({ sources = sources })

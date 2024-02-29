@@ -58,11 +58,6 @@ return {
         command = "node-debug2-adapter",
       }
 
-      dap.adapters.python = {
-        type = "executable",
-        command = "debugpy",
-      }
-
       dap.adapters.codelldb = {
         type = "server",
         port = "${port}",
