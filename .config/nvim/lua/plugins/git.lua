@@ -31,9 +31,17 @@ return {
 
       local actions = require("gitsigns.actions")
 
+      local prev_hunk = function()
+        actions.nav_hunk("prev")
+      end
+
+      local next_hunk = function()
+        actions.nav_hunk("next")
+      end
+
       return {
-        { "[g", actions.prev_hunk, mode = { "n", "x" }, desc = "Previous hunk" },
-        { "]g", actions.next_hunk, mode = { "n", "x" }, desc = "Next hunk" },
+        { "[g", prev_hunk, mode = { "n", "x" }, desc = "Previous hunk" },
+        { "]g", next_hunk, mode = { "n", "x" }, desc = "Next hunk" },
         { "ih", ":<C-U>Gitsigns select_hunk<CR>", mode = { "o", "x" }, desc = "Select hunk" },
         { "<Leader>gs", gitsigns.stage_hunk, desc = "Stage hunk" },
         { "<Leader>gu", gitsigns.undo_stage_hunk, desc = "Undo stage hunk" },
