@@ -25,6 +25,7 @@ return {
         { "<Leader>f", group = "telescope" },
         { "<Leader>g", group = "git", mode = { "n", "x" } },
         { "<Leader>l", group = "lsp" },
+        { "<Leader>m", group = "markdown" },
       })
     end,
   },
