@@ -136,6 +136,9 @@ return {
     "lukas-reineke/indent-blankline.nvim",
     event = { "BufReadPre", "BufNewFile" },
     main = "ibl",
+    keys = {
+      { "<Leader>i", "<Cmd>IBLToggle<CR>", desc = "Toggle Indent Blankline" },
+    },
     config = true,
   },
 
