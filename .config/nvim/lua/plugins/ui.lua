@@ -4,7 +4,7 @@ return {
     event = "VeryLazy",
     dependencies = { "nvim-tree/nvim-web-devicons" },
     opts = {
-      extensions = { "fugitive", "man", "nvim-dap-ui", "nvim-tree", "quickfix" },
+      extensions = { "fugitive", "man", "nvim-dap-ui", "quickfix" },
       options = { section_separators = "", component_separators = "|" },
       sections = {
         lualine_b = { "diff", "diagnostics" },
