@@ -1,8 +1,17 @@
 return {
   {
+    "echasnovski/mini.icons",
+    lazy = true,
+    config = function()
+      require("mini.icons").setup()
+      MiniIcons.mock_nvim_web_devicons()
+    end,
+  },
+
+  {
     "nvim-lualine/lualine.nvim",
     event = "VeryLazy",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
+    dependencies = { "echasnovski/mini.icons" },
     opts = {
       extensions = { "fugitive", "man", "nvim-dap-ui", "quickfix" },
       options = { section_separators = "", component_separators = "|" },
