@@ -57,7 +57,6 @@ return {
               prompt_position = "top",
             },
           },
-          set_env = { ["COLORTERM"] = "truecolor" },
           mappings = {
             n = {
               ["<M-p>"] = action_layout.toggle_preview,
