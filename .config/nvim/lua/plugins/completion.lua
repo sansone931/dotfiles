@@ -11,37 +11,9 @@ return {
       "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-path",
       "hrsh7th/cmp-cmdline",
+      "onsails/lspkind.nvim",
     },
     config = function()
-      -- https://github.com/microsoft/vscode-codicons/raw/main/dist/codicon.ttf
-      local kind_icons = {
-        Text = " ",
-        Method = " ",
-        Function = " ",
-        Constructor = " ",
-        Field = " ",
-        Variable = " ",
-        Class = " ",
-        Interface = " ",
-        Module = " ",
-        Property = " ",
-        Unit = " ",
-        Value = " ",
-        Enum = " ",
-        Keyword = " ",
-        Snippet = " ",
-        Color = " ",
-        File = " ",
-        Reference = " ",
-        Folder = " ",
-        EnumMember = " ",
-        Constant = " ",
-        Struct = " ",
-        Event = " ",
-        Operator = " ",
-        TypeParameter = " ",
-      }
-
       local has_words_before = function()
         local line, col = unpack(vim.api.nvim_win_get_cursor(0))
         return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
@@ -63,24 +35,20 @@ return {
           { name = "path" },
         }),
         formatting = {
-          format = function(entry, vim_item)
-            -- Kind icons
-            vim_item.kind = kind_icons[vim_item.kind] .. vim_item.kind
-            -- Source
-            vim_item.menu = ({
+          format = require("lspkind").cmp_format({
+            -- https://github.com/microsoft/vscode-codicons/releases
+            preset = "codicons",
+            menu = {
               nvim_lsp = "[LSP]",
               buffer = "[Buf]",
               path = "[Path]",
               cmdline = "[Cmd]",
-            })[entry.source.name]
-            return vim_item
-          end,
+            },
+          }),
         },
         mapping = cmp.mapping.preset.insert({
           ["<C-B>"] = cmp.mapping.scroll_docs(-4),
           ["<C-F>"] = cmp.mapping.scroll_docs(4),
-          ["<C-Space>"] = cmp.mapping.complete(),
-          ["<C-E>"] = cmp.mapping.abort(),
           ["<CR>"] = cmp.mapping.confirm(),
 
           ["<Tab>"] = cmp.mapping(function(fallback)
@@ -131,6 +99,7 @@ return {
     config = function()
       require("nvim-autopairs").setup({
         map_c_h = true,
+        map_c_w = true,
       })
 
       local cmp_autopairs = require("nvim-autopairs.completion.cmp")
