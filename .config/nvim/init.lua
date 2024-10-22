@@ -41,28 +41,23 @@ vim.opt.wrap = false
 -- {{{ Keymaps
 vim.g.mapleader = " "
 
-vim.keymap.set("x", "<", "<gv", { desc = "Shift left" })
-vim.keymap.set("x", ">", ">gv", { desc = "Shift right" })
-
 vim.keymap.set("n", "<C-H>", "<C-W>h", { desc = "Go to the left window" })
 vim.keymap.set("n", "<C-J>", "<C-W>j", { desc = "Go to the down window" })
 vim.keymap.set("n", "<C-K>", "<C-W>k", { desc = "Go to the up window" })
 vim.keymap.set("n", "<C-L>", "<C-W>l", { desc = "Go to the right window" })
 
-vim.keymap.set("n", "<C-Up>", "<Cmd>resize -2<CR>", { desc = "Decrease window height" })
-vim.keymap.set("n", "<C-Down>", "<Cmd>resize +2<CR>", { desc = "Increase window height" })
-vim.keymap.set("n", "<C-Left>", "<Cmd>vertical resize -2<CR>", { desc = "Decrease window width" })
-vim.keymap.set("n", "<C-Right>", "<Cmd>vertical resize +2<CR>", { desc = "Increase window width" })
-
+vim.keymap.set("n", "g<C-L>", "<Cmd>nohlsearch|diffupdate|normal! <C-L><CR>", { desc = "Clear and redraw the screen" })
 vim.keymap.set("n", "<A-u>", "<Cmd>nohlsearch<CR>", { desc = "Stop search highlight" })
 vim.keymap.set("n", "<Leader>n", "<Cmd>nohlsearch<CR>", { desc = "Stop search highlight" })
 
 vim.keymap.set("c", "<C-A>", "<Home>", { desc = "Start of line" })
+vim.keymap.set("c", "<C-B>", "<Left>", { desc = "Back one character" })
 vim.keymap.set("c", "<C-D>", "<Del>", { desc = "Delete character under cursor" })
-vim.keymap.set("c", "<A-h>", "<Left>", { desc = "Back one character" })
-vim.keymap.set("c", "<A-j>", "<Down>", { desc = "Recall newer command-line" })
-vim.keymap.set("c", "<A-k>", "<Up>", { desc = "Recall older command-line" })
-vim.keymap.set("c", "<A-l>", "<Right>", { desc = "Forward one character" })
+vim.keymap.set("c", "<C-E>", "<End>", { desc = "End of line" })
+vim.keymap.set("c", "<C-F>", "<Right>", { desc = "Forward one character" })
+vim.keymap.set("c", "<C-N>", "<Down>", { desc = "Recall newer command-line" })
+vim.keymap.set("c", "<C-P>", "<Up>", { desc = "Recall older command-line" })
+vim.keymap.set("c", "<C-X>", "<C-F>", { desc = "Open command-line window" })
 vim.keymap.set("c", "<A-b>", "<C-Left>", { desc = "Back one word" })
 vim.keymap.set("c", "<A-f>", "<C-Right>", { desc = "Forward one word" })
 -- }}}
