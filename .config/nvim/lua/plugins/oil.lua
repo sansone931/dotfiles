@@ -17,11 +17,17 @@ return {
       end
 
       require("oil").setup({
+        default_file_explorer = false,
         keymaps = {
           ["<C-s>"] = false,
           ["<C-h>"] = false,
           ["<C-t>"] = false,
           ["<C-l>"] = false,
+          ["`"] = false,
+          ["~"] = "actions.cd",
+          ["g<C-L>"] = "actions.refresh",
+          ["gy"] = { "actions.yank_entry", opts = { modify = ":~:." }, desc = "Yank relative path" },
+          ["gY"] = { "actions.yank_entry", desc = "Yank absolute path" },
         },
         win_options = {
           winbar = "%{v:lua.get_oil_winbar()}",
