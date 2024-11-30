@@ -24,7 +24,7 @@ return {
           ["<C-t>"] = false,
           ["<C-l>"] = false,
           ["`"] = false,
-          ["~"] = "actions.cd",
+          ["~"] = false,
           ["g<C-L>"] = "actions.refresh",
           ["gy"] = { "actions.yank_entry", opts = { modify = ":~:." }, desc = "Yank relative path" },
           ["gY"] = { "actions.yank_entry", desc = "Yank absolute path" },
