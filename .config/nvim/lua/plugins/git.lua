@@ -63,7 +63,6 @@ return {
         { "ih", ":<C-U>Gitsigns select_hunk<CR>", mode = { "o", "x" }, desc = "Select hunk" },
         { "<Leader>gs", gitsigns.stage_hunk, desc = "Stage hunk" },
         { "<Leader>gS", gitsigns.stage_buffer, desc = "Stage buffer" },
-        { "<Leader>gu", gitsigns.undo_stage_hunk, desc = "Undo stage hunk" },
         { "<Leader>gp", gitsigns.preview_hunk, desc = "Preview hunk" },
         { "<Leader>gr", gitsigns.reset_hunk, desc = "Reset hunk" },
         { "<Leader>gR", gitsigns.reset_buffer, desc = "Reset buffer" },
