@@ -15,16 +15,6 @@ return {
         end,
         desc = "Show signature help",
       },
-      {
-        "<C-K>",
-        function()
-          vim.lsp.buf.signature_help()
-        end,
-        mode = "i",
-        desc = "Show signature help",
-      },
-      { "[d", vim.diagnostic.goto_prev, mode = { "n", "x" }, desc = "Previous diagnostic" },
-      { "]d", vim.diagnostic.goto_next, mode = { "n", "x" }, desc = "Next diagnostic" },
       { "<Leader>la", vim.lsp.buf.code_action, desc = "Show code actions" },
       { "<Leader>ld", vim.diagnostic.open_float, desc = "Show line diagnostics" },
       {
@@ -37,28 +27,19 @@ return {
       { "<Leader>lr", vim.lsp.buf.rename, desc = "Rename" },
     },
     config = function()
-      -- Automatically install servers with mason.nvim
-      require("mason-lspconfig").setup({
-        automatic_installation = true,
-      })
-
       -- {{{ UI
-      local signs = {
-        Error = " ",
-        Warn = " ",
-        Hint = "󰌵 ",
-        Info = " ",
-      }
-
-      for type, icon in pairs(signs) do
-        local hl = "DiagnosticSign" .. type
-        vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-      end
-
       vim.diagnostic.config({
         severity_sort = true,
-        virtual_text = false,
-        float = { source = "always" },
+        float = { source = true },
+        jump = { float = true },
+        signs = {
+          text = {
+            [vim.diagnostic.severity.ERROR] = " ",
+            [vim.diagnostic.severity.WARN] = " ",
+            [vim.diagnostic.severity.HINT] = "󰌵 ",
+            [vim.diagnostic.severity.INFO] = " ",
+          },
+        },
       })
       -- }}}
 

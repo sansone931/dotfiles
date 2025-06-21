@@ -49,6 +49,12 @@ return {
       local actions = require("telescope.actions")
       local action_layout = require("telescope.actions.layout")
 
+      -- Delete nvim default keymaps for `gr_`
+      vim.keymap.del('n', 'grn')
+      vim.keymap.del('n', 'grr')
+      vim.keymap.del('n', 'gri')
+      vim.keymap.del('n', 'gra')
+
       require("telescope").setup({
         defaults = {
           sorting_strategy = "ascending",
