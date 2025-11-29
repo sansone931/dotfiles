@@ -51,6 +51,7 @@ return {
         "eslint",
         "graphql",
         "html",
+        "jdtls",
         "jsonls",
         "lua_ls",
         "marksman",

@@ -3,12 +3,14 @@
 local M = {}
 
 function M.setup()
-  require("lspconfig").html.setup({
+  vim.lsp.config("html", {
     capabilities = require("cmp_nvim_lsp").default_capabilities(),
     init_options = {
       provideFormatter = false,
     },
   })
+
+  vim.lsp.enable("html")
 end
 
 return M

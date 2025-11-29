@@ -3,7 +3,7 @@
 local M = {}
 
 function M.setup()
-  require("lspconfig").jsonls.setup({
+  vim.lsp.config("jsonls", {
     capabilities = require("cmp_nvim_lsp").default_capabilities(),
     settings = {
       json = {
@@ -12,6 +12,8 @@ function M.setup()
       },
     },
   })
+
+  vim.lsp.enable("jsonls")
 end
 
 return M

@@ -3,7 +3,7 @@
 local M = {}
 
 function M.setup()
-  require("lspconfig").lua_ls.setup({
+  vim.lsp.config("lua_ls", {
     capabilities = require("cmp_nvim_lsp").default_capabilities(),
     settings = {
       Lua = {
@@ -15,6 +15,8 @@ function M.setup()
       client.server_capabilities.documentFormattingProvider = false
     end,
   })
+
+  vim.lsp.enable("lua_ls")
 end
 
 return M

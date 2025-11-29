@@ -3,9 +3,11 @@
 local M = {}
 
 function M.setup()
-  require("lspconfig").astro.setup({
+  vim.lsp.config("astro", {
     capabilities = require("cmp_nvim_lsp").default_capabilities(),
   })
+
+  vim.lsp.enable("astro")
 end
 
 return M

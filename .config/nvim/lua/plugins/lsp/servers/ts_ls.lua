@@ -3,12 +3,14 @@
 local M = {}
 
 function M.setup()
-  require("lspconfig").ts_ls.setup({
+  vim.lsp.config("ts_ls", {
     capabilities = require("cmp_nvim_lsp").default_capabilities(),
     on_attach = function(client)
       client.server_capabilities.documentFormattingProvider = false
     end,
   })
+
+  vim.lsp.enable("ts_ls")
 end
 
 return M

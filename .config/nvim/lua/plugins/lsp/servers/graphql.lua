@@ -3,10 +3,12 @@
 local M = {}
 
 function M.setup()
-  require("lspconfig").graphql.setup({
+  vim.lsp.config("graphql", {
     capabilities = require("cmp_nvim_lsp").default_capabilities(),
     filetypes = { "graphql", "typescript", "typescriptreact" },
   })
+
+  vim.lsp.enable("graphql")
 end
 
 return M

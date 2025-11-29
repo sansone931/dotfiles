@@ -3,12 +3,14 @@
 local M = {}
 
 function M.setup()
-  require("lspconfig").eslint.setup({
+  vim.lsp.config("eslint", {
     capabilities = require("cmp_nvim_lsp").default_capabilities(),
     on_attach = function(client)
       client.server_capabilities.documentFormattingProvider = true
     end,
   })
+
+  vim.lsp.enable("eslint")
 end
 
 return M

@@ -3,9 +3,11 @@
 local M = {}
 
 function M.setup()
-  require("lspconfig").marksman.setup({
+  vim.lsp.config('marksman', {
     capabilities = require("cmp_nvim_lsp").default_capabilities(),
   })
+
+  vim.lsp.enable("marksman")
 end
 
 return M
